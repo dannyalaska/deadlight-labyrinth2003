@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deadlight 2003 — Chapter One Teaser</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="scanlines" aria-hidden="true"></div>
+    <section class="boot-screen" id="bootScreen" aria-live="polite">
+      <div class="boot-log" id="bootLog"></div>
+    </section>
+
+    <div class="app hidden" id="appRoot">
+      <header class="topline">
+        <span class="cursor">%</span>
+        <span class="label">DEADLIGHT_2003</span>
+        <span class="divider">//</span>
+        <span class="status" id="connectionStatus">INITIALIZING</span>
+      </header>
+
+      <main class="story-window" id="storyWindow">
+        <div class="story-content" id="storyContent" role="log" aria-live="polite"></div>
+        <div id="loadingIndicator" class="loading-container hidden">
+          <div class="loading-bar"></div>
+          <div class="loading-text">BUFFERING SIGNAL...</div>
+        </div>
+      </main>
+
+      <aside class="hud">
+        <div id="hudMessage" class="hud-message"></div>
+        <button id="registerTriggerBtn" class="btn-ghost hidden" type="button">
+          Register
+        </button>
+        <div id="tiltHint" class="tilt-hint hidden">
+          <span class="hint-label">LEAN TO CHOOSE</span>
+          <div class="hint-bars">
+            <div class="bar left" id="tiltBarLeft"></div>
+            <div class="bar right" id="tiltBarRight"></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <section id="registerOverlay" class="overlay hidden" role="dialog" aria-modal="true">
+      <div class="overlay-content">
+        <header class="overlay-header">
+          <span>REGISTER TO CONTINUE</span>
+          <button type="button" class="btn-ghost" id="registerCloseBtn">Not Yet</button>
+        </header>
+        <form id="registerForm" class="overlay-body">
+          <label>
+            Name
+            <input type="text" id="registerName" name="name" autocomplete="name" required />
+          </label>
+          <label>
+            Email
+            <input type="email" id="registerEmail" name="email" autocomplete="email" required />
+          </label>
+          <button type="submit" class="btn-primary">Save &amp; Wake The Next Chapter</button>
+          <p class="register-note">
+            (We’ll send the next path when it stabilizes. Stored locally for now.)
+          </p>
+        </form>
+      </div>
+    </section>
+
+    <script type="module" src="script.js"></script>
+  </body>
+</html>

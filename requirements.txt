@@ -1,0 +1,9 @@
+anthropic==0.26.1
+python-dotenv==1.0.1
+fastapi==0.111.0
+langchain==0.2.7
+langchain-anthropic==0.1.11
+langgraph==0.0.52
+requests==2.32.3
+streamlit==1.36.0
+uvicorn==0.30.0
