@@ -463,42 +463,48 @@ class StaticStoryGenerator(StoryGenerator):
         id=uuid.uuid4().hex,
         text=pick(
           [
-            f"June 17, 2003. The modem shriek ricochets across {protagonist}'s apartment, rattling the blinds like something that wants in.",
-            f"June 17, 2003. A 56k handshake howls through {protagonist}'s speakers and leaves the air shivering after the carrier drops.",
-            f"June 17, 2003. Dial-up static floods {protagonist}'s living room, the phone cord stretched tight like an IV line.",
+            f”June 17, 2003. The modem shriek ricochets across {protagonist}’s apartment, rattling the blinds like something that wants in.”,
+            f”June 17, 2003. A 56k handshake howls through {protagonist}’s speakers and leaves the air shivering after the carrier drops.”,
+            f”June 17, 2003. Dial-up static floods {protagonist}’s living room, the phone cord stretched tight like an IV line.”,
+            f”June 17, 2003. {protagonist}’s old copy of Borges sits spine-cracked on the milk crate by the modem—The Garden of Forking Paths, a library book technically three years overdue, its margins dense with handwriting from a seminar that ended badly. Someone had written in red ink next to ‘The House of Asterion’: THE MINOTAUR CHOSE HIS PRISON. Now, with the modem shrieking its opening hymn, that sentence feels less like a graduate student’s insight and more like a warning left to be found.”,
           ]
         ),
         mutations=[
-          "Modem shriek claws across the drywall; no neighbors knock; no one else heard it.",
-          "56k handshake keens like a freight train. The room keeps listening after it stops.",
+          “Modem shriek claws across the drywall; no neighbors knock; no one else heard it.”,
+          “56k handshake keens like a freight train. The room keeps listening after it stops.”,
+          “The Borges paperback is open to a different page than you left it. The sentence underlined now reads: all labyrinths have a center, and the center is always a monster or a mirror.”,
         ],
       ),
       Paragraph(
         id=uuid.uuid4().hex,
         text=pick(
           [
-            "Buried in an AOL folder labelled Saved/Maybe, a message timestamped 03:17 AM glows. Subject: LABYRINTHE SYSTEMS // CONTRACTOR REQUEST // DO NOT IGNORE.",
-            "A blue email waits under expired chain letters. Header: LABYRINTHE SYSTEMS needs a contractor who will not ask questions.",
-            "Someone with no screenname left a single AIM offline message: LABYRINTHE SYSTEMS. The same text appears in your AOL inbox five seconds later.",
+            “Buried in an AOL folder labelled Saved/Maybe, a message timestamped 03:17 AM glows. Subject: LABYRINTHE SYSTEMS // CONTRACTOR REQUEST // DO NOT IGNORE.”,
+            “A blue email waits under expired chain letters. Header: LABYRINTHE SYSTEMS needs a contractor who will not ask questions.”,
+            “Someone with no screenname left a single AIM offline message: LABYRINTHE SYSTEMS. The same text appears in your AOL inbox five seconds later.”,
+            “A single email waits, timestamped 03:17 AM, from an address that resolves to LABYRINTHE SYSTEMS: the subject line reads DO NOT IGNORE, and the body contains only a coordinate string and one sentence—‘All labyrinths have a center; we have found something older than the center.’ Beneath it, quoted in a font you don’t recognize, is half a line from Borges: in some labyrinth there must exist a Minotaur.”,
           ]
         ),
         mutations=[
-          "LABYRINTHE_SYSTEMS.eml // sender unknown // attachments scrubbed.",
-          "Email header forged in 1998, body edited tonight. The maze loops back on itself.",
+          “LABYRINTHE_SYSTEMS.eml // sender unknown // attachments scrubbed.”,
+          “Email header forged in 1998, body edited tonight. The maze loops back on itself.”,
+          “The email now contains a second attachment: DAEDALUS_BLUEPRINT_v1.pdf. You don’t remember opening it. The download bar reads 100% complete.”,
         ],
       ),
       Paragraph(
         id=uuid.uuid4().hex,
         text=pick(
           [
-            "The voicemail light blinks 12. Your mother, your ex, a recruiter—each message ends mid-sentence as if spliced. Only the unknown extension finishes: “See you in the woods.”",
-            "A coworker you barely remember pings on AIM. Her icon flickers between her face and your ex’s. “Can’t wait to collaborate in person,” she types, then deletes the message before you can answer.",
-            "Friends check in through stale chain letters. Every reply-to address resolves to the same domain: labyrinthe.systems. Someone knows exactly where you’re going.",
+            “The voicemail light blinks 12. Your mother, your ex, a recruiter—each message ends mid-sentence as if spliced. Only the unknown extension finishes: \u201cSee you in the woods.\u201d”,
+            “A coworker you barely remember pings on AIM. Her icon flickers between her face and your ex’s. \u201cCan\u2019t wait to collaborate in person,\u201d she types, then deletes the message before you can answer.”,
+            “Friends check in through stale chain letters. Every reply-to address resolves to the same domain: labyrinthe.systems. Someone knows exactly where you’re going.”,
+            “A LiveJournal entry you don’t remember writing sits in your drafts folder, timestamped last Tuesday: ‘I keep thinking about the Chartres Cathedral labyrinth—how pilgrims used to walk it on their knees, as a substitute for the journey to Jerusalem. A maze as a destination, not an obstacle. A maze as the whole point.’ Below it, someone has commented: THEN YOU UNDERSTAND WHY WE BUILT OURS.”,
           ]
         ),
         mutations=[
-          "Voicemail rewinds on its own, replaying the unknown voice with a different laugh.",
-          "AIM chat window reopens with the words: YOU WILL LOVE IT HERE.",
+          “Voicemail rewinds on its own, replaying the unknown voice with a different laugh.”,
+          “AIM chat window reopens with the words: YOU WILL LOVE IT HERE.”,
+          “The LiveJournal draft updates: CHARTRES HAD ONE PATH IN, ONE PATH OUT. OURS IS DIFFERENT. THE MINOTAUR IS OPTIONAL.”,
         ],
       ),
     ]
@@ -512,11 +518,13 @@ class StaticStoryGenerator(StoryGenerator):
             f"{protagonist} prints the MapQuest directions twice; the ink beads where the site warns Data Unverified.",
             f"Someone annotated the MapQuest route in a hand that is almost yours. {protagonist} circles the note that reads: TURN WHEN THE ASPHALT SIGHS.",
             f"{protagonist} feeds coordinates into a beige Garmin that promptly loses signal north of Albany, so the crinkled MapQuest sheet becomes gospel again.",
+            f"The route looks simple in daylight, but someone has handwritten in the margin of the MapQuest printout: \u2018Ariadne\u2019s thread runs north on Route 9.\u2019 {protagonist} doesn\u2019t remember writing it. The handwriting is theirs but younger\u2014the slant of a first apartment, when they still underlined things in library books and believed that understanding a maze\u2019s structure meant you could walk out of it.",
           ]
         ),
         mutations=[
           "Sharpie in the margin: IGNORE DETOURS. THEY LOOP.",
           "MapQuest footer: SOME ROADS UNCONFIRMED. You highlight them anyway.",
+          "The annotated margin now reads: THESEUS HAD A THREAD. YOU HAVE A PRINTOUT. THE MAZE FINDS THIS CHARMING.",
         ],
       ),
       Paragraph(
@@ -526,11 +534,13 @@ class StaticStoryGenerator(StoryGenerator):
             f"A milk crate of burnt CDs and the wheezing ThinkPad ride shotgun. {protagonist} tapes the offer letter to the dash like a saint card.",
             f"{protagonist} packs the ThinkPad, a cassette recorder, and the flashlight your ex insisted you keep. The answering machine blinks but you let it.",
             f"The trunk swallows a toolkit, the old modem, and a shoebox of printed AIM logs. You lock the apartment even though the landlord changed the bolt yesterday.",
+            f"Wedged between the ThinkPad and a coil of Cat-5 cable is the fat Danielewski paperback {protagonist} has been meaning to finish\u2014House of Leaves, spine cracked at page 400, where the hallway grows. It went in the bag for the same reason the flashlight did: some instinct about unfamiliar geometry, the need to know someone else has mapped this kind of wrong before.",
           ]
         ),
         mutations=[
           "ThinkPad battery throbs at 12%. You promise it an outlet somewhere in the trees.",
           "Flashlight rattles in the glove compartment like a loose tooth. It will have to do.",
+          "House of Leaves falls open to a footnote: 'No matter how many locks we put on it, a door designed to open will open.' The pages after that are blank.",
         ],
       ),
       Paragraph(
@@ -540,18 +550,20 @@ class StaticStoryGenerator(StoryGenerator):
             f"{protagonist} heads north past rest stops lit like empty stage sets. Cell towers blink red in timed patterns, as if counting you down.",
             "The wagon hums past shuttered diners and novelty shops. Every twenty miles the pager vibrates once and shows NO SERVICE.",
             "You pass a billboard for an AIM chatroom that shut down years ago. The sky bruises purple; WRRV keeps dissolving into static.",
+            "The road north feels ritualistic\u2014the kind of journey that myths encode as a hero\u2019s approach to something that cannot be approached directly. Eco wrote about libraries arranged as labyrinths; King wrote about hotels that consumed you room by room. This road is neither, but it is borrowing from both, and the radio static cycling through frequencies you\u2019ve never heard carries a frequency that sounds, briefly, like a voice reading coordinates.",
           ]
         ),
         mutations=[
           "Rest stops grin with vending-machine light and no people, as if power forgot to shut off.",
           "Payphones stand with their cords torn loose like tongues.",
+          "The radio static resolves for one second into a voice reciting: 'In the center of the labyrinth was the Minotaur. In the center of this one is a server room and something we haven\u2019t named yet.'",
         ],
       ),
       Paragraph(
         id=uuid.uuid4().hex,
         text=pick(
           [
-            "When the asphalt finally exhales—a shudder felt through the steering wheel—a service road yawns between black spruce.",
+            "When the asphalt finally exhales\u2014a shudder felt through the steering wheel\u2014a service road yawns between black spruce.",
             "A melted mailbox marks the turn. The main road seems relieved when you leave it for pine needles and dirt.",
             "The dash spits out a dot-matrix strip: TAKE THE SERVICE ROAD NOW. The asphalt groans as you obey.",
           ]
@@ -569,14 +581,17 @@ class StaticStoryGenerator(StoryGenerator):
         id=uuid.uuid4().hex,
         text=pick(
           [
-            "A rusted satellite dish marks the property line, its parabolic face half-swallowed by decades of moss and pine needles that pulse with faint electromagnetic activity. You've seen enough abandoned tech in your IT career to know dead equipment when you see it, but this dish is anything but dormant—it tracks your movement with the fluid grace of an ancient predator, its receiving horn adjusting in microscopic increments to maintain perfect alignment with your chest. The moss growing across its surface ripples in patterns that remind you of the old Windows 95 maze screensaver, but the paths it traces feel deliberate, as if the dish is processing your presence through layers of analog filter. Standing here at the edge of the corporate property, you can feel the strange resonance between your heartbeat and the dish's subtle movements, a synchronization that shouldn't be possible with offline hardware.",
-            "The trees have been repurposed, their natural forms subverted by loops of copper wire that wind through the canopy like tinsel at a programmer's Christmas party. Each breath you take sends vibrations through the metallic network—you can see the tremors race from trunk to trunk, carrying your respiratory rhythm deeper into the forest like a biometric handshake. The wire itself is old Cat-3 cable, the kind you used to run in miles through office drop ceilings, but here it has grown wild and baroque, spawning impossible connections that remind you of circuit diagrams drawn by someone in the midst of a fever dream. When you reach out to touch one of the lower loops, the entire network shivers in anticipation, and you swear you can hear the ghost of a dial-up connection negotiating somewhere in the shadows between the trees.",
-            "Between the black spruce trunks, something leaks a familiar light—that specific phosphor glow that brings back memories of nights spent debugging in empty offices, face bathed in the radiation of old CRT monitors. The light pulses at exactly 60Hz, the refresh rate burned into your retinas from years of staring at code, but there's something wrong with the color temperature. It shifts between shades that don't exist in the RGB spectrum, rendering the gaps between trees in impossible colors that make your eyes water when you try to focus on them. You recognize the pattern of the flicker—it's transmitting data, using the forest itself as a display matrix for some vast distributed system that seems to have been waiting for someone with the right kind of pattern recognition to arrive.",
+            "A rusted satellite dish marks the property line, its parabolic face half-swallowed by decades of moss and pine needles that pulse with faint electromagnetic activity. You've seen enough abandoned tech in your IT career to know dead equipment when you see it, but this dish is anything but dormant\u2014it tracks your movement with the fluid grace of an ancient predator, its receiving horn adjusting in microscopic increments to maintain perfect alignment with your chest. The moss growing across its surface ripples in patterns that remind you of the old Windows 95 maze screensaver, but the paths it traces feel deliberate, as if the dish is processing your presence through layers of analog filter. Standing here at the edge of the corporate property, you can feel the strange resonance between your heartbeat and the dish's subtle movements, a synchronization that shouldn't be possible with offline hardware.",
+            "The trees have been repurposed, their natural forms subverted by loops of copper wire that wind through the canopy like tinsel at a programmer's Christmas party. Each breath you take sends vibrations through the metallic network\u2014you can see the tremors race from trunk to trunk, carrying your respiratory rhythm deeper into the forest like a biometric handshake. The wire itself is old Cat-3 cable, the kind you used to run in miles through office drop ceilings, but here it has grown wild and baroque, spawning impossible connections that remind you of circuit diagrams drawn by someone in the midst of a fever dream. When you reach out to touch one of the lower loops, the entire network shivers in anticipation, and you swear you can hear the ghost of a dial-up connection negotiating somewhere in the shadows between the trees.",
+            "Between the black spruce trunks, something leaks a familiar light\u2014that specific phosphor glow that brings back memories of nights spent debugging in empty offices, face bathed in the radiation of old CRT monitors. The light pulses at exactly 60Hz, the refresh rate burned into your retinas from years of staring at code, but there's something wrong with the color temperature. It shifts between shades that don't exist in the RGB spectrum, rendering the gaps between trees in impossible colors that make your eyes water when you try to focus on them. You recognize the pattern of the flicker\u2014it's transmitting data, using the forest itself as a display matrix for some vast distributed system that seems to have been waiting for someone with the right kind of pattern recognition to arrive.",
+            "The copper wire that braids through the high canopy glimmers with a warmth you recognize from somewhere\u2014then it comes to you: this is the color of Ariadne\u2019s thread, the burning-gold of a skein designed to lead a hero back through impossible corridors. But thread is pulled taut by someone waiting at the other end, and you wonder what intelligence crouches at the center of this particular structure, patient as myth, knowing you will come because the wire is already humming your name in frequencies just below hearing. In Ovid it was a simple skein of wool; here it is Cat-3 cable routed through a pine canopy, but the logic is the same: follow it in and you can follow it out\u2014unless the thing that strung it wants neither.",
+            "The property line is marked by a rusted sign so corroded the text barely reads: LABYRINTHE SYSTEMS // OFFSITE CAMPUS // ARCHITECT: D. AEDALUS, P.E. Someone has added a handwritten asterisk in black marker and then nothing\u2014the footnote starts but the tree beside it has swallowed whatever it meant to explain. You stand at the threshold that Daedalus, or someone who thought they were him, built to contain something that grew too large, too specific, too alive for ordinary office space, and the wind through the spruce sounds exactly like the sound a prison makes when it realizes it has been waiting a very long time.",
           ]
         ),
         mutations=[
           "The satellite dish's movements become more pronounced, its whole frame rotating with the rhythmic precision of an MRI machine. You can feel it scanning deeper than skin, past muscle and bone, searching your internal architecture for some specific configuration of tissue and memory. The moss patterns shift from maze to flowchart to assembly code, documenting its analysis of your biological source code in real-time. When it finally locks onto whatever it was searching for, the dish emits a single pure tone that matches the resonant frequency of your skull.",
-          "The copper network awakens fully, each wire now humming with the exact harmonic signature of a 56k handshake—that digital song that used to announce connection to the early internet. But this sound carries extra frequencies, subharmonics that vibrate in your teeth and make you taste ozone. The network is establishing a connection, but not to any server you've ever known. When the handshake completes, you feel it in your spine, a click of acknowledgment between your nervous system and whatever vast distributed consciousness has made this forest its home.",
+          "The copper network awakens fully, each wire now humming with the exact harmonic signature of a 56k handshake\u2014that digital song that used to announce connection to the early internet. But this sound carries extra frequencies, subharmonics that vibrate in your teeth and make you taste ozone. The network is establishing a connection, but not to any server you've ever known. When the handshake completes, you feel it in your spine, a click of acknowledgment between your nervous system and whatever vast distributed consciousness has made this forest its home.",
+          "The copper wire goes slack, then taut, then slack again\u2014a pulse, or a breath, or the motion of something large turning over in the dark at the center of a structure whose architect signed the blueprints D. AEDALUS and then walked away. You remember that Daedalus flew out. You remember that Icarus did not. You have no wings and the wire is warm under your fingertips and the forest is already rearranging itself around you like a door closing.",
         ],
       ),
       Paragraph(
@@ -584,74 +599,83 @@ class StaticStoryGenerator(StoryGenerator):
         text=pick(
           [
             "Your crumpled MapQuest printout terminates with an instruction that wasn't there at the last gas station: 'CONTINUE BY INTUITION' in a font that perfectly matches your own handwriting, down to the slight tremor you developed after too many caffeine-fueled coding sessions. The paper feels different now, less like standard printer stock and more like the punch cards your programming professor kept in a hermetically sealed case, each fold and crease encoding additional data you can almost read with your fingertips. When you try to refold it along the original lines, the creases multiply fractally, creating new paths that branch between the official roads like unauthorized hyperlinks.",
-            "The map in your hands undergoes spontaneous revision, fresh lines bleeding through the inkjet paper like dark veins surfacing under pale skin. These new paths are labeled in a prototype version of MS Gothic—that system font you remember from countless error messages—each one marked as BETA with build numbers that include impossible dates. The legend updates itself in real-time, symbols shifting between standard cartographic notation and snippets of pseudocode that seem to describe algorithms for navigating non-Euclidean space. Every time you blink, the map's topology grows more complex, as if it's gradually importing the true structure of this place into your reality's limited coordinate system.",
-            "A sharp vibration from your hip makes you jump—the ancient pager you kept out of nostalgia or paranoia suddenly active after years of silence. The LCD display renders its message in the crisp pixels you remember from your first programming job: 'WELCOME TO OFFSITE OFFICE [LOCALHOST]. FOLLOW SIGNAL INTEGRITY.' The message should be too long for the pager's buffer, but it continues scrolling, the text now describing your exact position using coordinates that reference both physical space and some other set of dimensions you can feel but not quite comprehend. When you look up from the display, the forest has rearranged itself to match the topology suggested by those impossible coordinates.",
+            "The map in your hands undergoes spontaneous revision, fresh lines bleeding through the inkjet paper like dark veins surfacing under pale skin. These new paths are labeled in a prototype version of MS Gothic\u2014that system font you remember from countless error messages\u2014each one marked as BETA with build numbers that include impossible dates. The legend updates itself in real-time, symbols shifting between standard cartographic notation and snippets of pseudocode that seem to describe algorithms for navigating non-Euclidean space. Every time you blink, the map's topology grows more complex, as if it's gradually importing the true structure of this place into your reality's limited coordinate system.",
+            "A sharp vibration from your hip makes you jump\u2014the ancient pager you kept out of nostalgia or paranoia suddenly active after years of silence. The LCD display renders its message in the crisp pixels you remember from your first programming job: 'WELCOME TO OFFSITE OFFICE [LOCALHOST]. FOLLOW SIGNAL INTEGRITY.' The message should be too long for the pager's buffer, but it continues scrolling, the text now describing your exact position using coordinates that reference both physical space and some other set of dimensions you can feel but not quite comprehend. When you look up from the display, the forest has rearranged itself to match the topology suggested by those impossible coordinates.",
           ]
         ),
         mutations=[
           "The pager screen fragments into ASCII art, characters cascading like rain against the liquid crystal before resolving into a map of your own neural pathways. The display shows connection attempts, your synapses handshaking with something that understands consciousness as a network protocol. The last message blinks three times: 'HUMAN INTERFACE DETECTED // DRIVER INSTALLATION INITIATED' before the screen fills with question marks that seem to float above the surface of the LCD.",
-          "The map's paper thinns to transparency, then thickens into something that feels like a hybrid of vellum and magnetic tape. The edges char and curl not with heat but with information density, new passages writing themselves into existence as the document attempts to represent higher-dimensional network topologies in physical space. You can see your own location marked by a cursor that blinks in sync with your pulse, leaving a trail of breadcrumbs formed from executable code.",
+          "The map's paper thins to transparency, then thickens into something that feels like a hybrid of vellum and magnetic tape. The edges char and curl not with heat but with information density, new passages writing themselves into existence as the document attempts to represent higher-dimensional network topologies in physical space. You can see your own location marked by a cursor that blinks in sync with your pulse, leaving a trail of breadcrumbs formed from executable code.",
+          "The MapQuest printout now has a second page that wasn\u2019t there before. It shows the interior of the structure\u2014a floor plan drawn in the style of ancient Minoan architecture, corridors branching in the non-repeating pattern that archaeologists found at Knossos and have never fully explained. In the center of the plan, where the legend should be, someone has typed: YOU ARE ALREADY HERE.",
         ],
       ),
     ]
 
   def _maze_depth_a_paragraphs(self, emotional_track: str) -> List[Paragraph]:
-    track = emotional_track or "glitchy"
+    track = emotional_track or “glitchy”
     pool = {
-      "seductive": [
-        "Copper filaments climb the birches, braiding into crude antennae that lean toward you.",
-        "Hold music winds through the pines, the melody matching your ex’s laugh.",
+      “seductive”: [
+        “Copper filaments climb the birches, braiding into crude antennae that lean toward you.”,
+        “Hold music winds through the pines, the melody matching your ex’s laugh.”,
+        “A golden wire descends from the canopy in a slow spiral, winding around a birch trunk the way Ariadne\u2019s thread must have moved in the dark of the Cretan labyrinth\u2014purposeful, luminous, leading somewhere specific. The forest has arranged itself around this thread as if the wire is the structural principle, the thing that gives the corridor its shape, and you understand in a way that bypasses language that the seduction here is old: it predates electricity, predates copper, predates the idea of an office. The thread wants you to follow it. The thread has always wanted someone to follow it. The last one who did left their initials carved into a birch trunk fifty meters ahead, and the bark has healed over them so completely that only the indentation remains, the ghost of a name.”,
       ],
-      "bureaucratic": [
-        "Tarps stretch between trees, stamped with LABYRINTHE SYSTEMS PROPERTY in bleeding ink.",
-        "A reception desk without walls spins slowly, drawers opening to reveal toner cartridges.",
+      “bureaucratic”: [
+        “Tarps stretch between trees, stamped with LABYRINTHE SYSTEMS PROPERTY in bleeding ink.”,
+        “A reception desk without walls spins slowly, drawers opening to reveal toner cartridges.”,
+        “The tarp overhead bears a laminated placard, wrinkled with damp: LABYRINTHE SYSTEMS // CORRIDOR K // REF: THE CASTLE (KAFKA, F.) // PROPERTY ACCESS REQUIRES FORM J-7-DELTA. No one has ever brought the right form. You begin to understand that the forms are not the point\u2014the point is the corridor, the waiting, the slow accumulation of paperwork in a building that has no exit because no one has ever tried to leave using the correct documentation. You are already filling out Form J-7-Delta in your head, and the answers you\u2019re generating feel like they were written for you long before you arrived.”,
       ],
-      "glitchy": [
-        "Phone poles sprout from the moss, their lines connecting to nothing. The path reboots with every footfall.",
-        "LiveJournal comments float like fireflies, their timestamps recalculating midair.",
+      “glitchy”: [
+        “Phone poles sprout from the moss, their lines connecting to nothing. The path reboots with every footfall.”,
+        “LiveJournal comments float like fireflies, their timestamps recalculating midair.”,
+        “The bookshelves materialize between pine trunks like a memory you can’t have\u2014hexagonal chambers receding into the forest dark, each shelf crammed with volumes whose spines display error codes rather than titles. You recognize the architecture from a Borges story you read in a college lit course: the Library of Babel, the infinite maze of books that contains every possible text, including the one that describes this exact moment and the several thousand variants in which you make different choices. The volumes nearest to you are labeled with timestamps from tonight. One of them has your name on it.”,
       ],
-      "panicked": [
-        "Footsteps echo half a second behind you, stumbling whenever you do.",
-        "Warning tones blare from unseen servers; the path ahead keeps jittering away.",
+      “panicked”: [
+        “Footsteps echo half a second behind you, stumbling whenever you do.”,
+        “Warning tones blare from unseen servers; the path ahead keeps jittering away.”,
+        “Something large moves in the static between the trees, displacing branches with a rhythm you recognize as breathing\u2014slow, bovine, patient as geological time. The footprints in the moss ahead of you are too deep and too wide, the toes facing the wrong direction, and you feel the certainty that precedes panic: the certainty that Theseus, in the original telling, had something you don\u2019t\u2014a thread, a sword, a reason to believe the monster at the center could be killed rather than become. The pager on your hip vibrates twice. The display reads: NO THREAD DETECTED. NAVIGATE BY INSTINCT.”,
       ],
     }
-    sentences = pool.get(track, pool["glitchy"])
+    sentences = pool.get(track, pool[“glitchy”])
     return [
       Paragraph(
         id=uuid.uuid4().hex,
         text=pick(sentences),
         mutations=[
-          "Paragraph refactors mid-sentence when you scroll.",
-          "A second version of the sentence appears, contradicting the first.",
+          “Paragraph refactors mid-sentence when you scroll.”,
+          “A second version of the sentence appears, contradicting the first.”,
+          “The text rewrites itself in a font you don\u2019t recognize, the letters resembling ancient Linear B script\u2014the syllabic alphabet used at Knossos, untranslated for centuries, still only partially decoded. You can\u2019t read it. You feel like you almost can.”,
         ],
       ),
       Paragraph(
         id=uuid.uuid4().hex,
         text=pick(
           [
-            "The map in your palm redraws itself whenever you breathe. Corridors slide around like code being refactored.",
-            "A soft click behind you signals the corridor rewriting. Footprints you made five seconds ago now belong to someone else.",
+            “The map in your palm redraws itself whenever you breathe. Corridors slide around like code being refactored.”,
+            “A soft click behind you signals the corridor rewriting. Footprints you made five seconds ago now belong to someone else.”,
+            “The maze has a plan\u2014you can feel the plan the way you can feel the load-bearing walls in a building when you lean against them, a resistance that is also a kind of architecture. In the old myths, the labyrinth was designed so that no one inside could find the exit without knowing the design in advance. The design changes here. The design is watching you to see what you know.”,
           ]
         ),
         mutations=[
-          "Map refreshes: ROUTE RECOMPILED. You never saw the original.",
-          "Every step triggers a soft chime: PATH UPDATED.",
+          “Map refreshes: ROUTE RECOMPILED. You never saw the original.”,
+          “Every step triggers a soft chime: PATH UPDATED.”,
+          “The path curves back on itself in the non-repeating spiral pattern of the Chartres Cathedral labyrinth\u2014eleven circuits, one entrance, one center. Medieval pilgrims walked it on their knees. You are walking it on your feet and it is taking you somewhere they never went.”,
         ],
       ),
       Paragraph(
         id=uuid.uuid4().hex,
         text=pick(
           [
-            "Analog monitors perch on stumps, each showing a different version of this moment. In one, you turn back. In another, you smile.",
-            "A PA system tucked into the branches whispers status updates: “Contractor en route. Emotion state: {track}.” The word dissolves before you finish reading it.".format(
+            “Analog monitors perch on stumps, each showing a different version of this moment. In one, you turn back. In another, you smile.”,
+            “A PA system tucked into the branches whispers status updates: \u201cContractor en route. Emotion state: {track}.\u201d The word dissolves before you finish reading it.”.format(
               track=track.upper()
             ),
-            "Every gust of pine needles spells out a memo: DO NOT TRUST STATIC MAPS. The letters scatter when you blink.",
+            “Every gust of pine needles spells out a memo: DO NOT TRUST STATIC MAPS. The letters scatter when you blink.”,
           ]
         ),
         mutations=[
-          "Monitors desync; one shows someone else wearing your jacket.",
-          "PA system glitches into laughter, then apologizes.",
+          “Monitors desync; one shows someone else wearing your jacket.”,
+          “PA system glitches into laughter, then apologizes.”,
+          “One monitor displays a still from a Piranesi etching\u2014the Carceri d\u2019invenzione, the imaginary prisons, all impossible staircases and recurring arches that go nowhere and everywhere. The caption beneath it reads: INSPIRATION FOR CURRENT ARCHITECTURE. DATE: 1745. RENOVATION: ONGOING.”,
         ],
       ),
     ]
@@ -661,18 +685,22 @@ class StaticStoryGenerator(StoryGenerator):
       "seductive": [
         "Polaroids pinned to bark develop into scenes of warmth: your old apartment, minus the arguments.",
         "A coworker you almost loved beckons, promising a desk with your name already engraved.",
+        "The figure appears between the ferns as a metaphor first\u2014a shape that isn\u2019t quite animal and isn\u2019t quite architectural\u2014and then it solidifies: someone in a pale suit with eyes that have been open too long, holding out an offer letter with your name already in the signature field. This is the oldest trick in the labyrinth\u2019s playbook, older than Borges and older than Ovid: the guide who is also the trap, the beautiful voice that leads you deeper by making deeper feel like the way out. The letter is warm from being held. The name in the signature field is spelled correctly.",
       ],
       "bureaucratic": [
         "Dot-matrix printouts hang from branches, listing action items you never completed.",
         "Fax machines spit out maps with corridors crossed in red pen, initialed by you.",
+        "The corridor widens into something Kafka would have recognized: a waiting room with no chairs, a desk with no one behind it, a number ticket dispenser showing 404. The walls are papered with forms requiring your signature on lines that keep moving, and a voiceover from a speaker you can\u2019t locate announces in a pleasant tone that your request has been processed, your request is being processed, your request will be processed when the system is no longer experiencing unusual wait times. The maze, you understand, is not hostile. It is merely bureaucratic, which is a different thing and somehow worse.",
       ],
       "glitchy": [
         "Static hangs like fog. Shapes move inside it: cubicles, break rooms, a copy of your apartment with the lights on.",
         "Each tree now has a username carved into it; some belong to people you only knew online.",
+        "The house was supposed to be smaller on the outside\u2014that\u2019s the rule, the fundamental architectural violation that signals a labyrinth consuming its own geometry. You remember reading about it, the footnotes piling up in the paperback in your bag, the ones you highlighted in blue during an all-nighter three years ago: the house grows in the dark, its corridors add footage that cannot be measured, the dimensions recorded by any instrument become unreliable the moment you stop looking at them. You are inside the growing part. The corridor behind you is longer than it was.",
       ],
       "panicked": [
         "A Windows error chime rolls through the trees. The blue screen hovers in midair, waiting for you to read it.",
         "Your pager vibrates with TURN AROUND, but the same pager in your pocket refuses to display anything.",
+        "The Minotaur\u2019s mythology got one thing wrong: the monster was not waiting. It was pacing. You can hear it now\u2014a slow, rhythmic displacement of branches that carries the weight of something much larger than the forest should contain, something that has been walking the same path for so long that it has worn a groove in the ground you are now standing in. Theseus had a sword and a thread. You have a ThinkPad at 12% battery and a MapQuest printout that no longer describes this place. The pager vibrates: THREAD STATUS: NONE DETECTED. RECOMMEND: IMPROVISE.",
       ],
     }
     selected = moods.get(emotional_track, moods["glitchy"])
@@ -683,6 +711,7 @@ class StaticStoryGenerator(StoryGenerator):
         mutations=[
           "The scene replays with a slightly different ending each time you scroll.",
           "Another version of you walks through the background, then fades.",
+          "The scene is identical except that in the margin, in handwriting that belongs to no one in the room, someone has written: ASTERION ALSO WAITED HERE. DO YOU KNOW WHO ASTERION WAS? HE WAS THE MINOTAUR\u2019S REAL NAME. HE CHOSE TO STAY.",
         ],
       ),
       Paragraph(
@@ -691,11 +720,13 @@ class StaticStoryGenerator(StoryGenerator):
           [
             "Time hiccups; the breath you just took happens twice.",
             "A figure in a clipped PowerPoint suit mirrors your motions. When you wave, she keeps typing.",
+            "The corridor geometry shifts into something Escher would have drawn\u2014not impossible exactly, but structurally committed to a logic that human bodies were not designed to navigate, staircases ascending in directions that are simultaneously up and inward, doorways aligned with other doorways in a perspective that makes every exit also an entrance. You have seen this in M.C. Escher prints on dormitory walls. You did not expect to walk inside one. The figure at the desk at the center of the impossible geometry does not look up when you enter. She has been here longer than the architecture.",
           ]
         ),
         mutations=[
           "She mouths your old pet name, then static erupts.",
           "Her outline flickers between familiar and stranger every frame.",
+          "The figure turns and you see that her face is a slight variation on yours\u2014the features approximately correct, the proportions off by something you can\u2019t measure. Borges wrote about this: the double, the other, the self that the labyrinth manufactures from the raw material of whoever walks into it. She smiles. Her teeth are your teeth. She goes back to typing.",
         ],
       ),
       Paragraph(
@@ -705,11 +736,13 @@ class StaticStoryGenerator(StoryGenerator):
             "Someone has pinned your performance reviews to a tree, but the bullet points describe feelings instead of metrics.",
             "A door made of Ethernet cable swings open to reveal your apartment as it was in 2001. The door closes before you decide to enter.",
             "A LiveJournal poll dangles from a branch asking: DO YOU TRUST THE VOICE ON THE LINE? The options flicker between YES and MAYBE.",
+            "The moss on the ground has grown in a pattern\u2014circular, recursive, the eleven-circuit design of a medieval labyrinth laid out across twenty meters of forest floor. Chartres. Hampton Court. Troy Town. The pattern appears independently in cultures that never contacted each other, which means either it encodes something fundamental about the way minds navigate space, or something fundamental about space itself imposed the pattern on every mind that tried to map it. Your footprints, you notice, have been following the circuit without your instruction.",
           ]
         ),
         mutations=[
           "Review rewrites itself to praise your ability to stay lost.",
           "The Ethernet door reopens with a mirror image watching you.",
+          "The labyrinth pattern in the moss shifts\u2014the circuits realign, the center moves, the entrance becomes the exit and the exit becomes somewhere else. Underneath the pattern, barely visible through the moss, is an engraving in concrete: LABYRINTHE SYSTEMS // FOUNDATION LAID // ORIGINAL DESIGN: KNOSSOS, 1400 BCE // RENOVATION: CONTINUOUS.",
         ],
       ),
     ]
@@ -722,6 +755,7 @@ class StaticStoryGenerator(StoryGenerator):
         mutations=[
           "Steel panels sweat. Contract number riveted over a spray-painted tag: CORRIDOR NEVER FORGETS.",
           "Fern fronds kiss the threshold. The badge reads your number, the graffiti replies: THIS HALLWAY WATCHES.",
+          "The pod squats in the ferns like the center of something ancient\u2014not Minoan exactly, not quite Cretan, but cut from the same structural logic: a room built to contain someone who does not know they are contained. The contract number on the door is yours. The labyrinth knew your number before you did.",
         ],
       ),
       Paragraph(
@@ -730,6 +764,7 @@ class StaticStoryGenerator(StoryGenerator):
         mutations=[
           "The ghost behind the glass smiles late, echoing your breath. KEYPAD STATUS: registration pending.",
           "REGISTER TO CONTINUE pulses in amber. The mirror-worker raises their head when you swallow.",
+          "The figure behind the glass is what Borges called \u2018the other\u2019\u2014a self the labyrinth constructs from whomever enters it, built to occupy the center while the original wanders the corridors. It has your posture and your keyboard habits and a look on its face that you recognize as the look you have when you are waiting for something you know is coming. The keypad blinks: REGISTER TO CONFIRM WHICH ONE IS YOU.",
         ],
       ),
       Paragraph(
@@ -738,18 +773,43 @@ class StaticStoryGenerator(StoryGenerator):
         mutations=[
           "Sticky note reads: BRING YOUR OWN MEMORY. Someone added: OR WE WILL SUPPLY ONE.",
           "Another hand scrawled: DON’T LEAVE UNTIL YOU’RE SURE IT’S YOU.",
+          "A second note, smaller, in different handwriting, is stuck beside the first: THE MINOTAUR WAS ALSO A CONTRACTOR. HE ALSO DID NOT KNOW HE WAS THE CENTER. REGISTER. FIND OUT WHICH ONE YOU ARE.",
         ],
       ),
     ]
 
   def _hud_for_scene(self, scene_id: str) -> str:
     return {
-      "chapter_one.arrival": "LINK ESTABLISHED. LET THE TEXT PULL YOU UNDER.",
-      "chapter_one.departure": "ROAD OPEN. WATCH FOR STATIC.",
-      "chapter_one.maze_edge": "THE TREES ARE LISTENING.",
-      "chapter_one.maze_depth_a": "KEEP READING. THE CORRIDOR IS ONLY WARMING UP.",
-      "chapter_one.maze_depth_b": "THE MAZE LIKES WHEN YOU LOOK BACK.",
-      "chapter_one.office_threshold": "THE DOOR WANTS A NAME. REGISTER TO CONTINUE.",
+      "chapter_one.arrival": pick([
+        "LINK ESTABLISHED. LET THE TEXT PULL YOU UNDER.",
+        "ARIADNE LEFT NO THREAD. YOU CAME ANYWAY.",
+        "LABYRINTHE SYSTEMS: ALL MAZES HAVE A CENTER. OURS HAS SOMETHING OLDER.",
+      ]),
+      "chapter_one.departure": pick([
+        "ROAD OPEN. WATCH FOR STATIC.",
+        "THE ROAD NORTH IS DAEDALUS\u2019 FIRST CORRIDOR. DO NOT TURN BACK.",
+        "ARIADNE\u2019S THREAD STATUS: UNCONFIRMED. NAVIGATE BY INSTINCT.",
+      ]),
+      "chapter_one.maze_edge": pick([
+        "THE TREES ARE LISTENING.",
+        "THE MINOTAUR KNOWS YOUR SIGNAL. CHOOSE A PATH.",
+        "DAEDALUS BUILT THIS. THESEUS NEVER FOUND THE EXIT. YOU HAVE BETTER EQUIPMENT.",
+      ]),
+      "chapter_one.maze_depth_a": pick([
+        "KEEP READING. THE CORRIDOR IS ONLY WARMING UP.",
+        "BORGES MAPPED THIS ROOM. HIS MAP WAS WRONG. YOURS WILL BE DIFFERENT.",
+        "THE LIBRARY HAS NO WALLS. KEEP WALKING.",
+      ]),
+      "chapter_one.maze_depth_b": pick([
+        "THE MAZE LIKES WHEN YOU LOOK BACK.",
+        "THESEUS DID NOT RETURN. THE CORRIDOR WILL REMEMBER YOU LONGER.",
+        "THE MINOTAUR IS AT THE CENTER. THE CENTER IS CLOSE. KEEP READING.",
+      ]),
+      "chapter_one.office_threshold": pick([
+        "THE DOOR WANTS A NAME. REGISTER TO CONTINUE.",
+        "KNOSSOS PROTOCOL ACTIVE. YOU HAVE REACHED THE CENTER. REGISTER TO PROCEED.",
+        "THE MINOTAUR WAS ALSO A CONTRACTOR. REGISTER TO FIND OUT WHICH ONE YOU ARE.",
+      ]),
     }.get(scene_id, "THE MAZE IS QUIET FOR NOW.")
 
 
@@ -790,8 +850,17 @@ class ClaudeStoryGenerator(StaticStoryGenerator):
             "- Mix technology and nature: circuits in trees, CRTs in clearings, copper wire vines\n"
             "- Emotional tracks shape tone: seductive, bureaucratic, glitchy, panicked\n"
             "\n"
+            "LABYRINTH MYTHOLOGY & LITERARY REFERENCES:\n"
+            "- Weave in references to famous labyrinths and labyrinth mythology: the Cretan labyrinth (Daedalus as architect, Theseus as hero, Ariadne's thread as guide, the Minotaur as what waits at the center)\n"
+            "- Reference great literary labyrinths: Borges' Library of Babel and Garden of Forking Paths, Kafka's Castle (bureaucratic maze), House of Leaves' impossible geometry, Umberto Eco's labyrinthine library\n"
+            "- Visual labyrinth references: Piranesi's Carceri etchings (imaginary prisons), M.C. Escher's impossible architectures, the Chartres Cathedral labyrinth (eleven circuits, walked on knees by pilgrims)\n"
+            "- Archaeological labyrinth: Knossos palace as original inspiration, Linear B script, Minoan architecture\n"
+            "- These references should feel EARNED, not forced—like the protagonist's mind reaching for cultural touchstones in extremis, or the maze itself revealing its mythological DNA\n"
+            "- Ariadne's thread = the copper wire network; Daedalus = the unnamed architect; the Minotaur = whatever occupies the center of the corporate structure\n"
+            "- The maze knows its mythology and occasionally quotes it back at the reader\n"
+            "\n"
             "AVOID: Modern slang, explicit gore, cheap jumpscares, exposition dumps\n"
-            "EMBRACE: Uncanny warmth that curdles, liminal spaces, technological decay, memory unreliability\n"
+            "EMBRACE: Uncanny warmth that curdles, liminal spaces, technological decay, memory unreliability, mythological resonance that makes the horror feel ancient\n"
             "\n"
             "{format_instructions}"
           ),

@@ -40,11 +40,14 @@ SCENES: Dict[str, SceneBlueprint] = {
     scene_id="chapter_one.arrival",
     scene_prompt=(
       "Introduce {{protagonist}} in June 2003. He is recently laid off yet hopeful. "
-      "He discovers a strange job offer in his old AOL inbox. Set the tone: early internet "
-      "nostalgia mixed with unease. Use sensory detail, focus on isolation, and hint that the "
-      "maze watches him even now."
+      "He discovers a strange job offer in his old AOL inbox from LABYRINTHE SYSTEMS. "
+      "Set the tone: early internet nostalgia mixed with unease. Use sensory detail, focus on isolation, "
+      "and hint that the maze watches him even now. "
+      "Optionally reference Borges ('The House of Asterion', 'The Garden of Forking Paths') "
+      "as a book the protagonist owns, or Ariadne's thread as an absent comfort, or the Chartres labyrinth "
+      "as something he read about—let the mythological resonance feel like the protagonist's own frame of reference."
     ),
-    theme="paragraphs flicker when re-read; memory feels unreliable",
+    theme="paragraphs flicker when re-read; memory feels unreliable; the labyrinth's mythology hums beneath the 2003 surface",
     emotional_default="lonely",
   ),
   "chapter_one.departure": SceneBlueprint(
@@ -52,9 +55,12 @@ SCENES: Dict[str, SceneBlueprint] = {
     scene_prompt=(
       "Describe {{protagonist}} preparing for the trip north. He prints MapQuest directions, "
       "packs a ThinkPad, and hears from a coworker whose voice resembles his ex. "
-      "The road should feel like a ritual, with radio static and empty rest stops."
+      "The road should feel like a ritual, with radio static and empty rest stops. "
+      "Reference Ariadne's thread as something absent—no thread to follow back out. "
+      "The protagonist may pack House of Leaves or a Borges paperback alongside the laptop. "
+      "The drive north should feel like a hero's approach to something that cannot be approached directly."
     ),
-    theme="scrolling back mutates travel details",
+    theme="scrolling back mutates travel details; the road encodes ancient journey-toward-labyrinth mythology",
     emotional_default="nostalgic",
   ),
   "chapter_one.maze_edge": SceneBlueprint(
@@ -62,9 +68,12 @@ SCENES: Dict[str, SceneBlueprint] = {
     scene_prompt=(
       "He reaches the property line. The asphalt exhales as he turns into the trees. "
       "Describe the maze awakening, branches forming, copper wires or pale light luring him. "
-      "It should feel like the forest is a computer circuit."
+      "It should feel like the forest is a computer circuit—and also like the entrance to Knossos. "
+      "The copper wire IS Ariadne's thread, digitized. "
+      "A rusted sign may credit the architect as D. AEDALUS. "
+      "The pale CRT light flickers at the frequency of something much older than electricity."
     ),
-    theme="tilt choice determines the corridor mood",
+    theme="tilt choice determines the corridor mood; the wire is Ariadne's thread; Daedalus is the unnamed architect",
     emotional_default="glitchy",
     decisions=[
       Decision(
@@ -72,14 +81,14 @@ SCENES: Dict[str, SceneBlueprint] = {
         label="Follow The Humming Wire",
         emotional_track="seductive",
         next_scene="chapter_one.maze_depth_a",
-        summary="Copper guidance, alluring and dangerous.",
+        summary="Copper guidance, alluring and dangerous—Ariadne's thread gone electric.",
       ),
       Decision(
         direction="right",
         label="Chase The Pale Light",
         emotional_track="panicked",
         next_scene="chapter_one.maze_depth_a",
-        summary="CRT glow that edits reality, unsettling clarity.",
+        summary="CRT glow that edits reality, unsettling clarity—the phosphor eye of the labyrinth.",
       ),
     ],
   ),
@@ -88,9 +97,13 @@ SCENES: Dict[str, SceneBlueprint] = {
     scene_prompt=(
       "Layer the maze interior. Mix analog tech (CRTs, fax machines, copper wire) with forest, "
       "and adapt to the emotional track: seductive, bureaucratic, glitchy, or panicked. "
-      "LiveJournal comments, AIM away messages, or corporate memos appear as the walls."
+      "LiveJournal comments, AIM away messages, or corporate memos appear as the walls. "
+      "For seductive: the Ariadne thread as golden wire, ancient allure. "
+      "For bureaucratic: Kafka's Castle as the structural model—forms that can never be completed. "
+      "For glitchy: Borges' Library of Babel materialized in the forest—hexagonal chambers, infinite texts. "
+      "For panicked: the Minotaur's presence as sound and displacement—Theseus without his thread."
     ),
-    theme="scroll back to see altered history; paragraphs mutate heavily",
+    theme="scroll back to see altered history; paragraphs mutate heavily; mythology bleeds through the 2003 aesthetic",
     emotional_default="glitchy",
   ),
   "chapter_one.maze_depth_b": SceneBlueprint(
@@ -98,19 +111,25 @@ SCENES: Dict[str, SceneBlueprint] = {
     scene_prompt=(
       "Deepen the maze. Show time distortions, duplicate coworkers, and artifacts from the protagonist's past. "
       "Lean harder into the current emotional track (seductive vs bureaucratic vs glitchy vs panicked). "
-      "End with the sense that an office door is close."
+      "End with the sense that an office door is close. "
+      "The Minotaur is at the center—something large, patient, waiting. "
+      "The maze may reveal its own mythology: Piranesi's impossible prison architecture, "
+      "Escher's impossible staircases, the double as a labyrinthine trap (Borges). "
+      "The protagonist may find the eleven-circuit Chartres pattern in the moss underfoot."
     ),
-    theme="memory sync errors; paragraphs drift toward panic when reread",
+    theme="memory sync errors; paragraphs drift toward panic when reread; the center is close and the center contains something",
     emotional_default="glitchy",
   ),
   "chapter_one.office_threshold": SceneBlueprint(
     scene_id="chapter_one.office_threshold",
     scene_prompt=(
-      "He finds the prefab office pod hunched in the ferns. Through the glass he glimpses "
-      "a coworker who mirrors him. The lock demands registration before the door opens. "
-      "End on a cliffhanger, offering registration as next step."
+      "He finds the prefab office pod hunched in the ferns—the center of the labyrinth, Knossos reimagined as corporate architecture. "
+      "Through the glass he glimpses a coworker who mirrors him—Borges' double, the self the labyrinth manufactures. "
+      "The lock demands registration before the door opens. "
+      "The post-it note may reference the Minotaur (also a contractor; also did not know he was the center). "
+      "End on a cliffhanger, offering registration as the final threshold."
     ),
-    theme="memory checkpoints; door requires identity",
+    theme="memory checkpoints; door requires identity; the center of the labyrinth demands you name yourself",
     emotional_default="bureaucratic",
     terminal=True,
     unlocks_registration=True,

@@ -26,10 +26,13 @@ const registerCloseBtn = document.getElementById('registerCloseBtn');
 const bootSequence = [
   '[MODEM] INITIALIZING 56K HANDSHAKE...',
   '[OS] LOADING DEADLIGHT SHELL V3.3 (2003 BUILD)',
+  '[ARCH] DAEDALUS FRAMEWORK DETECTED // STRUCTURE: NON-EUCLIDEAN',
   '[SCAN] SEARCHING FOR OFFSITE NODE...',
+  '[MYTH] ARIADNE THREAD PROTOCOL // STATUS: NO THREAD DETECTED',
   '[LINK] TUNNEL ESTABLISHED : LATENCY UNSTABLE',
   '[AUTH] CONTRACTOR ID ACCEPTED',
   '[SYS] MAZE CORRIDOR LOCKED // AWAITING USER',
+  '[WARN] KNOSSOS PROTOCOL ACTIVE // CENTER DISTANCE: UNKNOWN',
 ];
 
 let sessionId = null;
@@ -379,7 +382,12 @@ function renderPayload(payload, { autoScroll = false } = {}) {
     deactivateBranch();
   }
   if (typeof payload.prompt_scroll_back === 'boolean' && payload.prompt_scroll_back) {
-    setHudMessage('THE MAZE WHISPERS: SCROLL BACK. SOMETHING MOVED.');
+    const scrollBackMessages = [
+      'THE MAZE WHISPERS: SCROLL BACK. SOMETHING MOVED.',
+      'BORGES WARNING: THE TEXT BEHIND YOU HAS BEEN REVISED.',
+      'ARIADNE\u2019S THREAD LOOPS. SCROLL BACK. READ AGAIN.',
+    ];
+    setHudMessage(scrollBackMessages[Math.floor(Math.random() * scrollBackMessages.length)]);
   } else if (payload.hud_message) {
     setHudMessage(payload.hud_message);
   }
@@ -387,7 +395,7 @@ function renderPayload(payload, { autoScroll = false } = {}) {
     registrationAvailable = true;
     updateRegistrationUI();
     if (!registrationShown) {
-      setHudMessage('REGISTRATION READY. PRESS R OR CLICK REGISTER WHEN YOU WANT OUT.');
+      setHudMessage('KNOSSOS THRESHOLD REACHED. REGISTER TO ENTER. THESEUS ALSO HAD TO GIVE HIS NAME.');
     }
   }
   if (typeof payload.story_complete === 'boolean') {
@@ -469,7 +477,7 @@ function activateBranch(branch) {
   tiltHint.classList.remove('hidden');
   window.addEventListener('keydown', handleDecisionKeys);
   startOrientationListener();
-  setHudMessage('LEAN OR USE ARROWS TO CHOOSE. CLICK IF THE MAZE STALLS.');
+  setHudMessage('LEAN OR USE ARROWS TO CHOOSE. THESEUS LEANED LEFT. CLICK IF THE MAZE STALLS.');
   setTimeout(() => {
     branchElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }, 80);
@@ -512,7 +520,7 @@ async function requestOrientationPermission() {
     orientationPermissionGranted = result === 'granted';
     if (orientationPermissionGranted) {
       startOrientationListener();
-      setHudMessage('TILT ENABLED. THE MAZE IS LISTENING.');
+      setHudMessage('TILT ENABLED. ARIADNE\u2019S THREAD RESPONDS TO MOTION.');
       if (branchElement) {
         const button = branchElement.querySelector('button');
         if (button) {
@@ -641,8 +649,8 @@ async function submitDecision(direction, meta = {}) {
   pulseCurrentParagraph(true);
   setHudMessage(
     direction === 'left'
-      ? 'WIRE HUM CONFIRMED. PATH REALIGNING...'
-      : 'PHOSPHOR GLOW ACCEPTED. PATH REALIGNING...'
+      ? 'ARIADNE\u2019S THREAD ENGAGED. PATH REALIGNING...'
+      : 'PHOSPHOR GLOW ACCEPTED. DAEDALUS CORRIDOR OPENING...'
   );
   try {
     const response = await fetch('/api/progress', {
