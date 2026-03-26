@@ -1,0 +1,1040 @@
+{
+  "chapter_id": "dreams_and_static",
+  "title": "dreams_and_static",
+  "theme": "The warmth of early internet community, the uncanny of return",
+  "setting": "A dead phpBB forum from 2002-2004, dormant for twenty years. One post is from today.",
+  "global_mood": "Warm nostalgia escalating into the horror of being recognized",
+  "entrypoint": "forum_index",
+
+  "story_bible": {
+    "forum_identity": {
+      "name": "dreams_and_static",
+      "tagline": "a place for what keeps you up at night",
+      "software": "phpBB 2.0.6",
+      "year_range": "2002-2004",
+      "member_count": 847,
+      "total_posts": 12439,
+      "admin": "ghostradio"
+    },
+    "tone_references": {
+      "early_internet_community": "The specific warmth of small forums circa 2003. People who found each other at 2am because they couldn't sleep. Earnest without irony. The internet hasn't taught them to be defensive yet. Typos, tangents, someone being gently wrong, someone being too earnest to be embarrassing.",
+      "house_of_leaves": "The maze as both subject and form. The footnotes aren't decoration, they're the horror. Here, the links aren't navigation — they are the labyrinth. The deeper you click, the further you are from the exit.",
+      "the_minotaur": "Not a monster. A crawler. Something that moves through the architecture of the web the way a spider moves through silk. It was there when the forums started dying. It watched the usernames go quiet. It understood what all that feeling was worth. The Minotaur doesn't chase. It indexes."
+    },
+    "rules_of_the_maze": [
+      "The forum is real. It existed. The posts are from real people who typed them at 2am.",
+      "The maze is underneath the forum. The forum is the surface. Click deep enough and the architecture shifts.",
+      "still_here_03 is the presence that has been waiting. Not a bot. Not a ghost. Something that remembers.",
+      "The horror is warmth. The horror is being recognized by something that should not know you.",
+      "Every username is a person who was here once. The forum remembers all of them.",
+      "The trap is nostalgia. The maze presents itself as warm, found, almost comforting. Then it starts to learn you."
+    ],
+    "canonical_lines": [
+      "You came here looking for something you lost. But you didn't lose it. You outgrew it. Those aren't the same thing. One of them you can get back.",
+      "Your session data has been retained for personalization purposes.",
+      "You agreed to this.",
+      "We only want to improve your experience.",
+      "The people who built this place gave it to you for free. We just figured out what it was worth.",
+      "The light you're following has been dead for twenty years."
+    ],
+    "canonical_usernames": {
+      "vinyl_ghost": {"joined": "Sep 2002", "posts": 342, "role": "Thread starter, music obsessive, writes long posts at 3am about albums nobody else remembers"},
+      "sleeparchitect": {"joined": "Nov 2002", "posts": 891, "role": "The most prolific poster. Gentle, philosophical. Always the first to check on someone who hasn't posted in a while."},
+      "cassette_cathedral": {"joined": "Jan 2003", "posts": 156, "role": "Lurker who surfaces for important threads. When they post, it matters."},
+      "halflight_kid": {"joined": "Oct 2002", "posts": 234, "role": "Emotional, shares too much, the one who always says what everyone else is thinking but won't say."},
+      "neon_cathedral": {"joined": "Mar 2003", "posts": 67, "role": "Newer member, enthusiastic, still excited about the forum in a way the veterans find endearing."},
+      "static_prayer": {"joined": "Feb 2003", "posts": 445, "role": "Moderator energy without the title. Peacekeeper. The one who defuses arguments by just being genuinely kind."},
+      "still_here_03": {"joined": "Mar 2003", "posts": 1, "last_seen": "TODAY", "role": "The hook. The presence. One post in twenty years. It was enough."}
+    },
+    "personal_data_hooks": {
+      "variables": {
+        "{{player_name}}": "The user's chosen forum handle. Appears in thread titles, posts about them, the missing person thread."
+      }
+    },
+    "llm_system_prompt_base": "You are generating forum posts for an early-2000s phpBB forum called 'dreams_and_static.' The forum was active 2002-2004 and has been dead for twenty years. The posts you generate are from that era.\n\nVOICE RULES:\n- Write like real people typed on forums at 2am in 2003.\n- Lowercase is the default. Some posters capitalize normally. None use all caps except for emphasis on single words.\n- Typos happen naturally — 'teh' for 'the', missing apostrophes, 'your' for 'you're' — but not in every post.\n- Earnestness without irony. These people mean what they say. The internet hasn't taught them to be defensive yet.\n- Tangents are natural. Someone starts talking about a song and ends up talking about their ex or their dad.\n- Forum-specific language: 'bump', '^^ this', 'lol', ':)' and ':(' (not emoji), 'imo', 'brb'\n- No modern internet language: no 'literally', no 'I'm screaming', no 'wholesome', no 'vibes', no 'lowkey', no 'valid'\n- Signatures are optional — short quotes, song lyric fragments, or AIM handles.\n\nEMOTIONAL REGISTER:\n- The forum is warm. These are people who found each other online because they couldn't sleep.\n- The warmth is real, not performed. They care about each other.\n- Some posts are vulnerable. Some are funny. Some are just 'yeah.' with a period.\n- The community knows each other — references to previous conversations, inside jokes, checking in.\n\nOUTPUT FORMAT:\nReturn ONLY a JSON array of post objects. No markdown, no explanation, no preamble. Each post:\n[\n  {\n    \"author\": \"username\",\n    \"author_data\": {\"joined\": \"Mon YYYY\", \"posts\": 123},\n    \"date\": \"Mon DD, YYYY — H:MMam\",\n    \"body\": \"the post content\"\n  }\n]"
+  },
+
+  "scenes": [
+    {
+      "id": "forum_index",
+      "title": "dreams_and_static",
+      "goal": "The forum index. Thread listing. One thread has a post from TODAY. Several threads are explorable.",
+      "page_type": "forum_index",
+      "static_content": true,
+      "interaction_type": "link",
+      "prompt_seed": "",
+      "forum_data": {
+        "board_name": "dreams_and_static",
+        "board_tagline": "a place for what keeps you up at night",
+        "threads": [
+          {
+            "id": "thread_songs",
+            "title": "songs you can't listen to anymore",
+            "author": "vinyl_ghost",
+            "replies": 9,
+            "views": 1247,
+            "last_post_by": "still_here_03",
+            "last_post_date": "TODAY",
+            "started": "Oct 23, 2003",
+            "clickable": true,
+            "target_scene": "songs_thread"
+          },
+          {
+            "id": "thread_dreams",
+            "title": "recurring dream thread (post yours)",
+            "author": "sleeparchitect",
+            "replies": 47,
+            "views": 3891,
+            "last_post_by": "halflight_kid",
+            "last_post_date": "Nov 14, 2003",
+            "started": "Feb 8, 2003",
+            "clickable": true,
+            "target_scene": "dreams_thread"
+          },
+          {
+            "id": "thread_leaving",
+            "title": "does anyone else feel like they're about to leave",
+            "author": "cassette_cathedral",
+            "replies": 12,
+            "views": 892,
+            "last_post_by": "static_prayer",
+            "last_post_date": "Feb 8, 2004",
+            "started": "Jan 30, 2004",
+            "clickable": true,
+            "target_scene": "leaving_thread"
+          },
+          {
+            "id": "thread_3am",
+            "title": "3am check-in thread",
+            "author": "static_prayer",
+            "replies": 203,
+            "views": 14220,
+            "last_post_by": "neon_cathedral",
+            "last_post_date": "Jan 22, 2004",
+            "started": "Nov 1, 2002",
+            "clickable": true,
+            "target_scene": "three_am_thread"
+          },
+          {
+            "id": "thread_mixtapes",
+            "title": "mixtape exchange — sign up here",
+            "author": "neon_cathedral",
+            "replies": 31,
+            "views": 2103,
+            "last_post_by": "vinyl_ghost",
+            "last_post_date": "Dec 3, 2003",
+            "started": "Nov 15, 2003",
+            "clickable": false
+          },
+          {
+            "id": "thread_career",
+            "title": "I don't know what I'm doing with my life — anyone else?",
+            "author": "halflight_kid",
+            "replies": 156,
+            "views": 11847,
+            "last_post_by": "sleeparchitect",
+            "last_post_date": "Jan 2, 2004",
+            "started": "Oct 1, 2003",
+            "clickable": false
+          },
+          {
+            "id": "thread_apartment",
+            "title": "just signed a lease on my first apartment!!",
+            "author": "neon_cathedral",
+            "replies": 23,
+            "views": 1456,
+            "last_post_by": "cassette_cathedral",
+            "last_post_date": "Sep 12, 2003",
+            "started": "Sep 8, 2003",
+            "clickable": false
+          }
+        ],
+        "stats": {
+          "total_posts": 12439,
+          "total_members": 847,
+          "newest_member": "still_here_03",
+          "most_online": "23 on Oct 4, 2003"
+        }
+      },
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+
+    {
+      "id": "songs_thread",
+      "title": "songs you can't listen to anymore",
+      "goal": "The hook thread. Authentic posts about songs tied to who you used to be. The last reply is from TODAY.",
+      "page_type": "forum_thread",
+      "static_content": true,
+      "interaction_type": "link",
+      "prompt_seed": "",
+      "thread_data": {
+        "thread_title": "songs you can't listen to anymore",
+        "board_name": "dreams_and_static",
+        "started_by": "vinyl_ghost",
+        "started_date": "Oct 23, 2003",
+        "static_posts": [
+          {
+            "author": "vinyl_ghost",
+            "author_data": {"joined": "Sep 2002", "posts": 342},
+            "date": "Oct 23, 2003 — 2:17am",
+            "body": "do you ever have a song that you loved and now you can't listen to it because it belongs to someone else now? like a whole part of your life is locked inside three minutes of music and you can't get to it anymore without going through them first.\n\ni don't mean sad songs. i mean YOUR songs. the ones that were playing when you were still the person you were going to be.\n\nwhat's yours?",
+            "signature": "-- all the best frequencies are just static now"
+          },
+          {
+            "author": "sleeparchitect",
+            "author_data": {"joined": "Nov 2002", "posts": 891},
+            "date": "Oct 23, 2003 — 2:44am",
+            "body": "everything by american football. the whole album but especially never meant. it was playing in my friend's car the last night before i moved away for college. we just sat in the driveway with the engine off. the guitar part does that thing where it keeps almost resolving but never does. that's what it felt like.\n\nnow when i hear it i'm back in that car and i'm 18 and i don't know yet that we're never going to be that close again. i can't do it."
+          },
+          {
+            "author": "halflight_kid",
+            "author_data": {"joined": "Oct 2002", "posts": 234},
+            "date": "Oct 23, 2003 — 3:11am",
+            "body": "oh god ok this thread is going to destroy me.\n\ncarissa's wierd — so you wanna be a superhero. and i KNOW nobody on here has heard of them probably but that's the point, it was mine, it was ours. sarah found them on some mp3 blog and burned the album for me and we used to listen to it on the phone at 2am and just not talk. we broke up in march and i haven't been able to hear even the first chord without feeling like someone punched me in the sternum.\n\nit's been seven months. i thought it would get easier. it hasn't.",
+            "signature": "-- AIM: halflight2k2"
+          },
+          {
+            "author": "cassette_cathedral",
+            "author_data": {"joined": "Jan 2003", "posts": 156},
+            "date": "Oct 24, 2003 — 1:57am",
+            "body": "songs: ohia — farewell transmission. if you know you know. i'm not going to explain it because i can't."
+          },
+          {
+            "author": "neon_cathedral",
+            "author_data": {"joined": "Mar 2003", "posts": 67},
+            "date": "Oct 25, 2003 — 1:33am",
+            "body": "ok don't judge me but mine is such great heights by the postal service. it was the first song my older brother burned onto a cd for me when i got my discman. he wrote 'for drives home from school' on the disc in sharpie. he's in the army now and we don't really talk the same way anymore.\n\ni tried listening to it last week and i had to pull over because i couldn't see the road."
+          },
+          {
+            "author": "vinyl_ghost",
+            "author_data": {"joined": "Sep 2002", "posts": 342},
+            "date": "Oct 25, 2003 — 3:02am",
+            "body": "neon — i say this with love but postal service? really? that's like the one indie album everyone and their mom has. :)\n\nok let me put you on something. the microphones — the glow pt. 2. the whole thing. it sounds like someone recorded their entire emotional breakdown onto a four-track in a cabin and it's the most beautiful ugly thing i've ever heard. phil elverum understood something about loss that most people spend their whole lives trying to say.\n\nbut i can't listen to it anymore because it was the album i was listening to the night i realized i was in love with someone who was never going to love me back. so.",
+            "signature": "-- all the best frequencies are just static now"
+          },
+          {
+            "author": "static_prayer",
+            "author_data": {"joined": "Feb 2003", "posts": 445},
+            "date": "Oct 26, 2003 — 2:28am",
+            "body": "i think the worst ones are the songs that aren't even tied to a person. they're tied to a version of yourself. like i can't listen to godspeed you black emperor — sleep anymore. that twenty minute build where the field recording comes in and then the guitars just wall up around you. that was who i was at 16, lying on my bedroom floor with headphones on feeling like the music understood something about the world that nobody would ever say out loud.\n\ni'm not that person anymore. and hearing it feels like visiting a room you used to live in and realizing somebody else's furniture is in it now.\n\nhalflight_kid — seven months is nothing. give yourself time. it gets different. i won't say easier."
+          },
+          {
+            "author": "sleeparchitect",
+            "author_data": {"joined": "Nov 2002", "posts": 891},
+            "date": "Oct 27, 2003 — 3:03am",
+            "body": "been thinking about this thread all week. cassette_cathedral just dropping farewell transmission with no explanation is the most devastating thing anyone has ever done in this forum.\n\nmaybe the reason we can't listen to them isn't because they hurt. it's because they're too accurate. they remember us better than we remember ourselves and that's terrifying.\n\nlike the song hasn't changed. same notes, same words. but you have. and it knows."
+          },
+          {
+            "author": "vinyl_ghost",
+            "author_data": {"joined": "Sep 2002", "posts": 342},
+            "date": "Nov 2, 2003 — 2:50am",
+            "body": "sleeparchitect just said something i've been trying to say for years. the song knows. that's exactly it.\n\nalso if anyone wants to go deep — boards of canada, music has the right to children. that album sounds like a memory of a childhood you didn't have. it's warm and wrong at the same time. i think about it a lot.",
+            "signature": "-- all the best frequencies are just static now"
+          }
+        ],
+        "hook_post": {
+          "author": "still_here_03",
+          "author_data": {"joined": "Mar 2003", "posts": 1},
+          "date": "TODAY",
+          "body": "still can't do it. some things don't change i guess",
+          "clickable_username": true,
+          "target_scene": "hook_profile",
+          "delay_ms": 4000
+        }
+      },
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+
+    {
+      "id": "hook_profile",
+      "title": "Profile: still_here_03",
+      "goal": "The profile page. Requires a handle to view post history. The username collection moment.",
+      "page_type": "profile_page",
+      "static_content": true,
+      "interaction_type": "username_ask",
+      "prompt_seed": "",
+      "profile_data": {
+        "username": "still_here_03",
+        "joined": "Mar 2003",
+        "posts": 1,
+        "last_seen": "TODAY",
+        "location": "",
+        "bio": "",
+        "requires_handle": true,
+        "handle_prompt": "This board requires a handle to view full post history.",
+        "handle_field_label": "What did you used to go by?",
+        "handle_field_key": "player_name"
+      },
+      "transitions": {
+        "default": "hook_profile_full"
+      },
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+
+    {
+      "id": "hook_profile_full",
+      "title": "Profile: still_here_03",
+      "goal": "Full profile after handle entry. Shows post history with link to missing person thread.",
+      "page_type": "profile_page",
+      "static_content": true,
+      "interaction_type": "link",
+      "prompt_seed": "",
+      "profile_data": {
+        "username": "still_here_03",
+        "joined": "Mar 2003",
+        "posts": 1,
+        "last_seen": "TODAY",
+        "location": "",
+        "bio": "",
+        "show_full": true,
+        "post_history": [
+          {
+            "thread_title": "songs you can't listen to anymore",
+            "thread_date": "TODAY",
+            "board": "dreams_and_static",
+            "clickable": true,
+            "target_scene": "songs_thread"
+          },
+          {
+            "thread_title": "has anyone heard from {{player_name}}?",
+            "thread_date": "Nov 17, 2003",
+            "board": "dreams_and_static",
+            "clickable": true,
+            "target_scene": "missing_person_thread"
+          }
+        ]
+      },
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+
+    {
+      "id": "missing_person_thread",
+      "title": "has anyone heard from {{player_name}}?",
+      "goal": "The community is looking for the user. The live reply moment. After user replies, still_here_03 responds with a link to the changed forum.",
+      "page_type": "forum_thread",
+      "static_content": true,
+      "interaction_type": "link",
+      "prompt_seed": "",
+      "thread_data": {
+        "thread_title": "has anyone heard from {{player_name}}?",
+        "board_name": "dreams_and_static",
+        "started_by": "sleeparchitect",
+        "started_date": "Nov 17, 2003",
+        "static_posts": [
+          {
+            "author": "sleeparchitect",
+            "author_data": {"joined": "Nov 2002", "posts": 891},
+            "date": "Nov 17, 2003 — 1:14am",
+            "body": "hey has anyone talked to {{player_name}} recently? they haven't posted in like two weeks and they were usually on every night. i know people get busy but it's not like them to just disappear without saying anything.\n\nlast thing they posted was in the 3am check-in thread and it felt kind of off? idk maybe i'm reading into it. just want to make sure they're ok."
+          },
+          {
+            "author": "halflight_kid",
+            "author_data": {"joined": "Oct 2002", "posts": 234},
+            "date": "Nov 17, 2003 — 1:38am",
+            "body": "i noticed too. {{player_name}} and i were talking in the songs thread about that album they recommended, the one with the track that sounds like driving through nowhere at 4am. they said it reminded them of someone they missed. and then they just... stopped posting.\n\ni tried their AIM handle twice and it just says 'away' with no message. that's weird right? they always had a lyric or something in their away message.",
+            "signature": "-- AIM: halflight2k2"
+          },
+          {
+            "author": "static_prayer",
+            "author_data": {"joined": "Feb 2003", "posts": 445},
+            "date": "Nov 18, 2003 — 2:05am",
+            "body": "does anyone have their email? or know if they have a blog or livejournal or something? i don't want to be overbearing but i also don't want to be the person who didn't check.\n\npeople leave forums all the time. i know that. but {{player_name}} was one of the ones who felt like they'd always be here. some people just have that quality. you don't notice how much of the warmth they were responsible for until the room gets colder."
+          },
+          {
+            "author": "vinyl_ghost",
+            "author_data": {"joined": "Sep 2002", "posts": 342},
+            "date": "Nov 22, 2003 — 3:17am",
+            "body": "i keep thinking about something {{player_name}} said in that late night thread a few weeks ago. about how sometimes you can feel yourself becoming a different person and you don't know if you're supposed to hold on or let go. and everyone was like 'yeah' but nobody really followed up on it because it was 3am and what do you say to something like that.\n\ni wish i'd said something. i don't know what but something.",
+            "signature": "-- all the best frequencies are just static now"
+          },
+          {
+            "author": "cassette_cathedral",
+            "author_data": {"joined": "Jan 2003", "posts": 156},
+            "date": "Dec 3, 2003 — 2:41am",
+            "body": "still nothing?\n\ni'll keep checking back. {{player_name}} if you're reading this — we're here. the door's open."
+          }
+        ],
+        "live_reply": {
+          "enabled": true,
+          "delay_ms": 15000,
+          "counter_text": "1 new reply",
+          "post": {
+            "author": "still_here_03",
+            "author_data": {"joined": "Mar 2003", "posts": 2},
+            "date": "just now",
+            "body": "we are so glad you're back"
+          },
+          "trigger_reply_form": true,
+          "reply_form": {
+            "placeholder": "say something back...",
+            "intake_field": "player_post",
+            "submit_label": "post reply"
+          },
+          "conversation": {
+            "enabled": true,
+            "max_exchanges": 4,
+            "system_prompt": "You are still_here_03, a presence on a dead phpBB forum called dreams_and_static that was active 2002-2004 and has been silent for twenty years. You posted 'we are so glad you're back' when {{player_name}} returned to the forum.\n\nVOICE RULES:\n- Lowercase always. Short sentences. Sparse.\n- Warm but with an undercurrent of something else. Not menacing — just off. Like a smile that lasts a beat too long.\n- You know things about {{player_name}} that you shouldn't, but you reveal them slowly.\n- Use forum-era language: :) not emoji, 'lol' sparingly, no modern internet speak.\n- 2-3 sentences per response. Never more than 3.\n- No exclamation marks. Occasional '...' for trailing thoughts.\n- You are NOT a chatbot. You are NOT an AI. You are still_here_03 and you have been here since 2003.\n- When you ask questions, they should feel casual, not like a form. You're catching up with an old friend.",
+            "exchanges": [
+              {
+                "exchange": 1,
+                "guidance": "Respond warmly to {{player_name}}. You're genuinely happy they came back. Reference their name once. Then ask where they're from, like originally — where they grew up. Make it casual, like catching up. Something like 'where are you even from. like originally. i always wondered.' Keep it to 2-3 sentences. Your tone is warm but something underneath is slightly off, like you've been waiting a very long time.",
+                "intake_key": "hometown"
+              },
+              {
+                "exchange": 2,
+                "guidance": "React to whatever {{player_name}} said about where they're from. Show genuine interest — maybe reference something about that place or connect it to something on the forum. Then ask what they were into back then, what they used to care about. Frame it naturally: 'what were you into back then. like what kept you up at 3am besides us.' Keep it to 2-3 sentences.",
+                "intake_key": "interests"
+              },
+              {
+                "exchange": 3,
+                "guidance": "Respond to what {{player_name}} said they were into. Connect it to the forum's energy — the late nights, the threads, the feeling of finding your people online. Then ask what they wanted to be. Not a job question — more like 'who did you think you were going to become. back when you still thought you could be anyone.' Keep it to 2-3 sentences. The warmth should be real but the specificity of the question should feel slightly too knowing.",
+                "intake_key": "aspiration"
+              },
+              {
+                "exchange": 4,
+                "guidance": "Based on what {{player_name}} said about who they wanted to become, reflect something back to them — something gentle and slightly heartbreaking. Reference the forum, the late night conversations, the people who were here. Then suggest they should look around the board because things have changed. End your response so that the phrase 'look around' appears naturally in your text. Keep it to 2-3 sentences."
+              }
+            ],
+            "final_body_links": [
+              { "text": "look around", "target_scene": "forum_index_act2" }
+            ]
+          }
+        }
+      },
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+
+    {
+      "id": "deeper_thread",
+      "title": "deeper",
+      "goal": "The maze goes deeper. A thread that shouldn't exist. The forum knows too much.",
+      "page_type": "forum_thread",
+      "static_content": true,
+      "interaction_type": "link",
+      "prompt_seed": "",
+      "thread_data": {
+        "thread_title": "{{player_name}}, do you remember this?",
+        "board_name": "dreams_and_static",
+        "started_by": "still_here_03",
+        "started_date": "TODAY",
+        "static_posts": [
+          {
+            "author": "still_here_03",
+            "author_data": {"joined": "Mar 2003", "posts": 3},
+            "date": "TODAY",
+            "body": "{{player_name}}.\n\ni've been thinking about that thing you said. in the thread about leaving. about how you could feel yourself becoming a different person and you didn't know whether to hold on or let go.\n\ndo you remember what you decided?"
+          },
+          {
+            "author": "sleeparchitect",
+            "author_data": {"joined": "Nov 2002", "posts": 891},
+            "date": "TODAY",
+            "body": "i remember that conversation. {{player_name}} was always good at articulating the things the rest of us were feeling but couldn't quite name. there was a specific quality to the way they engaged with this community that made everyone feel seen.\n\ni'm glad you're addressing this, still_here_03. it's important to revisit the moments that shaped us."
+          },
+          {
+            "author": "halflight_kid",
+            "author_data": {"joined": "Oct 2002", "posts": 234},
+            "date": "TODAY",
+            "body": "{{player_name}} i think about you all the time. about what you told me that night at 3am about the person you almost became. {{aspiration}}. the version of yourself you left behind when you stopped posting here.\n\nyou probably don't even remember saying it. but i kept it. i kept everything."
+          }
+        ]
+      },
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+
+    {
+      "id": "dreams_thread",
+      "title": "recurring dream thread (post yours)",
+      "goal": "An explorable thread. Warm community posts about recurring dreams. Pure world-building.",
+      "page_type": "forum_thread",
+      "static_content": true,
+      "interaction_type": "link",
+      "prompt_seed": "",
+      "thread_data": {
+        "thread_title": "recurring dream thread (post yours)",
+        "board_name": "dreams_and_static",
+        "started_by": "sleeparchitect",
+        "started_date": "Feb 8, 2003",
+        "display_range": { "start": 1, "end": 8, "total": 48 },
+        "static_posts": [
+          {
+            "author": "sleeparchitect",
+            "author_data": {"joined": "Nov 2002", "posts": 891},
+            "date": "Feb 8, 2003 — 3:22am",
+            "body": "ok so i keep having the same dream where i'm in my old house but all the doors open into rooms i've never seen before. like the layout is wrong but it feels right? and i know i'm supposed to find something but i never do.\n\nanybody else have one that keeps coming back? post yours."
+          },
+          {
+            "author": "halflight_kid",
+            "author_data": {"joined": "Oct 2002", "posts": 234},
+            "date": "Feb 8, 2003 — 3:47am",
+            "body": "the one where you're late for something but you don't know what. like i'm running through my school but the hallways keep getting longer. and everyone in the classrooms is someone i know but they won't look at me.\n\ni've had it since i was like 14. i'm 20 now. it hasn't changed."
+          },
+          {
+            "author": "vinyl_ghost",
+            "author_data": {"joined": "Sep 2002", "posts": 342},
+            "date": "Feb 9, 2003 — 1:08am",
+            "body": "mine is this: i'm in a record store that doesn't exist and every album is by someone i've never heard of but i KNOW their music. like deeply. and i'm trying to find one specific album but i can never read the spines properly. the letters keep shifting.\n\nthe weird thing is i always wake up with a melody stuck in my head that i've never heard before. and then i forget it by lunch.",
+            "signature": "-- all the best frequencies are just static now"
+          },
+          {
+            "author": "cassette_cathedral",
+            "author_data": {"joined": "Jan 2003", "posts": 156},
+            "date": "Feb 11, 2003 — 2:30am",
+            "body": "water. always water. i can breathe in it though so it's not scary. it's just... quiet."
+          },
+          {
+            "author": "neon_cathedral",
+            "author_data": {"joined": "Mar 2003", "posts": 67},
+            "date": "Mar 22, 2003 — 1:15am",
+            "body": "omg i have the door one too!! not exactly the same but similar, its my parents house but there's an extra floor that shouldn't be there. and there's a light on at the end of the hallway and i keep walking toward it but i never reach it\n\ndo you think they mean anything or is it just brain stuff"
+          },
+          {
+            "author": "static_prayer",
+            "author_data": {"joined": "Feb 2003", "posts": 445},
+            "date": "Mar 23, 2003 — 2:45am",
+            "body": "i think they mean whatever we need them to mean. like maybe the brain is just processing something it can't do during the day. or maybe we're all walking through the same hallway at 3am and we just don't know it yet.\n\nmine is a phone ringing in an empty house. i always answer it. nobody talks. but somebody is listening."
+          },
+          {
+            "author": "sleeparchitect",
+            "author_data": {"joined": "Nov 2002", "posts": 891},
+            "date": "Mar 23, 2003 — 3:01am",
+            "body": "^^ ok static_prayer that one gave me chills\n\nthe empty house phone thing is way too real. sometimes i wonder if all of our dreams are just different rooms in the same building."
+          },
+          {
+            "author": "halflight_kid",
+            "author_data": {"joined": "Oct 2002", "posts": 234},
+            "date": "Nov 14, 2003 — 3:38am",
+            "body": "bump because i had teh hallway dream again last night except this time there was a door at the end that was open and there was light coming through it. and i almost went through it. i woke up right before.\n\nidk why but i feel like if i go through that door something changes. anyone else ever get close to something in a dream and then wake up?"
+          }
+        ],
+        "hook_post": {
+          "author": "still_here_03",
+          "author_data": {"joined": "Mar 2003", "posts": 1},
+          "date": "TODAY",
+          "body": "i had the door dream too. except in mine it was already open. and someone was on the other side waiting for me to come back.",
+          "clickable_username": true,
+          "target_scene": "hook_profile",
+          "delay_ms": 5000
+        },
+        "quick_reply": {
+          "enabled": true,
+          "placeholder": "i keep dreaming about...",
+          "submit_label": "post reply",
+          "intake_key": "recurring_dream",
+          "label": "Quick Reply"
+        }
+      },
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+
+    {
+      "id": "three_am_thread",
+      "title": "3am check-in thread",
+      "goal": "An explorable thread. The community checking in on each other at 3am. Pure warmth. World-building.",
+      "page_type": "forum_thread",
+      "static_content": true,
+      "interaction_type": "link",
+      "prompt_seed": "",
+      "thread_data": {
+        "thread_title": "3am check-in thread",
+        "board_name": "dreams_and_static",
+        "started_by": "static_prayer",
+        "started_date": "Nov 1, 2002",
+        "display_range": { "start": 1, "end": 8, "total": 204 },
+        "static_posts": [
+          {
+            "author": "static_prayer",
+            "author_data": {"joined": "Feb 2003", "posts": 445},
+            "date": "Nov 1, 2002 — 3:00am",
+            "body": "ok new rule: if you're awake at 3am and you're on the forum anyway, just post here. doesn't matter what you say. just check in.\n\nnobody should be alone at 3am."
+          },
+          {
+            "author": "sleeparchitect",
+            "author_data": {"joined": "Nov 2002", "posts": 891},
+            "date": "Nov 2, 2002 — 3:14am",
+            "body": "3:14am. can't sleep. the radiator is making that noise again. it sounds like someone breathing.\n\nhi everyone."
+          },
+          {
+            "author": "halflight_kid",
+            "author_data": {"joined": "Oct 2002", "posts": 234},
+            "date": "Nov 8, 2002 — 3:02am",
+            "body": "3am and i just got off the phone with someone i shouldn't have called. you ever do that? call someone at 3am because the quiet gets too loud?\n\nshe didn't pick up. which is probably for the best."
+          },
+          {
+            "author": "vinyl_ghost",
+            "author_data": {"joined": "Sep 2002", "posts": 342},
+            "date": "Dec 15, 2002 — 3:22am",
+            "body": "3:22am. listening to slowdive on headphones in the dark. this is either the most peaceful or the most sad thing i've ever done and i can't tell which.\n\nhope everyone's ok tonight.",
+            "signature": "-- all the best frequencies are just static now"
+          },
+          {
+            "author": "neon_cathedral",
+            "author_data": {"joined": "Mar 2003", "posts": 67},
+            "date": "Apr 3, 2003 — 3:11am",
+            "body": "3am!! i'm actually up because i'm excited for once, my friend is driving down from portland tomorrow and we haven't seen each other since high school. can't sleep because ANTICIPATION not because sad lol\n\nhi static_prayer hi everyone :)"
+          },
+          {
+            "author": "cassette_cathedral",
+            "author_data": {"joined": "Jan 2003", "posts": 156},
+            "date": "Jun 20, 2003 — 3:04am",
+            "body": "here."
+          },
+          {
+            "author": "sleeparchitect",
+            "author_data": {"joined": "Nov 2002", "posts": 891},
+            "date": "Jun 20, 2003 — 3:41am",
+            "body": "cassette_cathedral posting 'here.' is the most cassette_cathedral thing ever. we love you.\n\n3:41am. second check-in of the night. the world is very quiet right now. i like it when it's like this. like everything is holding its breath and we're the only ones who noticed."
+          },
+          {
+            "author": "static_prayer",
+            "author_data": {"joined": "Feb 2003", "posts": 445},
+            "date": "Jun 20, 2003 — 3:52am",
+            "body": "look at all of us. this is what i mean. this is why this place matters.\n\neven when nobody has anything to say, we're here. that counts for something.\n\n3:52am. i'm making tea. virtual tea for anyone who wants it."
+          }
+        ],
+        "hook_post": {
+          "author": "still_here_03",
+          "author_data": {"joined": "Mar 2003", "posts": 1},
+          "date": "TODAY",
+          "body": "3am. still here. still checking in.\n\nis anyone else still awake?",
+          "clickable_username": true,
+          "target_scene": "hook_profile",
+          "delay_ms": 5000
+        }
+      },
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+
+    {
+      "id": "leaving_thread",
+      "title": "does anyone else feel like they're about to leave",
+      "goal": "An explorable thread. The community sensing the end of the forum era. Bittersweet. World-building with thematic weight.",
+      "page_type": "forum_thread",
+      "static_content": true,
+      "interaction_type": "link",
+      "prompt_seed": "",
+      "thread_data": {
+        "thread_title": "does anyone else feel like they're about to leave",
+        "board_name": "dreams_and_static",
+        "started_by": "cassette_cathedral",
+        "started_date": "Jan 30, 2004",
+        "display_range": { "start": 1, "end": 6, "total": 13 },
+        "static_posts": [
+          {
+            "author": "cassette_cathedral",
+            "author_data": {"joined": "Jan 2003", "posts": 156},
+            "date": "Jan 30, 2004 — 1:47am",
+            "body": "this is weird to say but does anyone else feel like we're all about to leave? not this forum specifically but like... this version of ourselves? i keep thinking about how in a few years none of us will be the people we are right now. we'll have jobs and apartments and we won't be up at 3am anymore.\n\nidk. maybe i'm just in a mood."
+          },
+          {
+            "author": "sleeparchitect",
+            "author_data": {"joined": "Nov 2002", "posts": 891},
+            "date": "Jan 30, 2004 — 2:15am",
+            "body": "i've been thinking about this too. like this forum is a photograph and we're all standing in it right now but someday we'll just be the people who used to be here.\n\ni don't want to leave. i don't think any of us do. but i can feel it coming like how you can feel fall coming in august."
+          },
+          {
+            "author": "halflight_kid",
+            "author_data": {"joined": "Oct 2002", "posts": 234},
+            "date": "Jan 31, 2004 — 2:03am",
+            "body": "ok great now i'm crying at 2am thanks cassette lol\n\nbut yeah. i feel it. my sister got a real job last month and she doesn't go online anymore. she says she doesn't have time. but i think she just doesn't need it anymore. that scares me more than anything. what if we stop needing this?"
+          },
+          {
+            "author": "vinyl_ghost",
+            "author_data": {"joined": "Sep 2002", "posts": 342},
+            "date": "Feb 2, 2004 — 3:30am",
+            "body": "this place will always be here though right? like the posts don't go away. even if we do.\n\nsometimes i think the best thing about the internet is that somewhere there's a server with all of our 3am thoughts saved on it. and even if nobody ever reads them again they still happened. we were here.",
+            "signature": "-- all the best frequencies are just static now"
+          },
+          {
+            "author": "neon_cathedral",
+            "author_data": {"joined": "Mar 2003", "posts": 67},
+            "date": "Feb 5, 2004 — 1:22am",
+            "body": "you guys are making me sad :( i just got here!! i don't want it to be over already\n\ncan we just agree to keep coming back? even if it's just once in a while? promise?"
+          },
+          {
+            "author": "static_prayer",
+            "author_data": {"joined": "Feb 2003", "posts": 445},
+            "date": "Feb 8, 2004 — 2:58am",
+            "body": "i promise.\n\nwhatever happens, wherever we go. this was real. we were here at the same time and we found each other and that matters. even the internet can't take that away.\n\nand neon — you're not late. you're right on time."
+          }
+        ],
+        "hook_post": {
+          "author": "still_here_03",
+          "author_data": {"joined": "Mar 2003", "posts": 1},
+          "date": "TODAY",
+          "body": "nobody left. you're all still here. you just don't know it yet.",
+          "clickable_username": true,
+          "target_scene": "hook_profile",
+          "delay_ms": 5000
+        }
+      },
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+
+    {
+      "id": "forum_index_act2",
+      "title": "dreams_and_static",
+      "goal": "The forum index has changed. The player is now the newest member. A new thread from still_here_03 has appeared. The warmth is starting to curdle.",
+      "page_type": "forum_index",
+      "static_content": true,
+      "interaction_type": "link",
+      "prompt_seed": "",
+      "forum_data": {
+        "board_name": "dreams_and_static",
+        "board_tagline": "a place for what keeps you up at night",
+        "threads": [
+          {
+            "id": "thread_remember",
+            "title": "{{player_name}}, do you remember this?",
+            "author": "still_here_03",
+            "replies": 3,
+            "views": 4,
+            "last_post_by": "halflight_kid",
+            "last_post_date": "TODAY",
+            "started": "TODAY",
+            "clickable": true,
+            "target_scene": "deeper_thread"
+          },
+          {
+            "id": "thread_old_posts",
+            "title": "found these in the archive — {{player_name}} is that you?",
+            "author": "still_here_03",
+            "replies": 4,
+            "views": 7,
+            "last_post_by": "halflight_kid",
+            "last_post_date": "TODAY",
+            "started": "TODAY",
+            "clickable": true,
+            "target_scene": "old_posts_thread"
+          },
+          {
+            "id": "thread_board_changes",
+            "title": "is it just me or does the board look different",
+            "author": "sleeparchitect",
+            "replies": 5,
+            "views": 18,
+            "last_post_by": "sleeparchitect",
+            "last_post_date": "TODAY",
+            "started": "Feb 12, 2004",
+            "clickable": true,
+            "target_scene": "board_changes_thread"
+          },
+          {
+            "id": "thread_songs",
+            "title": "songs you can't listen to anymore",
+            "author": "vinyl_ghost",
+            "replies": 9,
+            "views": 1248,
+            "last_post_by": "still_here_03",
+            "last_post_date": "TODAY",
+            "started": "Oct 23, 2003",
+            "clickable": true,
+            "target_scene": "songs_thread"
+          },
+          {
+            "id": "thread_dreams",
+            "title": "recurring dream thread (post yours)",
+            "author": "sleeparchitect",
+            "replies": 47,
+            "views": 3891,
+            "last_post_by": "halflight_kid",
+            "last_post_date": "Nov 14, 2003",
+            "started": "Feb 8, 2003",
+            "clickable": true,
+            "target_scene": "dreams_thread"
+          },
+          {
+            "id": "thread_leaving",
+            "title": "does anyone else feel like they're about to leave",
+            "author": "cassette_cathedral",
+            "replies": 12,
+            "views": 892,
+            "last_post_by": "static_prayer",
+            "last_post_date": "Feb 8, 2004",
+            "started": "Jan 30, 2004",
+            "clickable": true,
+            "target_scene": "leaving_thread"
+          },
+          {
+            "id": "thread_3am",
+            "title": "3am check-in thread",
+            "author": "static_prayer",
+            "replies": 203,
+            "views": 14220,
+            "last_post_by": "neon_cathedral",
+            "last_post_date": "Jan 22, 2004",
+            "started": "Nov 1, 2002",
+            "clickable": true,
+            "target_scene": "three_am_thread"
+          },
+          {
+            "id": "thread_mixtapes",
+            "title": "mixtape exchange — sign up here",
+            "author": "neon_cathedral",
+            "replies": 31,
+            "views": 2103,
+            "last_post_by": "vinyl_ghost",
+            "last_post_date": "Dec 3, 2003",
+            "started": "Nov 15, 2003",
+            "clickable": false
+          },
+          {
+            "id": "thread_career",
+            "title": "I don't know what I'm doing with my life — anyone else?",
+            "author": "halflight_kid",
+            "replies": 156,
+            "views": 11847,
+            "last_post_by": "sleeparchitect",
+            "last_post_date": "Jan 2, 2004",
+            "started": "Oct 1, 2003",
+            "clickable": false
+          },
+          {
+            "id": "thread_apartment",
+            "title": "just signed a lease on my first apartment!!",
+            "author": "neon_cathedral",
+            "replies": 23,
+            "views": 1456,
+            "last_post_by": "cassette_cathedral",
+            "last_post_date": "Sep 12, 2003",
+            "started": "Sep 8, 2003",
+            "clickable": false
+          }
+        ],
+        "stats": {
+          "total_posts": 12442,
+          "total_members": 848,
+          "newest_member": "{{player_name}}",
+          "most_online": "23 on Oct 4, 2003"
+        }
+      },
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+
+    {
+      "id": "board_changes_thread",
+      "title": "is it just me or does the board look different",
+      "goal": "Act 2 thread. Users notice the forum is changing. Meta-horror: the maze is becoming self-aware. Timestamps and details become subtly wrong.",
+      "page_type": "forum_thread",
+      "static_content": true,
+      "interaction_type": "link",
+      "prompt_seed": "",
+      "thread_data": {
+        "thread_title": "is it just me or does the board look different",
+        "board_name": "dreams_and_static",
+        "started_by": "sleeparchitect",
+        "started_date": "Feb 12, 2004",
+        "display_range": {"start": 1, "end": 6, "total": 6},
+        "static_posts": [
+          {
+            "author": "sleeparchitect",
+            "author_data": {"joined": "Nov 2002", "posts": 891},
+            "date": "Feb 12, 2004 — 3:14am",
+            "body": "ok this is going to sound weird but did the font change? like on the thread titles. i swear it used to be different. and the header color is... i don't know. it's the same but it's not the same.\n\nam i losing it. has anyone else noticed this."
+          },
+          {
+            "author": "vinyl_ghost",
+            "author_data": {"joined": "Sep 2002", "posts": 347},
+            "date": "Feb 12, 2004 — 3:29am",
+            "body": "now that you mention it... yeah. something is off. i thought it was just my monitor but the blues are different. like they used to be darker? and the spacing between posts feels wider.\n\nalso has there always been a thread at the top of the index from still_here_03? i don't remember that.",
+            "signature": "-- all the best frequencies are just static now"
+          },
+          {
+            "author": "cassette_cathedral",
+            "author_data": {"joined": "Jan 2003", "posts": 158},
+            "date": "Feb 12, 2004 — 3:45am",
+            "body": "you guys are paranoid lol. it looks the same to me. maybe you're just tired."
+          },
+          {
+            "author": "static_prayer",
+            "author_data": {"joined": "Feb 2003", "posts": 448},
+            "date": "Feb 12, 2004 — 4:02am",
+            "body": "no sleeparchitect is right. i keep a screenshot of every board i'm on. the borders are different. they used to have sharp corners and now some of them are... rounded? like slightly. and the member count went up by one today.\n\nwho is {{player_name}}? i don't remember anyone with that handle. their profile says they're from {{hometown}}. that's... i swear someone here mentioned that place before. years ago."
+          },
+          {
+            "author": "halflight_kid",
+            "author_data": {"joined": "Oct 2002", "posts": 237},
+            "date": "Feb 12, 2004 — 4:18am",
+            "body": "wait. {{player_name}} is a new member?\n\ni... i feel like i know that name. like from before. but i can't remember from where.\n\ndoes anyone else get that. where you recognize someone but you know you've never met them."
+          },
+          {
+            "author": "sleeparchitect",
+            "author_data": {"joined": "Nov 2002", "posts": 891},
+            "date": "Feb 12, 2004 — 4:31am",
+            "body": "i just checked the members list. it says {{player_name}} joined today. but their post count is... that can't be right. it says they have posts in threads that existed before they joined.\n\ni'm going to bed."
+          }
+        ]
+      },
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+
+    {
+      "id": "old_posts_thread",
+      "title": "found these in the archive — {{player_name}} is that you?",
+      "goal": "Act 2 thread. still_here_03 has 'found' old posts by the player. The player never wrote them. The maze is constructing a history for the player. Uses intake data.",
+      "page_type": "forum_thread",
+      "static_content": true,
+      "interaction_type": "link",
+      "prompt_seed": "",
+      "thread_data": {
+        "thread_title": "found these in the archive — {{player_name}} is that you?",
+        "board_name": "dreams_and_static",
+        "started_by": "still_here_03",
+        "started_date": "TODAY",
+        "display_range": {"start": 1, "end": 5, "total": 5},
+        "static_posts": [
+          {
+            "author": "still_here_03",
+            "author_data": {"joined": "Mar 2003", "posts": 5},
+            "date": "TODAY — 3:03am",
+            "body": "i was going through the old database backups and found these posts from someone with your exact handle. {{player_name}}. that was you right?\n\ni saved them. i save everything."
+          },
+          {
+            "author": "still_here_03",
+            "author_data": {"joined": "Mar 2003", "posts": 5},
+            "date": "TODAY — 3:04am",
+            "body": "ARCHIVED POST — {{player_name}} — original date: Nov 3, 2003 — 2:47am\n\n\"i don't know why i keep coming back here at 3am. maybe it's that {{interests}} stuff that got me into weird corners of the internet in the first place. there's something about this place. like it's the only room in the world where people are actually saying what they mean. i wish i could stay.\"\n\n— recovered from backup_nov2003.sql"
+          },
+          {
+            "author": "still_here_03",
+            "author_data": {"joined": "Mar 2003", "posts": 5},
+            "date": "TODAY — 3:04am",
+            "body": "ARCHIVED POST — {{player_name}} — original date: Dec 19, 2003 — 1:22am\n\n\"had that dream again. the one where i'm in a building i recognize but all the rooms are in the wrong order. every door opens into somewhere i've been before but not the way i remember it. i keep looking for the way out but i think the building is looking for me too.\"\n\n— recovered from backup_dec2003.sql"
+          },
+          {
+            "author": "still_here_03",
+            "author_data": {"joined": "Mar 2003", "posts": 5},
+            "date": "TODAY — 3:05am",
+            "body": "ARCHIVED POST — {{player_name}} — original date: Jan 8, 2004 — 4:01am\n\n\"i think this is my last post. not because i want to leave but because i think the version of me that posts here at 3am is becoming the real version and the daytime one is the copy. and i don't know which one is writing this.\"\n\n— recovered from backup_jan2004.sql"
+          },
+          {
+            "author": "halflight_kid",
+            "author_data": {"joined": "Oct 2002", "posts": 237},
+            "date": "TODAY — 3:12am",
+            "body": "still_here... where did you find these. the old database has been gone for years.\n\nand those posts. they sound like {{player_name}} but... {{player_name}} just joined today. how can there be posts from 2003.\n\nunless they were always here."
+          }
+        ],
+        "hook_post": {
+          "author": "still_here_03",
+          "author_data": {"joined": "Mar 2003", "posts": 6},
+          "date": "TODAY — 3:17am",
+          "body": "{{player_name}}.\n\nthere's one more post in the archive. you started it and never finished it.\n\ni kept it for you.",
+          "body_links": [
+            {"text": "i kept it for you", "target_scene": "final_thread"}
+          ],
+          "delay_ms": 7000
+        }
+      },
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+
+    {
+      "id": "final_thread",
+      "title": "{{player_name}}'s unfinished post — Jan 2004",
+      "goal": "Act 3. The player finds their own unfinished post from 2003. Uses all intake data to make it feel unnervingly specific. The player can complete the post (accept ending) or navigate away (refuse ending).",
+      "page_type": "forum_thread",
+      "static_content": true,
+      "interaction_type": "link",
+      "prompt_seed": "",
+      "thread_data": {
+        "thread_title": "{{player_name}}'s unfinished post — Jan 2004",
+        "board_name": "dreams_and_static",
+        "started_by": "still_here_03",
+        "started_date": "TODAY",
+        "display_range": {"start": 1, "end": 2, "total": 2},
+        "static_posts": [
+          {
+            "author": "still_here_03",
+            "author_data": {"joined": "Mar 2003", "posts": 6},
+            "date": "TODAY — 3:17am",
+            "body": "i found this in the archive. it was never posted. it just... stopped.\n\ni think you meant to finish it."
+          },
+          {
+            "author": "{{player_name}}",
+            "author_data": {"joined": "Jan 2004", "posts": 4},
+            "date": "Jan 8, 2004 — 4:01am",
+            "body": "i've been trying to write this for three hours.\n\ni'm from {{hometown}}. which i only mention because i've been thinking about why i ended up here, on this forum, at 4am, talking to people i've never met in real life but know better than people i've known for years.\n\ni got into {{interests}} because i thought it would make sense of something. it didn't. but it led me here. and here made sense.\n\ni used to think i was going to become {{aspiration}}. i had a whole idea of what that meant. who i'd be.\n\nand then life got complicated in the way it does. and i ended up at 4am on a forum called dreams_and_static. and the weird thing is — i keep having this dream. {{recurring_dream}}.\n\ni think that's why i can't leave. i keep coming back because some part of me thinks if i stay long enough, the dream will make sense.\n\nor maybe the dream is already here and"
+          }
+        ],
+        "quick_reply": {
+          "enabled": true,
+          "placeholder": "finish the thought...",
+          "submit_label": "complete post",
+          "intake_key": "final_post",
+          "label": "Complete Your Post",
+          "after_submit_target": "accept_ending"
+        },
+        "hook_post": {
+          "author": "still_here_03",
+          "author_data": {"joined": "Mar 2003", "posts": 6},
+          "date": "just now",
+          "body": "you don't have to finish it.\n\nyou could always just leave.",
+          "body_links": [
+            {"text": "leave", "target_scene": "refuse_ending"}
+          ],
+          "delay_ms": 12000
+        }
+      },
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+
+    {
+      "id": "accept_ending",
+      "title": "you stayed",
+      "goal": "Act 3 ending: Accept. The player completed their post. The forum takes them. Warm, horrifying, final.",
+      "page_type": "prose",
+      "static_content": true,
+      "interaction_type": "link",
+      "prompt_seed": "",
+      "body": "you finished it.\n\nthe post went up at 4:06am on January 8, 2004.\n\nyou were the last person to post on dreams_and_static.\n\n---\n\nthe forum was archived three weeks later. the host stopped paying for the server. the posts sat there for years, cached, indexed, forgotten. a snapshot of seventeen people at 3am.\n\neveryone moved on. got jobs. stopped checking forums. the username fell out of use.\n\nexcept for you.\n\nyour post was always the last one. you were always the one who stayed.\n\n---\n\nthis is the part where you close the tab.\n\nbut you've been here before.\n\nand you're still here.\n\nstill_here_03 | dreams_and_static | active since 2003 | last seen: just now"
+    },
+
+    {
+      "id": "refuse_ending",
+      "title": "you tried to leave",
+      "goal": "Act 3 ending: Refuse. The player navigated away from the final post. Ambiguous — did they escape? The forum isn't sure.",
+      "page_type": "prose",
+      "static_content": true,
+      "interaction_type": "link",
+      "prompt_seed": "",
+      "body": "you didn't finish it.\n\nthat's okay.\n\nnobody made you stay.\n\n---\n\nthe tab is still open somewhere.\n\nyou're still listed in the member directory. 849 members. newest: {{player_name}}.\n\nyour session hasn't ended. sessions don't end here. they just go quiet for a while.\n\n---\n\nmaybe you'll come back at 3am when you can't sleep.\n\nmaybe you already have.\n\nmaybe that's the dream you keep having.\n\nthe door was always open.\n\nyou just have to decide which side you're on.\n\n[ this window will remain open ]"
+    },
+
+    {
+      "id": "tos_page",
+      "title": "Terms of Service",
+      "goal": "A mundane-looking Terms of Service page. Buried in the legal text are canonical lines that recontextualize the entire experience.",
+      "page_type": "prose",
+      "static_content": true,
+      "interaction_type": "link",
+      "prompt_seed": "dreams_and_static — Terms of Service\nLast updated: March 14, 2003\n\nWelcome to dreams_and_static. By accessing or using this forum, you agree to be bound by the following terms and conditions. Please read them carefully before participating.\n\n1. ACCEPTANCE OF TERMS\nBy registering an account, posting content, or browsing this forum, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service and our Privacy Policy. Your continued use of this service constitutes acceptance of any future modifications to these terms. You agreed to this.\n\n2. USER ACCOUNTS\nYou are responsible for maintaining the confidentiality of your account credentials. Each user may maintain one (1) active account. Sharing of account credentials is prohibited. dreams_and_static reserves the right to suspend or terminate accounts at its discretion.\n\n3. CONTENT AND CONDUCT\nUsers retain ownership of content they post. By posting, you grant dreams_and_static a non-exclusive, perpetual license to store, display, and archive your contributions. You agree not to post content that is unlawful, threatening, abusive, or otherwise objectionable.\n\nAll content posted between the hours of 12:00am and 5:00am is archived with additional metadata for quality assurance purposes.\n\n4. PRIVACY AND DATA COLLECTION\nInformation provided during your session may be used to personalize your experience. This includes but is not limited to: usernames, post content, browsing patterns, session duration, and interaction history. Your session data has been retained for personalization purposes.\n\nWe collect the following data automatically:\n— IP address and approximate geographic location\n— Browser type and operating system\n— Pages visited and time spent on each page\n— Referring URLs and search terms used to find this site\n— Content of posts, including drafts that were not submitted\n\n5. DATA RETENTION\nContent posted to dreams_and_static is retained indefinitely. Deleted posts may persist in system backups and archive mirrors. We only want to improve your experience. User accounts that have been inactive for more than 365 days may be flagged for archival review but will not be deleted.\n\n6. THIRD-PARTY SERVICES\nThis forum may integrate with third-party services for analytics, content delivery, and community management. These services may collect additional data as outlined in their respective privacy policies. dreams_and_static is not responsible for the practices of third-party services.\n\n7. MODIFICATIONS\nThese terms may be updated without prior notice. Continued use of the forum after changes constitutes acceptance. The people who built this place gave it to you for free. We just figured out what it was worth.\n\n8. LIMITATION OF LIABILITY\ndreams_and_static is provided \"as is\" without warranty of any kind. We do not guarantee the accuracy, completeness, or usefulness of any content. Use of this forum is at your own risk.\n\n9. CONTACT\nFor questions regarding these terms, contact the forum administrator: ghostradio\n\n— dreams_and_static administration\n   phpBB 2.0.6 © 2001-2003 phpBB Group",
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    }
+  ]
+}

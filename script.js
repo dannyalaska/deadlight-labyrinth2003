@@ -1,876 +1,873 @@
-const STORAGE_KEY = 'deadlightProfile';
-const orientationSupported =
-  typeof window !== 'undefined' && 'DeviceOrientationEvent' in window;
-const requiresOrientationPermission =
-  orientationSupported &&
-  typeof window.DeviceOrientationEvent?.requestPermission === 'function';
+/* ================================================================== */
+/*  DEADLIGHT 2003 — dreams_and_static                               */
+/*  Forum frontend — page-type renderers                              */
+/* ================================================================== */
 
-const bootScreen = document.getElementById('bootScreen');
-const bootLog = document.getElementById('bootLog');
-const appRoot = document.getElementById('appRoot');
-const connectionStatusEl = document.getElementById('connectionStatus');
-const storyWindow = document.getElementById('storyWindow');
-const storyContent = document.getElementById('storyContent');
-const hudMessageEl = document.getElementById('hudMessage');
-const tiltHint = document.getElementById('tiltHint');
-const loadingIndicator = document.getElementById('loadingIndicator');
-const tiltBarLeft = document.getElementById('tiltBarLeft');
-const tiltBarRight = document.getElementById('tiltBarRight');
-const registerOverlay = document.getElementById('registerOverlay');
-const registerForm = document.getElementById('registerForm');
-const registerNameInput = document.getElementById('registerName');
-const registerEmailInput = document.getElementById('registerEmail');
-const registerTriggerBtn = document.getElementById('registerTriggerBtn');
-const registerCloseBtn = document.getElementById('registerCloseBtn');
+const API_BASE = '';
 
-const bootSequence = [
-  '[MODEM] INITIALIZING 56K HANDSHAKE...',
-  '[OS] LOADING DEADLIGHT SHELL V3.3 (2003 BUILD)',
-  '[SCAN] SEARCHING FOR OFFSITE NODE...',
-  '[LINK] TUNNEL ESTABLISHED : LATENCY UNSTABLE',
-  '[AUTH] CONTRACTOR ID ACCEPTED',
-  '[SYS] MAZE CORRIDOR LOCKED // AWAITING USER',
+/* ------------------------------------------------------------------ */
+/*  DOM references                                                     */
+/* ------------------------------------------------------------------ */
+const el = {
+  forumTitle: document.getElementById('forumTitle'),
+  forumTagline: document.getElementById('forumTagline'),
+  headerStatus: document.getElementById('headerStatus'),
+  breadcrumb: document.getElementById('breadcrumb'),
+  content: document.getElementById('forumContent'),
+  navHome: document.getElementById('navHome'),
+  navTos: document.getElementById('navTos'),
+  snackbar: document.getElementById('snackbar'),
+  bannerAd: document.getElementById('bannerAd'),
+  bannerAdText: document.getElementById('bannerAdText'),
+  bannerAdX: document.getElementById('bannerAdX'),
+};
+
+/* ------------------------------------------------------------------ */
+/*  State                                                              */
+/* ------------------------------------------------------------------ */
+let currentSession = null;
+let pendingRequest = null;
+let activeTimers = [];          // all pending setTimeout IDs — cleared on navigation
+let lastForumIndex = 'forum_index';  // tracks which forum index to breadcrumb to
+let corruptionLevel = 0;        // 0-4: visual corruption level from ad clicks
+
+/* ------------------------------------------------------------------ */
+/*  Bootstrap                                                          */
+/* ------------------------------------------------------------------ */
+document.addEventListener('DOMContentLoaded', init);
+
+async function init() {
+  bindUIEvents();
+  try {
+    await startSession();
+  } catch (error) {
+    console.error('Failed to bootstrap', error);
+    el.headerStatus.textContent = 'offline';
+    showSnackbar('Connection failed.');
+  }
+}
+
+function bindUIEvents() {
+  el.navHome?.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (currentSession) navigateToScene(lastForumIndex);
+  });
+  el.navTos?.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (currentSession) navigateToScene('tos_page');
+  });
+
+  // Banner ad — corruption mechanic
+  el.bannerAd?.addEventListener('click', (e) => {
+    if (e.target === el.bannerAdX) {
+      // "Close" the ad — it just comes back differently
+      corruptionLevel = Math.min(corruptionLevel + 1, 4);
+      applyCorruption();
+      updateBannerAd();
+      // Briefly hide and reshow
+      el.bannerAd.style.display = 'none';
+      setTimeout(() => {
+        if (el.bannerAd && document.body.getAttribute('data-act') === '2') {
+          el.bannerAd.style.display = '';
+        }
+      }, 3000);
+    } else {
+      corruptionLevel = Math.min(corruptionLevel + 1, 4);
+      applyCorruption();
+      updateBannerAd();
+    }
+  });
+}
+
+/* ------------------------------------------------------------------ */
+/*  Banner ad texts — get worse with corruption level                  */
+/* ------------------------------------------------------------------ */
+const BANNER_AD_TEXTS = [
+  'FREE AIM emoticons — click here!',
+  'You have (1) unread message. Click to view.',
+  'Someone is looking for you. Click to find out who.',
+  '{{player_name}} — your session has not ended.',
+  'you\'re still here. we kept your place.',
 ];
 
-let sessionId = null;
-let paragraphCount = 0;
-let profile = loadProfile();
-let autoAdvancePending = false;
-let storyComplete = false;
-let registrationAvailable = false;
-let registrationShown = false;
+function updateBannerAd() {
+  if (!el.bannerAdText) return;
+  const playerName = currentSession?.profile_name || 'you';
+  const text = (BANNER_AD_TEXTS[corruptionLevel] || BANNER_AD_TEXTS[0])
+    .replace('{{player_name}}', playerName);
+  el.bannerAdText.textContent = text;
+  el.bannerAd.setAttribute('data-level', corruptionLevel);
+}
 
-const paragraphState = new Map();
-let activeBranch = null;
-let branchElement = null;
-let branchResolving = false;
-let orientationListener = null;
-let orientationPermissionGranted = !requiresOrientationPermission;
-let decisionDirection = null;
-let decisionTimer = null;
-let currentFocusedElement = null;
-let tiltGlowTimeout = null;
-let lastScrollPosition = 0;
-let mutationTimeout = null;
-let deviceOrientation = { gamma: 0, beta: 0 };
-const MUTATION_CHANCE = 0.15; // 15% chance of mutation per paragraph
-const MUTATION_DELAY = 300; // Time before mutation starts after scrolling past
-
-async function requestOrientationPermission() {
-  // Add debug logging
-  console.log('Requesting orientation permission...');
-  console.log('Requires permission:', requiresOrientationPermission);
-  console.log('Orientation supported:', orientationSupported);
-  
-  if (!requiresOrientationPermission) {
-    console.log('No permission required, enabled by default');
-    return true;
-  }
-  
-  try {
-    // On iOS, need to wait for user interaction
-    const enableTiltBtn = document.createElement('button');
-    enableTiltBtn.textContent = 'Enable Tilt Controls';
-    enableTiltBtn.className = 'enable-tilt-btn';
-    document.body.appendChild(enableTiltBtn);
-    
-    await new Promise((resolve) => {
-      enableTiltBtn.addEventListener('click', async () => {
-        const permission = await DeviceOrientationEvent.requestPermission();
-        console.log('Permission result:', permission);
-        orientationPermissionGranted = permission === 'granted';
-        enableTiltBtn.remove();
-        resolve(orientationPermissionGranted);
-      });
-    });
-    
-    return orientationPermissionGranted;
-  } catch (err) {
-    console.error('Failed to request orientation permission:', err);
-    return false;
+function applyCorruption() {
+  document.body.setAttribute('data-corrupt', corruptionLevel);
+  // Store as intake so server knows how far player went
+  if (currentSession && corruptionLevel > 0) {
+    apiPost('/api/intake', {
+      session_id: currentSession.session_id,
+      fields: { corruption_level: String(corruptionLevel) },
+    }).catch(() => {});
   }
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
-  prefillProfile();
-  await runBootSequence();
-  
-  // Request device orientation permission if needed
-  if (orientationSupported) {
-    const granted = await requestOrientationPermission();
-    if (granted) {
-      tiltHint.classList.remove('hidden');
-      setTimeout(() => {
-        tiltHint.classList.add('hidden');
-      }, 5000);
-    }
-  }
-  
-  launchApp();
-  startSession();
-});
-
-storyWindow.addEventListener('scroll', handleStoryScroll);
-
-// Handle device orientation changes
-window.addEventListener('deviceorientation', (event) => {
-  if (!orientationPermissionGranted) return;
-  
-  deviceOrientation = {
-    gamma: event.gamma || 0, // Left/Right tilt (-90 to 90)
-    beta: event.beta || 0    // Forward/Back tilt (-180 to 180)
-  };
-  
-  // Update tilt bars
-  const maxTilt = 30;
-  const leftTilt = Math.max(-maxTilt, Math.min(maxTilt, -deviceOrientation.gamma));
-  const rightTilt = Math.max(-maxTilt, Math.min(maxTilt, deviceOrientation.gamma));
-  
-  tiltBarLeft.style.height = `${(leftTilt + maxTilt) / (maxTilt * 2) * 100}%`;
-  tiltBarRight.style.height = `${(rightTilt + maxTilt) / (maxTilt * 2) * 100}%`;
-  
-  // Handle navigation based on tilt
-  handleTiltNavigation();
-});
-
-window.addEventListener(
-  'wheel',
-  (event) => {
-    if (appRoot.classList.contains('hidden')) {
-      return;
-    }
-    // keep desktop users moving even when the body captures the wheel event
-    event.preventDefault();
-    storyWindow.scrollBy({ top: event.deltaY, behavior: 'auto' });
-    handleStoryScroll();
-  },
-  { passive: false },
-);
-
-window.addEventListener('keydown', (event) => {
-  if (appRoot.classList.contains('hidden')) {
-    return;
-  }
-  const key = event.key.toLowerCase();
-  if (['arrowdown', 's', 'pagedown', ' '].includes(key)) {
-    event.preventDefault();
-    storyWindow.scrollBy({ top: 160, behavior: 'smooth' });
-    handleStoryScroll();
-    return;
-  }
-  if (['arrowup', 'w', 'pageup'].includes(key)) {
-    event.preventDefault();
-    storyWindow.scrollBy({ top: -160, behavior: 'smooth' });
-    handleStoryScroll();
-    return;
-  }
-  if (key === 'r') {
-    event.preventDefault();
-    showRegistration();
-  }
-});
-
-registerForm.addEventListener('submit', async (event) => {
-  event.preventDefault();
-  if (!sessionId) {
-    return;
-  }
-  const name = registerNameInput.value.trim();
-  const email = registerEmailInput.value.trim();
-  if (!name || !email) {
-    setHudMessage('NAME + EMAIL REQUIRED TO UNLOCK THE DOOR.');
-    return;
-  }
-  try {
-    const response = await fetch('/api/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, session_id: sessionId }),
-    });
-    if (!response.ok) {
-      throw new Error('Registration failed');
-    }
-    profile = { name, email };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
-    registerOverlay.classList.add('hidden');
-    setHudMessage('REGISTRATION CAPTURED. MAZE WILL CALL WHEN IT SHIFTS.');
-    updateRegistrationUI();
-  } catch (err) {
-    setHudMessage('REGISTRATION FAILED. TRY AGAIN ON THE NEXT LOOP.');
-  }
-});
-
-if (registerTriggerBtn) {
-  registerTriggerBtn.addEventListener('click', () => {
-    showRegistration();
-  });
-}
-
-if (registerCloseBtn) {
-  registerCloseBtn.addEventListener('click', () => {
-    registerOverlay.classList.add('hidden');
-    setHudMessage('REGISTER LATER. THE CORRIDOR IS STILL SHUFFLING.');
-  });
-}
-
-function runBootSequence() {
-  return new Promise((resolve) => {
-    let index = 0;
-    const tick = () => {
-      if (index >= bootSequence.length) {
-        setTimeout(resolve, 480);
-        return;
-      }
-      appendBootLine(bootSequence[index]);
-      index += 1;
-      setTimeout(tick, 420 + Math.random() * 260);
-    };
-    tick();
-  });
-}
-
-function appendBootLine(line) {
-  const wrapper = document.createElement('div');
-  wrapper.className = 'boot-line';
-  const cursor = document.createElement('span');
-  cursor.className = 'cursor';
-  cursor.textContent = '>';
-  const text = document.createElement('span');
-  text.textContent = line;
-  wrapper.append(cursor, text);
-  bootLog.appendChild(wrapper);
-  bootLog.scrollTop = bootLog.scrollHeight;
-}
-
-function launchApp() {
-  bootScreen.classList.add('hidden');
-  appRoot.classList.remove('hidden');
-  connectionStatusEl.textContent = 'LINKED';
-}
-
-function handleTiltNavigation() {
-  if (branchResolving || autoAdvancePending) return;
-  
-  const { gamma, beta } = deviceOrientation;
-  const tiltThreshold = 20; // Degrees of tilt required to trigger navigation
-  
-  // Clear any existing decision timer
-  if (decisionTimer) {
-    clearTimeout(decisionTimer);
-    decisionTimer = null;
-  }
-  
-  // Handle left/right choices with gamma (side-to-side tilt)
-  if (Math.abs(gamma) > tiltThreshold) {
-    decisionDirection = gamma > 0 ? 'right' : 'left';
-    if (activeBranch) {
-      decisionTimer = setTimeout(() => {
-        resolveBranch(decisionDirection);
-      }, 1000);
-    }
-  }
-  
-  // Handle forward/backward navigation with beta (forward/back tilt)
-  if (Math.abs(beta - 45) > tiltThreshold) { // 45° is the "neutral" position
-    const scrollAmount = (beta - 45) > 0 ? 160 : -160;
-    storyWindow.scrollBy({ top: scrollAmount, behavior: 'smooth' });
-  }
-}
-
-function checkForMutations() {
-  const paragraphs = document.querySelectorAll('.story-paragraph');
-  const scrollPosition = storyWindow.scrollTop;
-  const windowHeight = storyWindow.clientHeight;
-  
-  paragraphs.forEach((paragraph) => {
-    const rect = paragraph.getBoundingClientRect();
-    const isPastParagraph = rect.bottom < windowHeight * 0.3; // 30% from top
-    
-    if (isPastParagraph && !paragraph.classList.contains('past')) {
-      paragraph.classList.add('past');
-      
-      // Random chance to trigger mutation
-      if (Math.random() < MUTATION_CHANCE) {
-        setTimeout(() => {
-          triggerMutation(paragraph);
-        }, MUTATION_DELAY);
-      }
-    }
-  });
-}
-
-function triggerMutation(paragraph) {
-  if (paragraph.classList.contains('mutating')) return;
-  
-  paragraph.classList.add('mutating');
-  
-  // Store original text
-  const originalText = paragraph.textContent;
-  
-  // Create glitch text
-  const glitchText = originalText
-    .split('')
-    .map(char => {
-      if (Math.random() < 0.3) { // 30% chance to corrupt each character
-        return '█▓▒░'[Math.floor(Math.random() * 4)];
-      }
-      return char;
-    })
-    .join('');
-  
-  // Apply glitch effect
-  paragraph.textContent = glitchText;
-  
-  // Restore original text after animation
-  setTimeout(() => {
-    paragraph.textContent = originalText;
-    paragraph.classList.remove('mutating');
-  }, 1000);
-}
-
-function showLoading() {
-  loadingIndicator.classList.remove('hidden');
-}
-
-function hideLoading() {
-  loadingIndicator.classList.add('hidden');
-}
-
+/* ------------------------------------------------------------------ */
+/*  Session                                                            */
+/* ------------------------------------------------------------------ */
 async function startSession() {
-  registrationAvailable = false;
-  registrationShown = false;
-  if (registerOverlay) {
-    registerOverlay.classList.add('hidden');
-  }
-  updateRegistrationUI();
+  el.headerStatus.textContent = 'connecting...';
+  const session = await apiPost('/api/session', {});
+  handleSessionUpdate(session);
+  el.headerStatus.textContent = '';
+}
+
+/* ------------------------------------------------------------------ */
+/*  Navigation                                                         */
+/* ------------------------------------------------------------------ */
+async function navigateToScene(targetSceneId) {
+  if (!currentSession) return;
+  clearActiveTimers();
   showLoading();
   try {
-    const response = await fetch('/api/session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        profile_name: profile?.name ?? null,
-      }),
+    const session = await progressAPI('link', targetSceneId);
+    handleSessionUpdate(session);
+  } catch (error) {
+    console.error('Navigation failed', error);
+    showSnackbar('Navigation failed.');
+  }
+}
+
+async function progressAPI(event, direction) {
+  if (pendingRequest) return pendingRequest;
+  const payload = { session_id: currentSession.session_id, event };
+  if (direction) payload.direction = direction;
+
+  pendingRequest = apiPost('/api/progress', payload).finally(() => {
+    pendingRequest = null;
+  });
+  return pendingRequest;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Timer management — clears all pending timers on navigation         */
+/* ------------------------------------------------------------------ */
+function addTimer(id) {
+  activeTimers.push(id);
+}
+
+function clearActiveTimers() {
+  activeTimers.forEach(clearTimeout);
+  activeTimers = [];
+}
+
+/* ------------------------------------------------------------------ */
+/*  Session update — dispatch by page_type                             */
+/* ------------------------------------------------------------------ */
+// Act 2 scenes — threads that only appear on forum_index_act2
+const ACT2_SCENES = new Set([
+  'forum_index_act2', 'deeper_thread', 'board_changes_thread', 'old_posts_thread',
+  'final_thread', 'accept_ending', 'refuse_ending',
+]);
+
+function handleSessionUpdate(session) {
+  currentSession = session;
+  clearActiveTimers();
+  window.scrollTo(0, 0);
+
+  const scene = session.scene;
+  const pageType = scene.page_type || 'prose';
+
+  // Mark act for CSS corruption
+  const act = ACT2_SCENES.has(scene.id) || lastForumIndex === 'forum_index_act2' ? '2' : '1';
+  document.body.setAttribute('data-act', act);
+
+  // Show/hide banner ad in Act 2
+  if (el.bannerAd) {
+    el.bannerAd.style.display = act === '2' ? '' : 'none';
+    if (act === '2') updateBannerAd();
+  }
+
+  switch (pageType) {
+    case 'forum_index':   renderForumIndex(scene);  break;
+    case 'forum_thread':  renderForumThread(scene); break;
+    case 'profile_page':  renderProfilePage(scene); break;
+    default:              renderFallback(scene);     break;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Breadcrumb                                                         */
+/* ------------------------------------------------------------------ */
+function updateBreadcrumb(parts) {
+  el.breadcrumb.innerHTML = '';
+  parts.forEach((part, i) => {
+    if (i > 0) {
+      const sep = document.createElement('span');
+      sep.className = 'sep';
+      sep.textContent = '\u00BB';
+      el.breadcrumb.appendChild(sep);
+    }
+    if (part.sceneId) {
+      const link = document.createElement('a');
+      link.href = '#';
+      link.textContent = part.label;
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        navigateToScene(part.sceneId);
+      });
+      el.breadcrumb.appendChild(link);
+    } else {
+      const span = document.createElement('span');
+      span.textContent = part.label;
+      el.breadcrumb.appendChild(span);
+    }
+  });
+}
+
+/* ================================================================== */
+/*  RENDERER: Forum Index                                              */
+/* ================================================================== */
+function renderForumIndex(scene) {
+  const data = scene.forum_data;
+  if (!data) { el.content.innerHTML = '<div class="loading-bar">No forum data.</div>'; return; }
+
+  // Track which forum index we're on (for breadcrumbs & nav home)
+  lastForumIndex = scene.id;
+
+  updateBreadcrumb([{ label: data.board_name || 'dreams_and_static' }]);
+
+  let html = '<table class="thread-table">';
+  html += '<tr><th>Topic</th><th class="col-replies">Replies</th><th class="col-views">Views</th><th class="col-lastpost">Last Post</th></tr>';
+
+  (data.threads || []).forEach((thread) => {
+    const isToday = thread.last_post_date === 'TODAY';
+    html += `<tr class="${isToday ? 'thread-row-today' : ''}">`;
+    html += '<td><div class="thread-title-cell">';
+
+    if (thread.clickable && thread.target_scene) {
+      html += `<a class="thread-title-link" href="#" data-scene="${esc(thread.target_scene)}">${esc(thread.title)}</a>`;
+    } else {
+      html += `<span class="thread-title-text">${esc(thread.title)}</span>`;
+    }
+    html += `<span class="thread-author">by ${esc(thread.author)}</span>`;
+    html += `<span class="thread-started">${esc(thread.started)}</span>`;
+    html += '</div></td>';
+
+    html += `<td class="col-replies">${thread.replies}</td>`;
+    html += `<td class="col-views">${thread.views}</td>`;
+    html += '<td class="col-lastpost">';
+    html += isToday
+      ? `<span class="today-badge">TODAY</span><br>`
+      : `${esc(thread.last_post_date)}<br>`;
+    html += `by ${esc(thread.last_post_by)}</td>`;
+    html += '</tr>';
+  });
+  html += '</table>';
+
+  if (data.stats) {
+    html += `<div class="forum-stats">`;
+    html += `<span>Total posts: <b>${data.stats.total_posts}</b></span>`;
+    html += `<span>Members: <b>${data.stats.total_members}</b></span>`;
+    html += `<span>Newest: <b>${esc(data.stats.newest_member)}</b></span>`;
+    html += `</div>`;
+  }
+
+  el.content.innerHTML = html;
+
+  el.content.querySelectorAll('.thread-title-link').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const sceneId = link.dataset.scene;
+      if (sceneId) navigateToScene(sceneId);
     });
-    if (!response.ok) {
-      throw new Error('Failed to start session');
-    }
-    const payload = await response.json();
-    sessionId = payload.session_id;
-    renderPayload(payload, { autoScroll: true });
-  } catch (err) {
-    setHudMessage('CONNECTION LOST. REFRESH TO RETRY.');
-  }
-}
-
-function renderPayload(payload, { autoScroll = false } = {}) {
-  if (!payload) {
-    return;
-  }
-  if (typeof payload.allow_registration === 'boolean') {
-    registrationAvailable = payload.allow_registration;
-  }
-  if (payload.paragraphs?.length) {
-    payload.paragraphs.forEach((paragraph) => appendParagraph(paragraph));
-  }
-  if (payload.branch) {
-    activateBranch(payload.branch);
-  } else if (!payload.branch && activeBranch) {
-    deactivateBranch();
-  }
-  if (typeof payload.prompt_scroll_back === 'boolean' && payload.prompt_scroll_back) {
-    setHudMessage('THE MAZE WHISPERS: SCROLL BACK. SOMETHING MOVED.');
-  } else if (payload.hud_message) {
-    setHudMessage(payload.hud_message);
-  }
-  if (payload.unlock_registration) {
-    registrationAvailable = true;
-    updateRegistrationUI();
-    if (!registrationShown) {
-      setHudMessage('REGISTRATION READY. PRESS R OR CLICK REGISTER WHEN YOU WANT OUT.');
-    }
-  }
-  if (typeof payload.story_complete === 'boolean') {
-    storyComplete = payload.story_complete;
-  }
-  if (autoScroll && isNearBottom()) {
-    scrollToBottom();
-  }
-  updateParagraphStates();
-}
-
-function appendParagraph(paragraph) {
-  const article = document.createElement('article');
-  article.className = 'story-paragraph';
-  article.dataset.paragraphId = paragraph.id;
-  paragraphCount += 1;
-  article.dataset.index = `P${String(paragraphCount).padStart(2, '0')}`;
-  article.textContent = paragraph.text;
-  article.addEventListener('pointerenter', () => {
-    article.classList.add('is-hover');
-  });
-  article.addEventListener('pointerleave', () => {
-    article.classList.remove('is-hover');
-  });
-  storyContent.appendChild(article);
-  paragraphState.set(paragraph.id, {
-    element: article,
-    mutations: Array.isArray(paragraph.mutations) ? [...paragraph.mutations] : [],
-    justMutated: false,
-    mutating: false,
   });
 }
 
-function activateBranch(branch) {
-  deactivateBranch();
-  activeBranch = branch;
-  branchElement = document.createElement('section');
-  branchElement.className = 'branch-node';
-  branchElement.dataset.branchId = branch.id;
+/* ================================================================== */
+/*  RENDERER: Forum Thread                                             */
+/* ================================================================== */
+function renderForumThread(scene) {
+  const td = scene.thread_data;
+  if (!td) { el.content.innerHTML = '<div class="loading-bar">No thread data.</div>'; return; }
 
-  if (branch.instruction) {
-    const instruction = document.createElement('p');
-    instruction.className = 'tilt-instruction';
-    instruction.textContent = `${branch.instruction} (Tap, arrow keys, or tilt.)`;
-    branchElement.appendChild(instruction);
+  updateBreadcrumb([
+    { label: td.board_name || 'dreams_and_static', sceneId: lastForumIndex },
+    { label: td.thread_title || scene.title },
+  ]);
+
+  const hasLiveReply   = td.live_reply?.enabled;
+  const hasDelayedHook = !!td.delayed_hook_post;
+
+  let html = `<div class="thread-header">${esc(td.thread_title || scene.title)}</div>`;
+
+  // Display range (e.g. "Displaying posts 1-8 of 48")
+  if (td.display_range) {
+    const dr = td.display_range;
+    html += `<div class="thread-pagination">Displaying posts ${dr.start}-${dr.end} of ${dr.total}</div>`;
   }
 
-  const optionsWrapper = document.createElement('div');
-  optionsWrapper.className = 'branch-options';
-  branch.options.forEach((option) => {
-    const optionEl = document.createElement('div');
-    optionEl.className = 'branch-option';
-    optionEl.dataset.direction = option.direction;
-    const labelEl = document.createElement('div');
-    labelEl.className = 'option-label';
-    labelEl.textContent = option.label;
-    const bodyEl = document.createElement('div');
-    bodyEl.className = 'option-body';
-    bodyEl.textContent = option.body;
-    optionEl.append(labelEl, bodyEl);
-    optionEl.addEventListener('click', () => {
-      submitDecision(option.direction, { via: 'tap' });
-    });
-    optionsWrapper.appendChild(optionEl);
+  // Posts (static + generated, NOT the delayed hook post)
+  const posts = td.posts || [];
+  posts.forEach((post, i) => {
+    html += buildPostHTML(post, i);
   });
-  branchElement.appendChild(optionsWrapper);
 
-  if (requiresOrientationPermission && !orientationPermissionGranted) {
-    const permissionBtn = document.createElement('button');
-    permissionBtn.type = 'button';
-    permissionBtn.textContent = 'ENABLE TILT CONTROLS';
-    permissionBtn.addEventListener('click', async () => {
-      await requestOrientationPermission();
-    });
-    branchElement.appendChild(permissionBtn);
+  // Quick reply form (phpBB-style, bottom of thread — disguised intake)
+  if (td.quick_reply?.enabled) {
+    html += buildQuickReplyHTML(td.quick_reply);
   }
 
-  storyContent.appendChild(branchElement);
-  tiltHint.classList.remove('hidden');
-  window.addEventListener('keydown', handleDecisionKeys);
-  startOrientationListener();
-  setHudMessage('LEAN OR USE ARROWS TO CHOOSE. CLICK IF THE MAZE STALLS.');
-  setTimeout(() => {
-    branchElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }, 80);
+  el.content.innerHTML = html;
+
+  // Bind links in existing posts
+  bindUsernameLinks(el.content);
+  bindBodyLinks(el.content);
+
+  // Bind quick reply form
+  if (td.quick_reply?.enabled) bindQuickReply(td.quick_reply);
+
+  // Kick off async additions
+  if (hasDelayedHook) setupDelayedHookPost(td.delayed_hook_post);
+  if (hasLiveReply)   setupLiveReply(td.live_reply, td, scene);
 }
 
-function deactivateBranch() {
-  stopOrientationListener();
-  tiltHint.classList.add('hidden');
-  window.removeEventListener('keydown', handleDecisionKeys);
-  activeBranch = null;
-  decisionDirection = null;
-  clearDecisionTimer();
-  if (branchElement) {
-    branchElement.remove();
-    branchElement = null;
-  }
-  resetTiltBars();
-  pulseCurrentParagraph(false);
-}
+/* ------------------------------------------------------------------ */
+/*  Build a single post's HTML                                         */
+/* ------------------------------------------------------------------ */
+function buildPostHTML(post, index, extraClass = '') {
+  const cls = ['post-container', extraClass].filter(Boolean).join(' ');
+  let html = `<div class="${cls}" data-post-index="${index}">`;
+  html += `<div class="post-header"><span>${esc(post.date || '')}</span><span>#${index + 1}</span></div>`;
+  html += '<div class="post-body-wrap">';
+  html += '<div class="post-author-panel">';
 
-function handleDecisionKeys(event) {
-  if (!activeBranch || branchResolving) {
-    return;
-  }
-  if (event.key === 'ArrowLeft' || event.key.toLowerCase() === 'a') {
-    submitDecision('left', { via: 'key' });
-  } else if (event.key === 'ArrowRight' || event.key.toLowerCase() === 'd') {
-    submitDecision('right', { via: 'key' });
-  }
-}
-
-async function requestOrientationPermission() {
-  if (!requiresOrientationPermission) {
-    orientationPermissionGranted = true;
-    startOrientationListener();
-    return;
-  }
-  try {
-    const result = await window.DeviceOrientationEvent.requestPermission();
-    orientationPermissionGranted = result === 'granted';
-    if (orientationPermissionGranted) {
-      startOrientationListener();
-      setHudMessage('TILT ENABLED. THE MAZE IS LISTENING.');
-      if (branchElement) {
-        const button = branchElement.querySelector('button');
-        if (button) {
-          button.remove();
-        }
-      }
-    } else {
-      setHudMessage('TILT DENIED. USE TAP OR ARROW KEYS TO CHOOSE.');
-    }
-  } catch (err) {
-    setHudMessage('TILT REQUEST FAILED. TAP OR USE KEYS TO CHOOSE.');
-  }
-}
-
-function startOrientationListener() {
-  if (!orientationSupported || !activeBranch) {
-    return;
-  }
-  if (requiresOrientationPermission && !orientationPermissionGranted) {
-    return;
-  }
-  if (orientationListener) {
-    window.removeEventListener('deviceorientation', orientationListener);
-  }
-  orientationListener = (event) => {
-    if (!activeBranch || branchResolving) {
-      return;
-    }
-    const gamma = typeof event.gamma === 'number' ? event.gamma : 0;
-    updateTiltBars(gamma);
-    const direction =
-      gamma <= -12 ? 'left' : gamma >= 12 ? 'right' : null;
-    if (!direction) {
-      clearDecisionTimer();
-      highlightBranchOption(null);
-      pulseCurrentParagraph(false);
-      return;
-    }
-    highlightBranchOption(direction);
-    pulseCurrentParagraph(true);
-    if (decisionDirection !== direction) {
-      clearDecisionTimer();
-      decisionDirection = direction;
-      const strength = Math.min(Math.abs(gamma) / 25, 1);
-      decisionTimer = setTimeout(() => {
-        submitDecision(direction, {
-          via: 'tilt',
-          confidence: strength,
-        });
-      }, 600);
-    }
-  };
-  window.addEventListener('deviceorientation', orientationListener);
-}
-
-function stopOrientationListener() {
-  if (orientationListener) {
-    window.removeEventListener('deviceorientation', orientationListener);
-    orientationListener = null;
-  }
-}
-
-function highlightBranchOption(direction) {
-  if (!branchElement) {
-    return;
-  }
-  const options = branchElement.querySelectorAll('.branch-option');
-  options.forEach((option) => {
-    if (direction && option.dataset.direction === direction) {
-      option.classList.add('is-active');
-    } else {
-      option.classList.remove('is-active');
-    }
-  });
-}
-
-function resetTiltBars() {
-  tiltBarLeft.classList.remove('is-filled');
-  tiltBarRight.classList.remove('is-filled');
-  tiltBarLeft.style.setProperty('--fill', '0');
-  tiltBarRight.style.setProperty('--fill', '0');
-}
-
-function updateTiltBars(gamma) {
-  if (!tiltHint || !tiltBarLeft || !tiltBarRight) {
-    return;
-  }
-  const normalized = Math.min(Math.abs(gamma) / 18, 1);
-  if (gamma < -8) {
-    tiltBarLeft.style.setProperty('--fill', normalized.toFixed(2));
-    tiltBarRight.style.setProperty('--fill', '0');
-    if (normalized > 0.6) {
-      tiltBarLeft.classList.add('is-filled');
-    } else {
-      tiltBarLeft.classList.remove('is-filled');
-    }
-    tiltBarRight.classList.remove('is-filled');
-  } else if (gamma > 8) {
-    tiltBarRight.style.setProperty('--fill', normalized.toFixed(2));
-    tiltBarLeft.style.setProperty('--fill', '0');
-    if (normalized > 0.6) {
-      tiltBarRight.classList.add('is-filled');
-    } else {
-      tiltBarRight.classList.remove('is-filled');
-    }
-    tiltBarLeft.classList.remove('is-filled');
+  if (post.clickable_username && post.target_scene) {
+    html += `<a class="post-author-name clickable" href="#" data-scene="${esc(post.target_scene)}">${esc(post.author)}</a>`;
   } else {
-    resetTiltBars();
+    html += `<span class="post-author-name">${esc(post.author)}</span>`;
   }
-}
 
-function clearDecisionTimer() {
-  decisionDirection = null;
-  if (decisionTimer) {
-    clearTimeout(decisionTimer);
-    decisionTimer = null;
+  if (post.author_data) {
+    html += `<div class="post-author-info">Joined: ${esc(post.author_data.joined || '')}<br>Posts: ${post.author_data.posts || 0}</div>`;
   }
-}
+  html += '</div>'; // author-panel
 
-async function submitDecision(direction, meta = {}) {
-  if (!activeBranch || branchResolving || !sessionId) {
-    return;
-  }
-  branchResolving = true;
-  highlightBranchOption(direction);
-  pulseCurrentParagraph(true);
-  setHudMessage(
-    direction === 'left'
-      ? 'WIRE HUM CONFIRMED. PATH REALIGNING...'
-      : 'PHOSPHOR GLOW ACCEPTED. PATH REALIGNING...'
-  );
-  try {
-    const response = await fetch('/api/progress', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        session_id: sessionId,
-        event: 'decision',
-        direction,
-        confidence: meta.confidence ?? null,
-        via: meta.via ?? null,
-      }),
+  // Body with optional body_links
+  let bodyHtml = esc(post.body || '');
+  if (post.body_links?.length) {
+    post.body_links.forEach((link) => {
+      const escapedLinkText = esc(link.text);
+      if (bodyHtml.includes(escapedLinkText)) {
+        const anchor = `<a class="post-body-link" href="#" data-scene="${esc(link.target_scene)}">${escapedLinkText}</a>`;
+        bodyHtml = bodyHtml.replace(escapedLinkText, anchor);
+      }
     });
-    if (!response.ok) {
-      throw new Error('Decision failed');
-    }
-    const payload = await response.json();
-    deactivateBranch();
-    renderPayload(payload, { autoScroll: true });
-  } catch (err) {
-    setHudMessage('THE MAZE REFUSED THAT INPUT. TRY AGAIN.');
-    branchResolving = false;
-  } finally {
-    branchResolving = false;
-    pulseCurrentParagraph(false);
   }
+
+  html += `<div class="post-content">${bodyHtml}`;
+  if (post.signature) html += `<div class="post-signature">${esc(post.signature)}</div>`;
+  html += '</div>'; // post-content
+
+  html += '</div></div>'; // post-body-wrap, post-container
+  return html;
 }
 
-function updateParagraphStates() {
-  const scrollTop = storyWindow.scrollTop;
-  const revealThreshold = 120;
-  const blurThreshold = 60;
-  const viewportCenter = scrollTop + storyWindow.clientHeight / 2;
-  let closestState = null;
-  let closestDelta = Number.POSITIVE_INFINITY;
+/* ------------------------------------------------------------------ */
+/*  Bind username → scene navigation links                             */
+/* ------------------------------------------------------------------ */
+function bindUsernameLinks(root) {
+  root.querySelectorAll('.post-author-name.clickable').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const sceneId = link.dataset.scene;
+      if (sceneId) navigateToScene(sceneId);
+    });
+  });
+}
 
-  paragraphState.forEach((state) => {
-    const { element } = state;
-    const offsetTop = element.offsetTop;
-    const bottom = offsetTop + element.offsetHeight;
-    const elementCenter = offsetTop + element.offsetHeight / 2;
-    const delta = Math.abs(elementCenter - viewportCenter);
-    element.classList.remove('is-current');
-    const wasPast = element.classList.contains('is-past');
-    if (bottom < scrollTop - blurThreshold) {
-      if (!wasPast) {
-        element.classList.add('is-past');
-        state.justMutated = false;
-      }
-    } else if (wasPast && bottom >= scrollTop + revealThreshold) {
-      element.classList.remove('is-past');
-      if (!state.justMutated) {
-        mutateParagraph(state);
-      }
+/* ------------------------------------------------------------------ */
+/*  Bind body_links → scene navigation                                 */
+/* ------------------------------------------------------------------ */
+function bindBodyLinks(root) {
+  root.querySelectorAll('.post-body-link').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const sceneId = link.dataset.scene;
+      if (sceneId) navigateToScene(sceneId);
+    });
+  });
+}
+
+/* ------------------------------------------------------------------ */
+/*  Delayed hook post (e.g. still_here_03 "still can't do it")        */
+/*  Appears after delay_ms as if it was just posted                    */
+/* ------------------------------------------------------------------ */
+function setupDelayedHookPost(hookPost) {
+  const delay = hookPost.delay_ms || 4000;
+  const timerId = setTimeout(() => {
+    const postIndex = el.content.querySelectorAll('.post-container').length;
+    const div = document.createElement('div');
+    div.innerHTML = buildPostHTML(hookPost, postIndex, 'hook-post delayed-post');
+    const postEl = div.firstChild;
+    // Insert before quick reply form if present, otherwise append
+    const quickReply = el.content.querySelector('.quick-reply-box');
+    if (quickReply) {
+      el.content.insertBefore(postEl, quickReply);
+    } else {
+      el.content.appendChild(postEl);
     }
-    if (delta < closestDelta) {
-      closestDelta = delta;
-      closestState = state;
+    bindUsernameLinks(postEl);
+    bindBodyLinks(postEl);
+    postEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, delay);
+  addTimer(timerId);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Quick Reply — phpBB-style reply box at bottom of thread            */
+/*  Collects intake data disguised as forum participation              */
+/* ------------------------------------------------------------------ */
+function buildQuickReplyHTML(config) {
+  const playerName = currentSession?.profile_name || 'you';
+  let html = `<div class="quick-reply-box">`;
+  html += `<div class="quick-reply-title">${esc(config.label || 'Quick Reply')}</div>`;
+  html += `<form id="quickReplyForm">`;
+  html += `<textarea class="reply-textarea" id="quickReplyText" placeholder="${esc(config.placeholder || 'type here...')}" rows="3"></textarea>`;
+  html += `<div class="reply-form-row">`;
+  html += `<span class="reply-as">posting as <b>${esc(playerName)}</b></span>`;
+  html += `<button type="submit" class="reply-submit">${esc(config.submit_label || 'post reply')}</button>`;
+  html += `</div></form></div>`;
+  return html;
+}
+
+function bindQuickReply(config) {
+  const form = document.getElementById('quickReplyForm');
+  if (!form) return;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const textarea = document.getElementById('quickReplyText');
+    const text = textarea?.value.trim();
+    if (!text) { showSnackbar('say something first.'); return; }
+
+    const playerName = currentSession?.profile_name || 'you';
+    const intakeKey = config.intake_key || 'player_post';
+
+    // Disable form
+    textarea.disabled = true;
+    form.querySelector('.reply-submit').disabled = true;
+
+    // Store intake
+    try {
+      await apiPost('/api/intake', {
+        session_id: currentSession.session_id,
+        fields: { [intakeKey]: text },
+      });
+    } catch (err) {
+      console.warn('Quick reply intake failed (non-fatal):', err);
+    }
+
+    // Replace form with the player's own post
+    const quickReplyBox = form.closest('.quick-reply-box');
+    const postIndex = el.content.querySelectorAll('.post-container').length;
+    const userPost = {
+      author: playerName,
+      author_data: { joined: 'today', posts: 1 },
+      date: 'just now',
+      body: text,
+    };
+    const div = document.createElement('div');
+    div.innerHTML = buildPostHTML(userPost, postIndex, 'own-post delayed-post');
+    quickReplyBox.replaceWith(div.firstChild);
+
+    // If after_submit_target is set, navigate after a short beat
+    if (config.after_submit_target) {
+      const delay = config.after_submit_delay_ms ?? 2400;
+      const timerId = setTimeout(() => {
+        navigateToScene(config.after_submit_target);
+      }, delay);
+      addTimer(timerId);
     }
   });
+}
 
-  if (closestState) {
-    closestState.element.classList.add('is-current');
-    currentFocusedElement = closestState.element;
+/* ------------------------------------------------------------------ */
+/*  Live reply — banner → post → optional reply form                   */
+/* ------------------------------------------------------------------ */
+function setupLiveReply(liveReplyData, threadData, scene) {
+  const delay = liveReplyData.delay_ms || 15000;
+
+  const timerId = setTimeout(() => {
+    // Show "1 new reply" banner
+    const banner = document.createElement('div');
+    banner.className = 'new-reply-banner';
+    banner.textContent = liveReplyData.counter_text || '1 new reply';
+
+    const onBannerClick = () => {
+      if (!banner.parentNode) return;
+      banner.remove();
+      revealLiveReplyPost(liveReplyData, scene);
+    };
+
+    banner.addEventListener('click', onBannerClick);
+    el.content.appendChild(banner);
+    banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    // Auto-expand after 5s if user doesn't click
+    const autoId = setTimeout(onBannerClick, 5000);
+    addTimer(autoId);
+  }, delay);
+
+  addTimer(timerId);
+}
+
+function revealLiveReplyPost(liveReplyData, scene) {
+  const post = liveReplyData.post;
+  if (!post) return;
+
+  const postIndex = el.content.querySelectorAll('.post-container').length;
+  const div = document.createElement('div');
+  div.innerHTML = buildPostHTML(post, postIndex, 'live-reply');
+  const postEl = div.firstChild;
+  el.content.appendChild(postEl);
+  bindUsernameLinks(postEl);
+  bindBodyLinks(postEl);
+  postEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  // Determine which reply mode to use
+  if (liveReplyData.trigger_reply_form && liveReplyData.reply_form) {
+    const conversationConfig = liveReplyData.conversation || null;
+    const afterReply = (conversationConfig?.enabled) ? null : liveReplyData.after_reply;
+    showReplyForm(liveReplyData.reply_form, postEl, scene, afterReply, conversationConfig);
   }
 }
 
-async function mutateParagraph(state) {
-  if (!sessionId || state.mutating) {
+/* ------------------------------------------------------------------ */
+/*  Reply form — appears below the "we are so glad you're back" post   */
+/* ------------------------------------------------------------------ */
+function showReplyForm(replyFormData, afterEl, scene, afterReply, conversationConfig) {
+  const playerName = currentSession?.profile_name || 'you';
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'thread-reply-form';
+  wrapper.id = 'threadReplyForm';
+
+  wrapper.innerHTML = `
+    <form id="replyForm">
+      <textarea class="reply-textarea" placeholder="${esc(replyFormData.placeholder || 'say something back...')}" rows="3"></textarea>
+      <div class="reply-form-row">
+        <span class="reply-as">posting as <b>${esc(playerName)}</b></span>
+        <button type="submit" class="reply-submit">${esc(replyFormData.submit_label || 'post reply')}</button>
+      </div>
+    </form>
+  `;
+
+  el.content.appendChild(wrapper);
+  wrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  // Focus textarea
+  const textarea = wrapper.querySelector('.reply-textarea');
+  setTimeout(() => textarea?.focus(), 300);
+
+  // Handle submit
+  wrapper.querySelector('#replyForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const text = textarea.value.trim();
+    if (!text) {
+      showSnackbar('say something first.');
+      return;
+    }
+    await submitReply(
+      text,
+      replyFormData.intake_field || 'player_post',
+      wrapper,
+      scene,
+      afterReply,
+      conversationConfig,
+    );
+  });
+}
+
+async function submitReply(text, intakeField, formWrapper, scene, afterReply, conversationConfig) {
+  if (!currentSession) return;
+
+  const playerName = currentSession?.profile_name || 'you';
+  const postIndex = el.content.querySelectorAll('.post-container').length;
+
+  // Build and render the user's own post (immediately replaces the form)
+  const userPost = {
+    author: playerName,
+    author_data: { joined: 'today', posts: 1 },
+    date: 'just now',
+    body: text,
+  };
+  const userDiv = document.createElement('div');
+  userDiv.innerHTML = buildPostHTML(userPost, postIndex, 'own-post delayed-post');
+  formWrapper.replaceWith(userDiv.firstChild);
+
+  // ─── Multi-turn conversation mode ──────────────────────────────
+  if (conversationConfig?.enabled) {
+    // Show typing indicator
+    const typingEl = showTypingIndicator();
+
+    try {
+      const response = await apiPost('/api/thread_reply', {
+        session_id: currentSession.session_id,
+        reply_text: text,
+      });
+
+      // Remove typing indicator
+      typingEl.remove();
+
+      // Render NPC's response post
+      const npcPostIndex = el.content.querySelectorAll('.post-container').length;
+      const npcDiv = document.createElement('div');
+      npcDiv.innerHTML = buildPostHTML(response.post, npcPostIndex, 'live-reply delayed-post');
+      const npcPostEl = npcDiv.firstChild;
+      el.content.appendChild(npcPostEl);
+      bindUsernameLinks(npcPostEl);
+      bindBodyLinks(npcPostEl);
+      npcPostEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      // If conversation isn't complete, show the reply form again
+      if (!response.conversation_complete) {
+        const nextFormConfig = {
+          placeholder: 'reply...',
+          intake_field: intakeField,
+          submit_label: 'post reply',
+        };
+        showReplyForm(nextFormConfig, npcPostEl, scene, null, conversationConfig);
+      }
+    } catch (e) {
+      // Fallback: remove typing indicator and gracefully end
+      typingEl.remove();
+      console.error('Thread reply failed:', e);
+      showSnackbar('something went wrong.');
+    }
     return;
   }
-  state.mutating = true;
+
+  // ─── Single after-reply mode (static fallback) ─────────────────
   try {
-    const response = await fetch('/api/paragraph/mutate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        session_id: sessionId,
-        paragraph_id: state.element.dataset.paragraphId,
-      }),
+    await apiPost('/api/intake', {
+      session_id: currentSession.session_id,
+      fields: { [intakeField]: text },
     });
-    if (!response.ok) {
-      throw new Error('Mutation failed');
-    }
-    const payload = await response.json();
-    if (payload.text) {
-      state.element.textContent = payload.text;
-      state.element.classList.add('is-mutated');
-      setTimeout(() => state.element.classList.remove('is-mutated'), 1800);
-      state.justMutated = true;
-    }
-    if (payload.hud_message) {
-      setHudMessage(payload.hud_message);
-    }
-  } catch (err) {
-    // ignore failures quietly to keep immersion
-  } finally {
-    state.mutating = false;
+  } catch (e) {
+    console.warn('Intake store failed (non-fatal):', e);
+  }
+
+  if (afterReply) {
+    setupAfterReply(afterReply);
   }
 }
 
-function checkAutoAdvance() {
-  if (storyComplete || autoAdvancePending || activeBranch || !sessionId) {
-    return;
+/* ------------------------------------------------------------------ */
+/*  Typing indicator — "still_here_03 is typing..."                    */
+/* ------------------------------------------------------------------ */
+function showTypingIndicator() {
+  const typingDiv = document.createElement('div');
+  typingDiv.className = 'typing-indicator';
+  typingDiv.innerHTML = '<span class="typing-name">still_here_03</span> is typing<span class="dots"></span>';
+  el.content.appendChild(typingDiv);
+  typingDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  return typingDiv;
+}
+
+/* ------------------------------------------------------------------ */
+/*  After-reply — delayed post that appears after user submits reply    */
+/*  Used as fallback when conversation mode is not enabled              */
+/* ------------------------------------------------------------------ */
+function setupAfterReply(afterReplyData) {
+  const delay = afterReplyData.delay_ms || 3000;
+  const timerId = setTimeout(() => {
+    const post = afterReplyData.post;
+    if (!post) return;
+
+    const postIndex = el.content.querySelectorAll('.post-container').length;
+    const div = document.createElement('div');
+    div.innerHTML = buildPostHTML(post, postIndex, 'live-reply delayed-post');
+    const postEl = div.firstChild;
+    el.content.appendChild(postEl);
+    bindUsernameLinks(postEl);
+    bindBodyLinks(postEl);
+    postEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, delay);
+  addTimer(timerId);
+}
+
+/* ================================================================== */
+/*  RENDERER: Profile Page                                             */
+/* ================================================================== */
+function renderProfilePage(scene) {
+  const pd = scene.profile_data;
+  if (!pd) { el.content.innerHTML = '<div class="loading-bar">No profile data.</div>'; return; }
+
+  updateBreadcrumb([
+    { label: 'dreams_and_static', sceneId: lastForumIndex },
+    { label: `Profile: ${pd.username || '???'}` },
+  ]);
+
+  let html = `<div class="profile-header">Profile: ${esc(pd.username || '')}</div>`;
+  html += '<div class="profile-container">';
+
+  html += '<table class="profile-info-table">';
+  html += `<tr><td>Username</td><td>${esc(pd.username || '')}</td></tr>`;
+  html += `<tr><td>Joined</td><td>${esc(pd.joined || '')}</td></tr>`;
+  html += `<tr><td>Posts</td><td>${pd.posts || 0}</td></tr>`;
+  html += `<tr><td>Last seen</td><td>${esc(pd.last_seen || '')}</td></tr>`;
+  if (pd.location) html += `<tr><td>Location</td><td>${esc(pd.location)}</td></tr>`;
+  if (pd.bio)      html += `<tr><td>Bio</td><td>${esc(pd.bio)}</td></tr>`;
+  html += '</table>';
+
+  // Handle form (username collection)
+  if (pd.requires_handle) {
+    html += `<div class="handle-form">`;
+    html += `<p class="handle-prompt">${esc(pd.handle_prompt || 'This board requires a handle.')}</p>`;
+    html += `<form id="handleForm" class="handle-field-row">`;
+    html += `<label class="handle-label">${esc(pd.handle_field_label || 'Handle:')}</label>`;
+    html += `<input type="text" class="handle-input" id="handleInput" name="${esc(pd.handle_field_key || 'player_name')}" required autocomplete="off" />`;
+    html += `<button type="submit" class="handle-submit">OK</button>`;
+    html += `</form></div>`;
   }
-  if (!isNearBottom()) {
-    return;
+
+  // Post history
+  if (pd.show_full && pd.post_history?.length) {
+    html += `<div class="profile-section-title">Post History</div>`;
+    html += `<table class="profile-post-history">`;
+    pd.post_history.forEach((entry) => {
+      html += '<tr>';
+      if (entry.clickable && entry.target_scene) {
+        html += `<td><a href="#" data-scene="${esc(entry.target_scene)}">${esc(entry.thread_title)}</a></td>`;
+      } else {
+        html += `<td>${esc(entry.thread_title)}</td>`;
+      }
+      html += `<td>${esc(entry.thread_date || '')}</td>`;
+      html += `<td>${esc(entry.board || '')}</td>`;
+      html += '</tr>';
+    });
+    html += '</table>';
   }
-  autoAdvancePending = true;
-  fetch('/api/progress', {
+
+  html += '</div>'; // profile-container
+  el.content.innerHTML = html;
+
+  // Bind handle form
+  document.getElementById('handleForm')?.addEventListener('submit', handleHandleSubmit);
+  // Focus the input immediately
+  setTimeout(() => document.getElementById('handleInput')?.focus(), 100);
+
+  // Bind post history links
+  el.content.querySelectorAll('.profile-post-history a').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const sceneId = link.dataset.scene;
+      if (sceneId) navigateToScene(sceneId);
+    });
+  });
+}
+
+/* ------------------------------------------------------------------ */
+/*  Handle form submission (username collection)                       */
+/* ------------------------------------------------------------------ */
+async function handleHandleSubmit(event) {
+  event.preventDefault();
+  if (!currentSession) return;
+
+  const form = event.target;
+  const input = form.querySelector('.handle-input');
+  const fieldKey = input.name || 'player_name';
+  const value = input.value.trim();
+
+  if (!value) { showSnackbar('Please enter a handle.'); return; }
+
+  // Disable to prevent double-submit
+  input.disabled = true;
+  form.querySelector('.handle-submit').disabled = true;
+
+  showLoading();
+
+  try {
+    await apiPost('/api/intake', {
+      session_id: currentSession.session_id,
+      fields: { [fieldKey]: value },
+    });
+    const session = await progressAPI('advance');
+    handleSessionUpdate(session);
+  } catch (error) {
+    console.error('Handle submit failed', error);
+    showSnackbar('Failed to submit. Try again.');
+    input.disabled = false;
+    form.querySelector('.handle-submit').disabled = false;
+  }
+}
+
+/* ================================================================== */
+/*  RENDERER: Fallback (prose / ToS / static pages)                    */
+/* ================================================================== */
+function renderFallback(scene) {
+  const isEnding = scene.id === 'accept_ending' || scene.id === 'refuse_ending';
+
+  if (isEnding) {
+    updateBreadcrumb([{ label: 'dreams_and_static' }]);
+  } else {
+    updateBreadcrumb([
+      { label: 'dreams_and_static', sceneId: lastForumIndex },
+      { label: scene.title || 'unknown' },
+    ]);
+  }
+
+  let html = `<div class="thread-header">${esc(scene.title || '')}</div>`;
+
+  // Prose body: replace '---' with <hr> and preserve whitespace
+  let body = scene.body || '';
+  const bodyHtml = body
+    .split('\n')
+    .map(line => line === '---' ? '<hr class="prose-hr">' : esc(line))
+    .join('\n');
+
+  const containerClass = isEnding ? 'prose-container prose-ending' : 'prose-container';
+  html += `<div class="${containerClass}">${bodyHtml}</div>`;
+
+  if (isEnding) {
+    // No nav back — the ending is final
+    html += `<div class="ending-footer">&nbsp;</div>`;
+  }
+
+  el.content.innerHTML = html;
+}
+
+/* ================================================================== */
+/*  Utilities                                                          */
+/* ================================================================== */
+function showLoading() {
+  el.content.innerHTML = '<div class="loading-bar">loading<span class="dots"></span></div>';
+}
+
+function esc(str) {
+  if (str == null) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function showSnackbar(message) {
+  if (!el.snackbar) return;
+  el.snackbar.textContent = message;
+  el.snackbar.classList.add('visible');
+  setTimeout(() => el.snackbar.classList.remove('visible'), 3200);
+}
+
+async function apiPost(path, body) {
+  const res = await fetch(`${API_BASE}${path}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      session_id: sessionId,
-      event: 'advance',
-    }),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('Advance failed');
-      }
-      return response.json();
-    })
-    .then((payload) => {
-      renderPayload(payload, { autoScroll: true });
-    })
-    .catch(() => {
-      setHudMessage('SIGNAL STUTTERED. TRY SCROLLING AGAIN.');
-    })
-    .finally(() => {
-      autoAdvancePending = false;
-    });
-}
-
-function isNearBottom() {
-  const threshold = 220;
-  return (
-    storyWindow.scrollTop + storyWindow.clientHeight >
-    storyContent.scrollHeight - threshold
-  );
-}
-
-function scrollToBottom() {
-  storyWindow.scrollTo({
-    top: storyContent.scrollHeight,
-    behavior: 'smooth',
+    body: JSON.stringify(body),
   });
-}
-
-function setHudMessage(message) {
-  hudMessageEl.textContent = message || '';
-}
-
-function handleStoryScroll() {
-  pulseCurrentParagraph(false);
-  updateParagraphStates();
-  checkAutoAdvance();
-}
-
-function showRegistration() {
-  if (!registerOverlay) {
-    return;
+  if (!res.ok) {
+    const detail = await res.json().catch(() => null);
+    throw new Error(detail?.detail || `Request failed: ${res.status}`);
   }
-  if (!registrationAvailable) {
-    setHudMessage('THE MAZE IS STILL WRITING. KEEP READING.');
-    return;
-  }
-  registerOverlay.classList.remove('hidden');
-  registrationShown = true;
-  updateRegistrationUI();
-  if (registerCloseBtn && typeof registerCloseBtn.focus === 'function') {
-    registerCloseBtn.focus();
-  }
-}
-
-function updateRegistrationUI() {
-  if (!registerTriggerBtn) {
-    return;
-  }
-  if (!registrationAvailable) {
-    registerTriggerBtn.classList.add('hidden');
-    registerTriggerBtn.disabled = false;
-    registerTriggerBtn.textContent = 'Register';
-    return;
-  }
-  registerTriggerBtn.classList.remove('hidden');
-  if (profile?.name) {
-    registerTriggerBtn.textContent = 'Registered';
-    registerTriggerBtn.disabled = true;
-  } else {
-    registerTriggerBtn.textContent = 'Register';
-    registerTriggerBtn.disabled = false;
-  }
-}
-
-function pulseCurrentParagraph(active) {
-  if (!currentFocusedElement) {
-    return;
-  }
-  if (!active) {
-    currentFocusedElement.classList.remove('is-tilted');
-    return;
-  }
-  currentFocusedElement.classList.add('is-tilted');
-  clearTimeout(tiltGlowTimeout);
-  tiltGlowTimeout = setTimeout(() => {
-    currentFocusedElement?.classList.remove('is-tilted');
-  }, 600);
-}
-
-function prefillProfile() {
-  if (profile?.name) {
-    registerNameInput.value = profile.name;
-  }
-  if (profile?.email) {
-    registerEmailInput.value = profile.email;
-  }
-  updateRegistrationUI();
-}
-
-function loadProfile() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) {
-      return null;
-    }
-    return JSON.parse(raw);
-  } catch (err) {
-    return null;
-  }
+  return res.json();
 }

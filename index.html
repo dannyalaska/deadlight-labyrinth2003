@@ -3,68 +3,56 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Deadlight 2003 — Chapter One Teaser</title>
+    <title>dreams_and_static</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="scanlines" aria-hidden="true"></div>
-    <section class="boot-screen" id="bootScreen" aria-live="polite">
-      <div class="boot-log" id="bootLog"></div>
-    </section>
+    <div class="vignette" aria-hidden="true"></div>
 
-    <div class="app hidden" id="appRoot">
-      <header class="topline">
-        <span class="cursor">%</span>
-        <span class="label">DEADLIGHT_2003</span>
-        <span class="divider">//</span>
-        <span class="status" id="connectionStatus">INITIALIZING</span>
-      </header>
-
-      <main class="story-window" id="storyWindow">
-        <div class="story-content" id="storyContent" role="log" aria-live="polite"></div>
-        <div id="loadingIndicator" class="loading-container hidden">
-          <div class="loading-bar"></div>
-          <div class="loading-text">BUFFERING SIGNAL...</div>
+    <div class="forum-wrapper" id="forumWrapper">
+      <!-- Forum header -->
+      <div class="forum-header">
+        <div>
+          <h1 class="forum-title" id="forumTitle">dreams_and_static</h1>
+          <p class="forum-tagline" id="forumTagline">a place for what keeps you up at night</p>
         </div>
-      </main>
-
-      <aside class="hud">
-        <div id="hudMessage" class="hud-message"></div>
-        <button id="registerTriggerBtn" class="btn-ghost hidden" type="button">
-          Register
-        </button>
-        <div id="tiltHint" class="tilt-hint hidden">
-          <span class="hint-label">LEAN TO CHOOSE</span>
-          <div class="hint-bars">
-            <div class="bar left" id="tiltBarLeft"></div>
-            <div class="bar right" id="tiltBarRight"></div>
-          </div>
+        <div class="forum-header-right" id="headerRight">
+          <span id="headerStatus">loading...</span>
         </div>
-      </aside>
+      </div>
+
+      <!-- Nav bar -->
+      <div class="forum-nav">
+        <a href="#" id="navHome">Board Index</a>
+      </div>
+
+      <!-- Banner ad — hidden until Act 2 -->
+      <div class="banner-ad" id="bannerAd" aria-hidden="true" style="display:none">
+        <span class="banner-ad-text" id="bannerAdText">FREE AIM emoticons — click here!</span>
+        <span class="banner-ad-x" id="bannerAdX" title="close ad">x</span>
+      </div>
+
+      <!-- Breadcrumb -->
+      <div class="breadcrumb" id="breadcrumb">
+        <a href="#" class="breadcrumb-home">dreams_and_static</a>
+      </div>
+
+      <!-- Content area — dynamically rendered -->
+      <div class="forum-content" id="forumContent">
+        <div class="loading-bar">
+          loading forum<span class="dots"></span>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="forum-footer">
+        Powered by <a href="#">phpBB</a> 2.0.6 &copy; 2001, 2002 phpBB Group
+        <br>
+        <a href="#" id="navTos" class="footer-tos-link">Terms of Service</a>
+      </div>
     </div>
 
-    <section id="registerOverlay" class="overlay hidden" role="dialog" aria-modal="true">
-      <div class="overlay-content">
-        <header class="overlay-header">
-          <span>REGISTER TO CONTINUE</span>
-          <button type="button" class="btn-ghost" id="registerCloseBtn">Not Yet</button>
-        </header>
-        <form id="registerForm" class="overlay-body">
-          <label>
-            Name
-            <input type="text" id="registerName" name="name" autocomplete="name" required />
-          </label>
-          <label>
-            Email
-            <input type="email" id="registerEmail" name="email" autocomplete="email" required />
-          </label>
-          <button type="submit" class="btn-primary">Save &amp; Wake The Next Chapter</button>
-          <p class="register-note">
-            (We’ll send the next path when it stabilizes. Stored locally for now.)
-          </p>
-        </form>
-      </div>
-    </section>
+    <div id="snackbar" class="snackbar" role="status" aria-live="polite"></div>
 
     <script type="module" src="script.js"></script>
   </body>

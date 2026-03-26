@@ -1,0 +1,26 @@
+{
+  "name": "labyrinth",
+  "version": "1.0.0",
+  "description": "Python-backed teaser for the AI Labyrinth project. FastAPI serves the static chapter experience plus JSON endpoints that drive the interactive flow.",
+  "main": "script.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dannyalaska/deadlight-labyrinth2003.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dannyalaska/deadlight-labyrinth2003/issues"
+  },
+  "homepage": "https://github.com/dannyalaska/deadlight-labyrinth2003#readme",
+  "dependencies": {
+    "jsdom": "^27.0.1"
+  }
+}

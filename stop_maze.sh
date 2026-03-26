@@ -27,10 +27,19 @@ if [[ -f "$LOG_DIR/streamlit.pid" ]]; then
   rm -f "$LOG_DIR/streamlit.pid"
 fi
 
+if [[ -f "$LOG_DIR/next.pid" ]]; then
+  PID=$(cat "$LOG_DIR/next.pid")
+  if kill "$PID" 2>/dev/null; then
+    echo "✓ Stopped Next.js UI (PID: $PID)"
+  fi
+  rm -f "$LOG_DIR/next.pid"
+fi
+
 # Fallback: kill all matching processes
 echo "Ensuring all maze processes are stopped..."
 pkill -f "uvicorn labyrinth.server" || true
-pkill -f "streamlit run.*streamlit_app" || true
+pkill -f "streamlit run.*streamlit_app_v2" || true
+pkill -f "next dev" || true
 
 sleep 1
 

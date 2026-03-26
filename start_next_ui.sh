@@ -3,28 +3,34 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+WEB_DIR="$SCRIPT_DIR/web"
 ENV_FILE="$SCRIPT_DIR/.env"
 LOG_DIR="$SCRIPT_DIR/logs"
+DATA_DIR="$SCRIPT_DIR/data"
 API_LOG="$LOG_DIR/api.log"
-STREAMLIT_LOG="$LOG_DIR/streamlit_v2.log"
-DB_DIR="$SCRIPT_DIR/data"
+NEXT_LOG="$LOG_DIR/next.log"
+
+API_PORT="${PORT:-8000}"
+NEXT_PORT="${NEXT_PORT:-3000}"
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "  DEADLIGHT 2003 ◈ TERMINAL UI MODE"
-echo "  Eerie 2003 console vibe | Scroll-based navigation"
+echo "  DEADLIGHT 2003 ◈ NEXT.JS UI MODE"
+echo "  FastAPI backend + Turbopack dev server"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo
 
+if [[ ! -d "$WEB_DIR" ]]; then
+  echo "[error] Next.js workspace not found at $WEB_DIR"
+  exit 1
+fi
+
 # Stop any existing processes
 echo "[cleanup] stopping existing maze processes..."
-pkill -f "uvicorn labyrinth.server" || true
-pkill -f "streamlit run" || true
+pkill -f "uvicorn labyrinth.server" >/dev/null 2>&1 || true
+pkill -f "next dev" >/dev/null 2>&1 || true
 sleep 2
 
-mkdir -p "$LOG_DIR" "$DB_DIR"
-
-API_PORT="${PORT:-8000}"
-STREAMLIT_PORT_VALUE="${STREAMLIT_PORT:-8501}"
+mkdir -p "$LOG_DIR" "$DATA_DIR"
 
 USE_POETRY=false
 if command -v poetry >/dev/null 2>&1; then
@@ -32,7 +38,7 @@ if command -v poetry >/dev/null 2>&1; then
 fi
 
 if $USE_POETRY; then
-  echo "[bootstrap] installing dependencies via Poetry..."
+  echo "[bootstrap] installing Python dependencies via Poetry..."
   poetry install >/dev/null
 else
   echo "[warn] Poetry not found; using system python"
@@ -45,10 +51,29 @@ if [[ -f "$ENV_FILE" ]]; then
   source "$ENV_FILE"
   set +a
 else
-  echo "[bootstrap] no .env found; relying on existing environment"
+  echo "[bootstrap] no .env found; relying on current environment"
 fi
 
-# Start API
+# Prepare Node toolchain (prefer repo-local build)
+NODE_BIN_DIR="$SCRIPT_DIR/tools/node-20.16.0/bin"
+if [[ -d "$NODE_BIN_DIR" ]]; then
+  export PATH="$NODE_BIN_DIR:$PATH"
+fi
+
+if ! command -v node >/dev/null 2>&1; then
+  echo "[error] Node.js not found. Install Node 20+ or drop it in $NODE_BIN_DIR."
+  exit 1
+fi
+
+# Install JS dependencies on first run
+if [[ ! -d "$WEB_DIR/node_modules" ]]; then
+  echo "[bootstrap] installing Next.js dependencies..."
+  (cd "$WEB_DIR" && npm install >/dev/null)
+fi
+
+MAZE_API_BASE_URL="${NEXT_PUBLIC_MAZE_API_BASE:-${MAZE_API_BASE:-http://127.0.0.1:$API_PORT}}"
+
+# Start FastAPI
 echo "[start] launching FastAPI (uvicorn) -> $API_LOG"
 if $USE_POETRY; then
   nohup poetry run uvicorn labyrinth.server:app --reload --host 0.0.0.0 --port "$API_PORT" \
@@ -59,22 +84,15 @@ else
 fi
 echo $! > "$LOG_DIR/uvicorn.pid"
 
-# Start Terminal UI (V2)
-echo "[start] launching Terminal UI (Streamlit V2) -> $STREAMLIT_LOG"
-if $USE_POETRY; then
-  nohup poetry run streamlit run "$SCRIPT_DIR/streamlit_app_v2.py" \
-    --server.port "$STREAMLIT_PORT_VALUE" \
-    --server.address 0.0.0.0 \
-    --server.headless true \
-    >"$STREAMLIT_LOG" 2>&1 &
-else
-  nohup python -m streamlit run "$SCRIPT_DIR/streamlit_app_v2.py" \
-    --server.port "$STREAMLIT_PORT_VALUE" \
-    --server.address 0.0.0.0 \
-    --server.headless true \
-    >"$STREAMLIT_LOG" 2>&1 &
-fi
-echo $! > "$LOG_DIR/streamlit.pid"
+# Start Next.js dev server
+echo "[start] launching Next.js dev server -> $NEXT_LOG"
+(
+  cd "$WEB_DIR"
+  nohup env NEXT_PUBLIC_MAZE_API_BASE="$MAZE_API_BASE_URL" \
+    npm run dev -- --turbo --hostname 0.0.0.0 --port "$NEXT_PORT" \
+    >"$NEXT_LOG" 2>&1 &
+  echo $! > "$LOG_DIR/next.pid"
+)
 
 sleep 3
 
@@ -104,13 +122,12 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 echo "  ✓ MAZE INITIALIZED"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo
-echo "  Terminal UI:  http://$HOST_IP:$STREAMLIT_PORT_VALUE"
-echo "  API + Web UI: http://$HOST_IP:$API_PORT"
-echo
-echo "  Mobile: Use the URLs above on your phone (same WiFi)"
+echo "  API Server:   http://$HOST_IP:$API_PORT"
+echo "  Next.js UI:   http://$HOST_IP:$NEXT_PORT"
 echo
 echo "  Logs:"
 echo "    API:  tail -f $API_LOG"
-echo "    UI:   tail -f $STREAMLIT_LOG"
+echo "    UI:   tail -f $NEXT_LOG"
 echo
+echo "Press Ctrl+C in each terminal to stop, or run ./stop_maze.sh"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
