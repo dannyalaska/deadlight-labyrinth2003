@@ -161,6 +161,34 @@ class StoryEngine:
             self._sessions[session_id] = session
         return session
 
+    def restore_session(self, saved: Dict) -> SessionState:
+        """Recreate a SessionState from a dict previously returned by to_dict()."""
+        session = SessionState(
+            id=saved["story_session_id"],
+            profile_name=saved.get("player_profile", {}).get("player_name"),
+            current_scene_id=saved["scene_id"],
+            history=saved.get("history", []),
+            player_profile=saved.get("player_profile", {}),
+            conversation_log=saved.get("conversation_log", []),
+            visit_counts=saved.get("visit_counts", {}),
+            story_complete=saved.get("story_complete", False),
+        )
+        with self._lock:
+            self._sessions[session.id] = session
+        return session
+
+    def session_to_dict(self, session: SessionState) -> Dict:
+        """Serialise a SessionState to a plain dict for persistence."""
+        return {
+            "story_session_id": session.id,
+            "scene_id": session.current_scene_id,
+            "player_profile": session.player_profile,
+            "conversation_log": session.conversation_log,
+            "history": session.history,
+            "visit_counts": session.visit_counts,
+            "story_complete": session.story_complete,
+        }
+
     def get_session(self, session_id: str) -> SessionState:
         with self._lock:
             session = self._sessions.get(session_id)

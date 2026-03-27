@@ -6,11 +6,13 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, Optional
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, Form, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse, Response
 from pydantic import BaseModel, EmailStr, Field
 
+from . import auth as _auth
+from . import db as _db
 from .generate import generate_conversation_reply, generate_forum_posts, generate_prose
 from .story_engine import (
     BranchRequired,
@@ -118,6 +120,62 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# --------------------------------------------------------------------------- #
+# Startup
+# --------------------------------------------------------------------------- #
+
+@app.on_event("startup")
+def startup() -> None:
+    """Initialise auth system (DB tables + env-var user sync) on first boot."""
+    _auth.init_auth()
+
+
+# --------------------------------------------------------------------------- #
+# Auth gate middleware
+# --------------------------------------------------------------------------- #
+
+_OPEN_PATHS = {"/login", "/auth/login", "/auth/invite", "/auth/set-password", "/auth/logout"}
+
+
+@app.middleware("http")
+async def auth_gate(request: Request, call_next):
+    path = request.url.path
+
+    # Always allow the auth/login pages through
+    if path in _OPEN_PATHS:
+        return await call_next(request)
+
+    # Invite link: /?invite=<token>  →  redirect to the set-password page
+    invite_token = request.query_params.get("invite")
+    if invite_token and path == "/":
+        return RedirectResponse(f"/auth/invite?token={invite_token}", status_code=302)
+
+    # Validate the session cookie
+    cookie = request.cookies.get("ds_auth")
+    username = _auth.validate_session(cookie)
+
+    if not username:
+        # API calls get a JSON 401; page requests get redirected to /login
+        if path.startswith("/api/"):
+            from fastapi.responses import JSONResponse
+            return JSONResponse({"error": "unauthorized"}, status_code=401)
+        return RedirectResponse("/login", status_code=302)
+
+    request.state.username = username
+    return await call_next(request)
+
+
+# --------------------------------------------------------------------------- #
+# Persistence helper
+# --------------------------------------------------------------------------- #
+
+def _persist(username: str, session) -> None:
+    """Fire-and-forget: save story progress to SQLite. Errors are non-fatal."""
+    try:
+        _db.save_story_progress(username, engine.session_to_dict(session))
+    except Exception as exc:
+        logger.warning("Failed to persist session for %s: %s", username, exc)
+
 
 # --------------------------------------------------------------------------- #
 # Enrichment — dispatches by page_type
@@ -221,6 +279,84 @@ def _enrich_snapshot(session_state, snapshot: dict) -> dict:
 # Routes
 # --------------------------------------------------------------------------- #
 
+# --------------------------------------------------------------------------- #
+# Auth routes (public — no cookie required)
+# --------------------------------------------------------------------------- #
+
+@app.get("/login", include_in_schema=False)
+def login_page() -> HTMLResponse:
+    return HTMLResponse(_auth.login_page())
+
+
+@app.post("/auth/login", include_in_schema=False)
+def do_login(
+    username: str = Form(...),
+    password: str = Form(...),
+) -> Response:
+    if not _auth.verify_password(username, password):
+        return HTMLResponse(
+            _auth.login_page(error="invalid username or password"),
+            status_code=401,
+        )
+    token = _auth.create_session(username)
+    resp = RedirectResponse("/", status_code=302)
+    resp.set_cookie("ds_auth", token, httponly=True, samesite="lax", max_age=86400 * 30)
+    return resp
+
+
+@app.get("/auth/invite", include_in_schema=False)
+def invite_page(token: str = "") -> Response:
+    username = _auth.validate_invite_token(token)
+    if not username:
+        return HTMLResponse(
+            _auth.login_page(
+                error="this invite link is invalid or has already been used."
+            ),
+            status_code=400,
+        )
+    return HTMLResponse(_auth.set_password_page(username, token))
+
+
+@app.post("/auth/set-password", include_in_schema=False)
+def set_password(
+    username: str = Form(...),
+    invite_token: str = Form(...),
+    password: str = Form(...),
+) -> Response:
+    valid_user = _auth.validate_invite_token(invite_token)
+    if not valid_user or valid_user != username:
+        return HTMLResponse(
+            _auth.login_page(error="invite link is invalid or already used."),
+            status_code=400,
+        )
+    if len(password) < 6:
+        return HTMLResponse(
+            _auth.set_password_page(
+                username, invite_token, error="password must be at least 6 characters."
+            ),
+            status_code=400,
+        )
+    _auth.set_password(username, password)
+    token = _auth.create_session(username)
+    resp = RedirectResponse("/", status_code=302)
+    resp.set_cookie("ds_auth", token, httponly=True, samesite="lax", max_age=86400 * 30)
+    return resp
+
+
+@app.post("/auth/logout", include_in_schema=False)
+def logout(request: Request) -> Response:
+    cookie = request.cookies.get("ds_auth")
+    if cookie:
+        _auth.revoke_session(cookie)
+    resp = RedirectResponse("/login", status_code=302)
+    resp.delete_cookie("ds_auth")
+    return resp
+
+
+# --------------------------------------------------------------------------- #
+# Health
+# --------------------------------------------------------------------------- #
+
 @app.get("/api/health")
 def healthcheck() -> dict:
     return {"status": "ok"}
@@ -248,8 +384,18 @@ def chapter_metadata() -> dict:
 
 
 @app.post("/api/session")
-def start_session(payload: SessionCreatePayload) -> dict:
-    session = engine.create_session(profile_name=payload.profile_name)
+def start_session(request: Request, payload: SessionCreatePayload) -> dict:
+    username = request.state.username
+    saved = _db.load_story_progress(username)
+    if saved:
+        # Restore from SQLite (memory may have been cleared by a restart)
+        try:
+            session = engine.get_session(saved["story_session_id"])
+        except SessionNotFound:
+            session = engine.restore_session(saved)
+    else:
+        session = engine.create_session(profile_name=payload.profile_name)
+        _persist(username, session)
     snapshot = engine.snapshot(session)
     return _enrich_snapshot(session, snapshot)
 
@@ -265,8 +411,8 @@ def get_session(session_id: str) -> dict:
 
 
 @app.post("/api/progress")
-def progress(payload: ProgressPayload) -> dict:
-    # Capture previous scene before progressing (for first-thread tracking)
+def progress(request: Request, payload: ProgressPayload) -> dict:
+    username = request.state.username
     prev_scene_id = None
     try:
         prev_session = engine.get_session(payload.session_id)
@@ -297,23 +443,26 @@ def progress(payload: ProgressPayload) -> dict:
     ):
         session.player_profile["first_thread"] = payload.direction
 
+    _persist(username, session)
     snapshot = engine.snapshot(session)
     return _enrich_snapshot(session, snapshot)
 
 
 @app.post("/api/intake")
-def intake(payload: IntakePayload) -> dict:
+def intake(request: Request, payload: IntakePayload) -> dict:
     """Store player profile data (flexible key-value fields)."""
+    username = request.state.username
     try:
         profile = {k: v for k, v in payload.fields.items() if v}
-        engine.update_player_profile(payload.session_id, profile)
+        session = engine.update_player_profile(payload.session_id, profile)
+        _persist(username, session)
         return {"status": "accepted", "fields_stored": len(profile)}
     except SessionNotFound as exc:
         raise HTTPException(status_code=404, detail=str(exc)) from exc
 
 
 @app.post("/api/thread_reply")
-def thread_reply(payload: ThreadReplyPayload) -> dict:
+def thread_reply(request: Request, payload: ThreadReplyPayload) -> dict:
     """Multi-turn conversation in a thread (e.g. still_here_03 reply loop)."""
     try:
         session = engine.get_session(payload.session_id)
@@ -376,6 +525,7 @@ def thread_reply(payload: ThreadReplyPayload) -> dict:
                 if link_text and link_text not in response_text:
                     post["body"] = response_text + f"\n\n{link_text}."
 
+    _persist(request.state.username, session)
     return {
         "post": _populate_templates(post, profile),
         "exchange_count": exchange_number,
