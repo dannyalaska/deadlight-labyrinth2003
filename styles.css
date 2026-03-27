@@ -953,6 +953,149 @@ body[data-act="2"] .today-badge {
 }
 
 /* ================================================================== */
+/*  ACT 3 — The Threshold                                             */
+/*  The forum is barely holding together. Something is about to end.  */
+/* ================================================================== */
+
+body[data-act="3"] {
+  --header-bg: #001828;
+  --cat-header-bg: #002d48;
+  --border-dark: #002d48;
+  --link: #0055AA;
+  --bg: #DDE0E8;
+  --row-1: #E7E8F0;
+  --row-2: #DCDDE8;
+  --post-header-bg: #DCDDE8;
+}
+
+body[data-act="3"] .forum-wrapper {
+  border-radius: 3px;
+  filter: saturate(0.82);
+}
+
+body[data-act="3"] .vignette {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 38%,
+    rgba(0, 0, 20, 0.22) 100%
+  );
+}
+
+/* Forum title letter-spacing creeps open in Act 3 */
+body[data-act="3"] .forum-title {
+  letter-spacing: 0.12em;
+  animation: act3titlebreath 18s ease-in-out infinite;
+}
+
+@keyframes act3titlebreath {
+  0%, 100% { letter-spacing: 0.12em; opacity: 1; }
+  45%       { letter-spacing: 0.14em; opacity: 0.92; }
+  90%       { letter-spacing: 0.12em; opacity: 1; }
+}
+
+/* Thread header is slightly wrong */
+body[data-act="3"] .thread-header {
+  letter-spacing: 0.04em;
+  color: #333344;
+}
+
+/* Post content: looser, larger — the words are spreading out */
+body[data-act="3"] .post-content {
+  font-size: 12px;
+  line-height: 1.80;
+}
+
+/* Timestamps feel wrong — a slightly different color */
+body[data-act="3"] .post-header {
+  background: #DDDDE8;
+  color: #778;
+}
+
+/* Thread title links pulse very gently in Act 3 */
+body[data-act="3"] .thread-title-link {
+  animation: act3linkpulse 14s ease-in-out infinite;
+}
+
+@keyframes act3linkpulse {
+  0%, 88%, 100% { letter-spacing: 0.02em; }
+  94% { letter-spacing: 0.045em; }
+}
+
+/* Act 3 prose containers: final_thread, endings */
+body[data-act="3"] .prose-container {
+  font-size: 12px;
+  line-height: 1.90;
+}
+
+body[data-act="3"] .prose-ending {
+  line-height: 2.25;
+  letter-spacing: 0.012em;
+}
+
+/* ================================================================== */
+/*  still_here_03 — the presence breathes                             */
+/*  Gentle glow animation on all its posts in Acts 2 & 3.            */
+/* ================================================================== */
+
+body[data-act="2"] .still-here-post,
+body[data-act="3"] .still-here-post {
+  animation: stillhereBreathe 9s ease-in-out infinite;
+}
+
+@keyframes stillhereBreathe {
+  0%, 100% { box-shadow: 0 0 6px rgba(212, 160, 23, 0.10); }
+  50%       { box-shadow: 0 0 14px rgba(212, 160, 23, 0.28); }
+}
+
+/* In Act 3, still_here_03's post content shimmers faintly */
+body[data-act="3"] .still-here-post .post-content {
+  animation: act3shimmer 18s ease-in-out infinite;
+}
+
+@keyframes act3shimmer {
+  0%, 92%, 100% { opacity: 1;    filter: none; }
+  93%            { opacity: 0.82; filter: blur(0.2px) hue-rotate(6deg); }
+  94%            { opacity: 1;    filter: none; }
+  96%            { opacity: 0.70; filter: blur(0.4px); }
+  97%            { opacity: 1;    filter: none; }
+}
+
+/* ================================================================== */
+/*  Prose continue link — the terminal prompt at aim_vestibule's end  */
+/* ================================================================== */
+
+.prose-continue {
+  padding: 24px 15px 12px;
+}
+
+.prose-continue-link {
+  color: var(--fg-dim);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: var(--font-size);
+  letter-spacing: 0.06em;
+  opacity: 0.55;
+  transition: opacity 0.4s, color 0.4s;
+  cursor: pointer;
+}
+
+.prose-continue-link::after {
+  content: '_';
+  animation: cursorBlink 1.1s step-end infinite;
+  margin-left: 1px;
+}
+
+.prose-continue-link:hover {
+  opacity: 1;
+  color: var(--link);
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ================================================================== */
 /*  BANNER AD — corruption mechanic                                    */
 /* ================================================================== */
 .banner-ad {
@@ -1015,11 +1158,12 @@ body[data-act="2"] .today-badge {
   animation: adflicker 4s ease-in-out infinite;
 }
 
-/* Level 4: The ad is the forum */
+/* Level 4: The ad is the forum. The ad is the thread. */
 .banner-ad[data-level="4"] {
   background: var(--header-bg);
   border-color: var(--header-bg);
   color: var(--header-fg);
+  animation: adflicker 2.5s ease-in-out infinite;
 }
 
 .banner-ad[data-level="4"] .banner-ad-text,
@@ -1028,10 +1172,11 @@ body[data-act="2"] .today-badge {
 }
 
 @keyframes adflicker {
-  0%, 95%, 100% { opacity: 1; }
-  96% { opacity: 0.4; }
-  97% { opacity: 1; }
-  98% { opacity: 0.2; }
+  0%, 93%, 100% { opacity: 1; }
+  94% { opacity: 0.35; }
+  95% { opacity: 1; }
+  97% { opacity: 0.15; }
+  98% { opacity: 1; }
 }
 
 /* ================================================================== */

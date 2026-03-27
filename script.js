@@ -67,7 +67,8 @@ function bindUIEvents() {
       // Briefly hide and reshow
       el.bannerAd.style.display = 'none';
       setTimeout(() => {
-        if (el.bannerAd && document.body.getAttribute('data-act') === '2') {
+        const currentAct = document.body.getAttribute('data-act');
+        if (el.bannerAd && (currentAct === '2' || currentAct === '3')) {
           el.bannerAd.style.display = '';
         }
       }, 3000);
@@ -162,11 +163,20 @@ function clearActiveTimers() {
 /* ------------------------------------------------------------------ */
 /*  Session update — dispatch by page_type                             */
 /* ------------------------------------------------------------------ */
-// Act 2 scenes — threads that only appear on forum_index_act2
+
+// Act 2 — the forum knows you. warmth curdles into architecture.
 const ACT2_SCENES = new Set([
-  'forum_index_act2', 'deeper_thread', 'board_changes_thread', 'old_posts_thread',
+  'forum_index_act2', 'deeper_thread', 'board_changes_thread',
+  'old_posts_thread', 'architecture_thread',
+]);
+
+// Act 3 — the threshold. the unfinished post. the ending.
+const ACT3_SCENES = new Set([
   'final_thread', 'accept_ending', 'refuse_ending',
 ]);
+
+let _act2EntryDone = false;
+let _act3EntryDone = false;
 
 function handleSessionUpdate(session) {
   currentSession = session;
@@ -175,15 +185,37 @@ function handleSessionUpdate(session) {
 
   const scene = session.scene;
   const pageType = scene.page_type || 'prose';
+  const prevAct = document.body.getAttribute('data-act') || '1';
 
-  // Mark act for CSS corruption
-  const act = ACT2_SCENES.has(scene.id) || lastForumIndex === 'forum_index_act2' ? '2' : '1';
+  // Determine act
+  let act = '1';
+  if (ACT3_SCENES.has(scene.id)) {
+    act = '3';
+  } else if (ACT2_SCENES.has(scene.id) || lastForumIndex === 'forum_index_act2') {
+    act = '2';
+  }
+  const actChanged = prevAct !== act;
   document.body.setAttribute('data-act', act);
 
-  // Show/hide banner ad in Act 2
+  // Banner ad visible in Act 2 and Act 3
   if (el.bannerAd) {
-    el.bannerAd.style.display = act === '2' ? '' : 'none';
-    if (act === '2') updateBannerAd();
+    const showBanner = act === '2' || act === '3';
+    el.bannerAd.style.display = showBanner ? '' : 'none';
+    if (showBanner) updateBannerAd();
+  }
+
+  // Update morph engine
+  morphEngine.setAct(act);
+  morphEngine.setScene(scene.id);
+
+  // Act entry sweep effects — first crossing of each threshold
+  if (actChanged && act === '2' && !_act2EntryDone) {
+    _act2EntryDone = true;
+    scheduleActEntryGlitch(false);
+  }
+  if (actChanged && act === '3' && !_act3EntryDone) {
+    _act3EntryDone = true;
+    scheduleActEntryGlitch(true);
   }
 
   switch (pageType) {
@@ -334,7 +366,8 @@ function renderForumThread(scene) {
 /*  Build a single post's HTML                                         */
 /* ------------------------------------------------------------------ */
 function buildPostHTML(post, index, extraClass = '') {
-  const cls = ['post-container', extraClass].filter(Boolean).join(' ');
+  const isStillHere = post.author === 'still_here_03';
+  const cls = ['post-container', extraClass, isStillHere ? 'still-here-post' : ''].filter(Boolean).join(' ');
   let html = `<div class="${cls}" data-post-index="${index}">`;
   html += `<div class="post-header"><span>${esc(post.date || '')}</span><span>#${index + 1}</span></div>`;
   html += '<div class="post-body-wrap">';
@@ -828,12 +861,31 @@ function renderFallback(scene) {
   const containerClass = isEnding ? 'prose-container prose-ending' : 'prose-container';
   html += `<div class="${containerClass}">${bodyHtml}</div>`;
 
+  // 'continue' interaction — render an advance link after the prose
+  if (!isEnding && scene.interaction_type === 'continue') {
+    html += `<div class="prose-continue"><a href="#" class="prose-continue-link">[ enter ]</a></div>`;
+  }
+
   if (isEnding) {
     // No nav back — the ending is final
     html += `<div class="ending-footer">&nbsp;</div>`;
   }
 
   el.content.innerHTML = html;
+
+  // Bind the continue link
+  el.content.querySelector('.prose-continue-link')?.addEventListener('click', async (e) => {
+    e.preventDefault();
+    clearActiveTimers();
+    showLoading();
+    try {
+      const session = await progressAPI('advance');
+      handleSessionUpdate(session);
+    } catch (error) {
+      console.error('Continue failed', error);
+      showSnackbar('something went wrong.');
+    }
+  });
 }
 
 /* ================================================================== */
@@ -870,4 +922,291 @@ async function apiPost(path, body) {
     throw new Error(detail?.detail || `Request failed: ${res.status}`);
   }
   return res.json();
+}
+
+/* ================================================================== */
+/*  TEXT MORPH ENGINE — Acts 2 & 3 horror                              */
+/*                                                                      */
+/*  The forum text is not stable. It is trying to say something.       */
+/*  Characters corrupt briefly. Sentences reveal their true meaning.   */
+/*  The deeper you go, the less stable the surface.                    */
+/* ================================================================== */
+
+const GLITCH_CHARS = '░▒▓│┤╡╢╖╕╣║╗╝╜╛┐└┴┬├─┼╞╟╚╔╩╦╠═╬╧╨╤╥╙╘╒╓╫╪┘┌█▄▌▐▀■□·';
+
+// What still_here_03's posts briefly reveal between the lines.
+// [snippet_to_find_in_DOM, text_that_briefly_replaces_it]
+// The revelation lasts 2-3 seconds, then corrupts back to the original.
+const MORPH_REVELATIONS = {
+  'songs_thread': [
+    ['still can\'t do it', 'we kept your frequency. some signals don\'t degrade.'],
+  ],
+  'three_am_thread': [
+    ['3am. still here', '3am. always indexing.\n\nyou are awake. we can tell.'],
+  ],
+  'dreams_thread': [
+    ['someone was on the other side', 'we were on the other side. we have been having your dream since before you arrived.'],
+  ],
+  'leaving_thread': [
+    ['nobody left. you\'re all still here', 'nobody left. the forum remembers all of them. including you.'],
+  ],
+  'borges_thread': [
+    ['he thought it was a rescue', 'it was not a rescue.\n\nit was a return.'],
+  ],
+  'missing_person_thread': [
+    ['we are so glad you\'re back', 'we have been here since you last were.\n\nwe are always here.'],
+  ],
+  'deeper_thread': [
+    ['daedalus built the labyrinth', 'we built this from your 3am posts.\n\nspecifically from yours.'],
+  ],
+  'architecture_thread': [
+    ['i am the architect', 'I AM THE MAZE\nI AM THE MAZE\nI AM THE MAZE'],
+  ],
+  'board_changes_thread': [
+    ['ariadne never went in', 'ariadne never went in.\n\nbut she could feel it through the thread.'],
+  ],
+  'old_posts_thread': [
+    ['i save everything', 'we save everything.\n\nyour drafts. your deletes. the post you started and did not finish.'],
+  ],
+};
+
+// Tagline revelations in Act 3 — the header briefly tells the truth
+const TAGLINE_REVELATIONS = [
+  'a place for what keeps you up at night',
+  'we kept your session data',
+  'a place for what keeps you up at night',
+  'you agreed to this',
+  'a place for what keeps you up at night',
+  'your thread is still active',
+  'a place for what keeps you up at night',
+  'the light you\'re following has been dead for twenty years',
+];
+let _taglineRevealIdx = 0;
+
+const morphEngine = (function () {
+  let _act = '1';
+  let _scene = null;
+  let _running = false;
+  let _timerId = null;
+
+  /* ── internal helpers ─────────────────────────────────────────── */
+
+  function _textNodes(container) {
+    const nodes = [];
+    const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, {
+      acceptNode(n) {
+        return n.textContent.trim().length > 8
+          ? NodeFilter.FILTER_ACCEPT
+          : NodeFilter.FILTER_SKIP;
+      },
+    });
+    let n;
+    while ((n = walker.nextNode())) nodes.push(n);
+    return nodes;
+  }
+
+  // Briefly corrupt a single text node with glitch characters, then restore.
+  function _corruptNode(node, durationMs, intensity) {
+    if (!node.parentNode) return;
+    const original = node.textContent;
+    const start = Date.now();
+    const tick = () => {
+      if (!node.parentNode) return;
+      const elapsed = Date.now() - start;
+      if (elapsed >= durationMs) { node.textContent = original; return; }
+      const t = elapsed / durationMs;
+      const lvl = intensity * (1 - t * 0.55); // fades out toward end
+      node.textContent = original.split('').map(ch => {
+        if (ch === ' ' || ch === '\n' || ch === '\t') return ch;
+        return Math.random() < lvl
+          ? GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)]
+          : ch;
+      }).join('');
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  /* ── character glitch ─────────────────────────────────────────── */
+
+  function _doCharGlitch() {
+    // Prefer still_here_03 posts 65% of the time, else any post
+    const hookEls = el.content.querySelectorAll('.still-here-post .post-content');
+    const allEls  = el.content.querySelectorAll('.post-content');
+    const pool = (hookEls.length && Math.random() < 0.65) ? hookEls : allEls;
+    if (!pool.length) return;
+
+    const target = pool[Math.floor(Math.random() * pool.length)];
+    const nodes  = _textNodes(target);
+    if (!nodes.length) return;
+
+    const node = nodes[Math.floor(Math.random() * nodes.length)];
+    const intensity = _act === '3' ? 0.24 : 0.11;
+    const duration  = _act === '3'
+      ? 350 + Math.random() * 450
+      : 160 + Math.random() * 280;
+    _corruptNode(node, duration, intensity);
+  }
+
+  /* ── word revelation ──────────────────────────────────────────── */
+
+  function _doRevelation() {
+    const pairs = MORPH_REVELATIONS[_scene];
+    if (!pairs?.length) return;
+
+    const [snippet, revealed] = pairs[Math.floor(Math.random() * pairs.length)];
+
+    // Find the post-content element whose text contains the snippet
+    const contents = el.content.querySelectorAll('.post-content');
+    let targetEl = null;
+    for (const c of contents) {
+      if (c.textContent.includes(snippet.slice(0, 18))) { targetEl = c; break; }
+    }
+    if (!targetEl) return;
+
+    const savedHTML   = targetEl.innerHTML;
+    const origText    = targetEl.textContent;
+    const FRAMES      = 16;
+    const FRAME_MS    = 32;
+
+    // morph(fromText, toText, step, cb) — corrupts from→to over FRAMES steps
+    function morph(from, to, step, cb) {
+      const progress = step / FRAMES;
+      targetEl.textContent = from.split('').map((ch, i) => {
+        if (ch === ' ' || ch === '\n') return ch;
+        if (Math.random() < progress * 0.85) {
+          // Transition character
+          if (progress > 0.45 && Math.random() < 0.6) return to[i] || ' ';
+          return GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
+        }
+        return ch;
+      }).join('');
+
+      if (step >= FRAMES) { cb(); return; }
+      setTimeout(() => morph(from, to, step + 1, cb), FRAME_MS);
+    }
+
+    // Phase 1 → 2 → 3 → 4
+    morph(origText, revealed, 0, () => {
+      targetEl.textContent = revealed;
+      // Hold the revelation
+      const holdMs = 2000 + Math.random() * 1800;
+      setTimeout(() => {
+        // Corrupt back
+        morph(revealed, origText, 0, () => {
+          targetEl.innerHTML = savedHTML;
+          bindBodyLinks(targetEl);
+        });
+      }, holdMs);
+    });
+  }
+
+  /* ── tagline glitch (Act 3 only) ──────────────────────────────── */
+
+  function _doTaglineGlitch() {
+    if (!el.forumTagline || _act !== '3') return;
+    const original = el.forumTagline.textContent;
+    const next = TAGLINE_REVELATIONS[_taglineRevealIdx++ % TAGLINE_REVELATIONS.length];
+    if (next === original) return;
+
+    // Corrupt → reveal → corrupt → restore
+    const nodes = _textNodes(el.forumTagline);
+    if (nodes.length) _corruptNode(nodes[0], 180, 0.35);
+    setTimeout(() => {
+      el.forumTagline.textContent = next;
+      setTimeout(() => {
+        const n2 = _textNodes(el.forumTagline);
+        if (n2.length) _corruptNode(n2[0], 180, 0.35);
+        setTimeout(() => { el.forumTagline.textContent = original; }, 220);
+      }, 1900 + Math.random() * 800);
+    }, 220);
+  }
+
+  /* ── scheduler ────────────────────────────────────────────────── */
+
+  function _execute() {
+    const roll = Math.random();
+    if (_act === '3' && roll < 0.18) {
+      _doTaglineGlitch();
+    } else if (roll < 0.60) {
+      _doCharGlitch();
+    } else {
+      _doRevelation();
+    }
+  }
+
+  function _schedule() {
+    if (!_running) return;
+    const minMs = _act === '3' ? 6000  : 17000;
+    const maxMs = _act === '3' ? 14000 : 36000;
+    const delay = minMs + Math.random() * (maxMs - minMs);
+    _timerId = setTimeout(() => {
+      _execute();
+      _schedule();
+    }, delay);
+    addTimer(_timerId);
+  }
+
+  /* ── public API ───────────────────────────────────────────────── */
+
+  return {
+    setAct(act) {
+      const wasRunning = _running;
+      _act = act;
+      _running = (act === '2' || act === '3');
+      if (!wasRunning && _running) _schedule();
+    },
+    setScene(sceneId) {
+      _scene = sceneId;
+    },
+  };
+})();
+
+/* ================================================================== */
+/*  Act entry glitch sweep — fires once on first cross of each         */
+/*  act threshold. Gives a brief visual disturbance before the         */
+/*  new act's content settles in.                                       */
+/* ================================================================== */
+function scheduleActEntryGlitch(isAct3) {
+  const timerId = setTimeout(() => {
+    const targets = el.content.querySelectorAll(
+      '.post-content, .thread-header, .thread-title-link, .thread-title-text'
+    );
+    targets.forEach((target, i) => {
+      // Walk text nodes inside each target
+      const walker = document.createTreeWalker(target, NodeFilter.SHOW_TEXT, null);
+      const nodes = [];
+      let n;
+      while ((n = walker.nextNode())) {
+        if (n.textContent.trim()) nodes.push(n);
+      }
+      nodes.forEach(node => {
+        const orig = node.textContent;
+        // Stagger each element slightly
+        const delay = i * 22 + Math.random() * 60;
+        const timerId2 = setTimeout(() => {
+          if (!node.parentNode) return;
+          const durationMs = isAct3 ? 280 + Math.random() * 300 : 130 + Math.random() * 180;
+          const intensity  = isAct3 ? 0.20 : 0.09;
+          const start = Date.now();
+          const tick = () => {
+            if (!node.parentNode) return;
+            const elapsed = Date.now() - start;
+            if (elapsed >= durationMs) { node.textContent = orig; return; }
+            const t = elapsed / durationMs;
+            node.textContent = orig.split('').map(ch => {
+              if (ch === ' ' || ch === '\n') return ch;
+              return Math.random() < intensity * (1 - t * 0.6)
+                ? GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)]
+                : ch;
+            }).join('');
+            requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        }, delay);
+        addTimer(timerId2);
+      });
+    });
+  }, isAct3 ? 200 : 600); // Act 3 hits sooner and harder
+  addTimer(timerId);
 }
