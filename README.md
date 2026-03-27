@@ -8,17 +8,14 @@ Python-backed teaser for the AI Labyrinth project. FastAPI serves the static cha
 - Copy the sample env: `cp .env.example .env` and drop your real key(s) in there (kept out of git).
 
 ## Run Locally
-- (Optional) export `ANTHROPIC_API_KEY` to let the maze call Claude/Opus for live narrative:
-  - macOS/Linux: `export ANTHROPIC_API_KEY=sk-ant-...`
-  - Windows (PowerShell): `$Env:ANTHROPIC_API_KEY = "sk-ant-..."`
 - Start the server: `poetry run uvicorn labyrinth.server:app --reload`.
 - Open `http://127.0.0.1:8000` in a desktop browser.
 
-### Streamlit Prototype
-- With the API running, launch the Streamlit UI: `poetry run streamlit run streamlit_app.py`.
-- The sidebar shows live scene metadata (scene id, emotional track, maze theme) and exposes advance/decision controls for desktop testing.
+### Streamlit Terminal UI
+- Launch both the API and Terminal UI with `./start_terminal_ui.sh` (installs dependencies via Poetry when available).
+- To run only the UI against an already-running API: `poetry run streamlit run streamlit_app_v2.py`.
+- Features an eerie 2003 terminal aesthetic with scroll-based navigation, CRT scanlines, and text mutation effects.
 - Update `MAZE_API_BASE` in `.env` if your FastAPI server runs on a different host/port.
-- One-liner helper: `./start_labyrinth.sh --open-ui` spins up both services (uses Poetry when available).
 
 ## Testing On Phone
 - Find your local IP (e.g., `ipconfig getifaddr en0` on macOS).
@@ -31,10 +28,8 @@ Python-backed teaser for the AI Labyrinth project. FastAPI serves the static cha
 - Functional coverage exercises the FastAPI scene flow, ensuring decisions and maze branches behave as expected.
 
 ## Story Controls
-- Scene scaffolding lives in `labyrinth/story_blueprint.py` (scene ids, prompts, emotional tracks, decision wiring).
-- Sessions + branching are handled in `labyrinth/server.py` by `SessionManager` using those blueprints.
-- Without an API key the maze falls back to `StaticStoryGenerator` so you can demo offline.
-- With a key, `ClaudeStoryGenerator` asks Anthropic for JSON describing each beat; tweak the system prompt and request payload inside that class.
-- Paragraph mutations for look-back behaviour are queued per paragraph; update lists in the generator helpers when you want new glitches.
-- Session state and history persist in the SQLite path pointed to by `LABYRINTH_DB_PATH` (defaults to `data/maze_state.db`). Remove the file if you want a clean slate.
-- Enable LangSmith tracing by setting `LANGSMITH_TRACING=1` (and `LANGCHAIN_API_KEY`) to capture generation diagnostics during user tests.
+- Scene definitions live in `chapter_one_demo.json`. Update the JSON to add new beats, tweak transitions, or introduce branches.
+- The in-memory engine in `labyrinth/story_engine.py` loads that JSON, manages sessions, and resolves branches / CTAs.
+- `labyrinth/server.py` exposes FastAPI endpoints (`/api/session`, `/api/progress`, `/api/register`) used by both the web UI and Streamlit demo.
+- The web UI (static `index.html` + `script.js`) consumes the API and handles tilt decisions when a scene requests them.
+- The Streamlit companion (`streamlit_app_v2.py`) is a lightweight alternative interface that calls the same endpoints.
