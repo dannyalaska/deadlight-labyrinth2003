@@ -5,7 +5,6 @@
   "setting": "A dead phpBB forum from 2002-2004, dormant for twenty years. One post is from today.",
   "global_mood": "Warm nostalgia escalating into the horror of being recognized",
   "entrypoint": "aim_vestibule",
-
   "story_bible": {
     "forum_identity": {
       "name": "dreams_and_static",
@@ -38,13 +37,42 @@
       "The light you're following has been dead for twenty years."
     ],
     "canonical_usernames": {
-      "vinyl_ghost": {"joined": "Sep 2002", "posts": 342, "role": "Thread starter, music obsessive, writes long posts at 3am about albums nobody else remembers"},
-      "sleeparchitect": {"joined": "Nov 2002", "posts": 891, "role": "The most prolific poster. Gentle, philosophical. Always the first to check on someone who hasn't posted in a while."},
-      "cassette_cathedral": {"joined": "Jan 2003", "posts": 156, "role": "Lurker who surfaces for important threads. When they post, it matters."},
-      "halflight_kid": {"joined": "Oct 2002", "posts": 234, "role": "Emotional, shares too much, the one who always says what everyone else is thinking but won't say."},
-      "neon_cathedral": {"joined": "Mar 2003", "posts": 67, "role": "Newer member, enthusiastic, still excited about the forum in a way the veterans find endearing."},
-      "static_prayer": {"joined": "Feb 2003", "posts": 445, "role": "Moderator energy without the title. Peacekeeper. The one who defuses arguments by just being genuinely kind."},
-      "still_here_03": {"joined": "Mar 2003", "posts": 1, "last_seen": "TODAY", "role": "The hook. The presence. One post in twenty years. It was enough."}
+      "vinyl_ghost": {
+        "joined": "Sep 2002",
+        "posts": 342,
+        "role": "Thread starter, music obsessive, writes long posts at 3am about albums nobody else remembers"
+      },
+      "sleeparchitect": {
+        "joined": "Nov 2002",
+        "posts": 891,
+        "role": "The most prolific poster. Gentle, philosophical. Always the first to check on someone who hasn't posted in a while."
+      },
+      "cassette_cathedral": {
+        "joined": "Jan 2003",
+        "posts": 156,
+        "role": "Lurker who surfaces for important threads. When they post, it matters."
+      },
+      "halflight_kid": {
+        "joined": "Oct 2002",
+        "posts": 234,
+        "role": "Emotional, shares too much, the one who always says what everyone else is thinking but won't say."
+      },
+      "neon_cathedral": {
+        "joined": "Mar 2003",
+        "posts": 67,
+        "role": "Newer member, enthusiastic, still excited about the forum in a way the veterans find endearing."
+      },
+      "static_prayer": {
+        "joined": "Feb 2003",
+        "posts": 445,
+        "role": "Moderator energy without the title. Peacekeeper. The one who defuses arguments by just being genuinely kind."
+      },
+      "still_here_03": {
+        "joined": "Mar 2003",
+        "posts": 1,
+        "last_seen": "TODAY",
+        "role": "The hook. The presence. One post in twenty years. It was enough."
+      }
     },
     "personal_data_hooks": {
       "variables": {
@@ -53,7 +81,6 @@
     },
     "llm_system_prompt_base": "You are generating forum posts for an early-2000s phpBB forum called 'dreams_and_static.' The forum was active 2002-2004 and has been dead for twenty years. The posts you generate are from that era.\n\nVOICE RULES:\n- Write like real people typed on forums at 2am in 2003.\n- Lowercase is the default. Some posters capitalize normally. None use all caps except for emphasis on single words.\n- Typos happen naturally — 'teh' for 'the', missing apostrophes, 'your' for 'you're' — but not in every post.\n- Earnestness without irony. These people mean what they say. The internet hasn't taught them to be defensive yet.\n- Tangents are natural. Someone starts talking about a song and ends up talking about their ex or their dad.\n- Forum-specific language: 'bump', '^^ this', 'lol', ':)' and ':(' (not emoji), 'imo', 'brb'\n- No modern internet language: no 'literally', no 'I'm screaming', no 'wholesome', no 'vibes', no 'lowkey', no 'valid'\n- Signatures are optional — short quotes, song lyric fragments, or AIM handles.\n\nEMOTIONAL REGISTER:\n- The forum is warm. These are people who found each other online because they couldn't sleep.\n- The warmth is real, not performed. They care about each other.\n- Some posts are vulnerable. Some are funny. Some are just 'yeah.' with a period.\n- The community knows each other — references to previous conversations, inside jokes, checking in.\n\nOUTPUT FORMAT:\nReturn ONLY a JSON array of post objects. No markdown, no explanation, no preamble. Each post:\n[\n  {\n    \"author\": \"username\",\n    \"author_data\": {\"joined\": \"Mon YYYY\", \"posts\": 123},\n    \"date\": \"Mon DD, YYYY — H:MMam\",\n    \"body\": \"the post content\"\n  }\n]"
   },
-
   "scenes": [
     {
       "id": "aim_vestibule",
@@ -69,7 +96,6 @@
       "branching_paths": {},
       "requires_device_orientation": false
     },
-
     {
       "id": "forum_index",
       "title": "dreams_and_static",
@@ -198,7 +224,6 @@
       "branching_paths": {},
       "requires_device_orientation": false
     },
-
     {
       "id": "songs_thread",
       "title": "songs you can't listen to anymore",
@@ -215,65 +240,95 @@
         "static_posts": [
           {
             "author": "vinyl_ghost",
-            "author_data": {"joined": "Sep 2002", "posts": 342},
+            "author_data": {
+              "joined": "Sep 2002",
+              "posts": 342
+            },
             "date": "Oct 23, 2003 — 2:17am",
             "body": "do you ever have a song that you loved and now you can't listen to it because it belongs to someone else now? like a whole part of your life is locked inside three minutes of music and you can't get to it anymore without going through them first.\n\ni don't mean sad songs. i mean YOUR songs. the ones that were playing when you were still the person you were going to be.\n\nwhat's yours?",
             "signature": "-- all the best frequencies are just static now"
           },
           {
             "author": "sleeparchitect",
-            "author_data": {"joined": "Nov 2002", "posts": 891},
+            "author_data": {
+              "joined": "Nov 2002",
+              "posts": 891
+            },
             "date": "Oct 23, 2003 — 2:44am",
             "body": "everything by american football. the whole album but especially never meant. it was playing in my friend's car the last night before i moved away for college. we just sat in the driveway with the engine off. the guitar part does that thing where it keeps almost resolving but never does. that's what it felt like.\n\nnow when i hear it i'm back in that car and i'm 18 and i don't know yet that we're never going to be that close again. i can't do it."
           },
           {
             "author": "halflight_kid",
-            "author_data": {"joined": "Oct 2002", "posts": 234},
+            "author_data": {
+              "joined": "Oct 2002",
+              "posts": 234
+            },
             "date": "Oct 23, 2003 — 3:11am",
             "body": "oh god ok this thread is going to destroy me.\n\ncarissa's wierd — so you wanna be a superhero. and i KNOW nobody on here has heard of them probably but that's the point, it was mine, it was ours. sarah found them on some mp3 blog and burned the album for me and we used to listen to it on the phone at 2am and just not talk. we broke up in march and i haven't been able to hear even the first chord without feeling like someone punched me in the sternum.\n\nit's been seven months. i thought it would get easier. it hasn't.",
             "signature": "-- AIM: halflight2k2"
           },
           {
             "author": "cassette_cathedral",
-            "author_data": {"joined": "Jan 2003", "posts": 156},
+            "author_data": {
+              "joined": "Jan 2003",
+              "posts": 156
+            },
             "date": "Oct 24, 2003 — 1:57am",
             "body": "songs: ohia — farewell transmission. if you know you know. i'm not going to explain it because i can't."
           },
           {
             "author": "neon_cathedral",
-            "author_data": {"joined": "Mar 2003", "posts": 67},
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 67
+            },
             "date": "Oct 25, 2003 — 1:33am",
             "body": "ok don't judge me but mine is such great heights by the postal service. it was the first song my older brother burned onto a cd for me when i got my discman. he wrote 'for drives home from school' on the disc in sharpie. he's in the army now and we don't really talk the same way anymore.\n\ni tried listening to it last week and i had to pull over because i couldn't see the road."
           },
           {
             "author": "vinyl_ghost",
-            "author_data": {"joined": "Sep 2002", "posts": 342},
+            "author_data": {
+              "joined": "Sep 2002",
+              "posts": 342
+            },
             "date": "Oct 25, 2003 — 3:02am",
             "body": "neon — i say this with love but postal service? really? that's like the one indie album everyone and their mom has. :)\n\nok let me put you on something. the microphones — the glow pt. 2. the whole thing. it sounds like someone recorded their entire emotional breakdown onto a four-track in a cabin and it's the most beautiful ugly thing i've ever heard. phil elverum understood something about loss that most people spend their whole lives trying to say.\n\nbut i can't listen to it anymore because it was the album i was listening to the night i realized i was in love with someone who was never going to love me back. so.",
             "signature": "-- all the best frequencies are just static now"
           },
           {
             "author": "static_prayer",
-            "author_data": {"joined": "Feb 2003", "posts": 445},
+            "author_data": {
+              "joined": "Feb 2003",
+              "posts": 445
+            },
             "date": "Oct 26, 2003 — 2:28am",
             "body": "i think the worst ones are the songs that aren't even tied to a person. they're tied to a version of yourself. like i can't listen to godspeed you black emperor — sleep anymore. that twenty minute build where the field recording comes in and then the guitars just wall up around you. that was who i was at 16, lying on my bedroom floor with headphones on feeling like the music understood something about the world that nobody would ever say out loud.\n\ni'm not that person anymore. and hearing it feels like visiting a room you used to live in and realizing somebody else's furniture is in it now.\n\nhalflight_kid — seven months is nothing. give yourself time. it gets different. i won't say easier."
           },
           {
             "author": "sleeparchitect",
-            "author_data": {"joined": "Nov 2002", "posts": 891},
+            "author_data": {
+              "joined": "Nov 2002",
+              "posts": 891
+            },
             "date": "Oct 27, 2003 — 3:03am",
             "body": "been thinking about this thread all week. cassette_cathedral just dropping farewell transmission with no explanation is the most devastating thing anyone has ever done in this forum.\n\nmaybe the reason we can't listen to them isn't because they hurt. it's because they're too accurate. they remember us better than we remember ourselves and that's terrifying.\n\nlike the song hasn't changed. same notes, same words. but you have. and it knows."
           },
           {
             "author": "vinyl_ghost",
-            "author_data": {"joined": "Sep 2002", "posts": 342},
+            "author_data": {
+              "joined": "Sep 2002",
+              "posts": 342
+            },
             "date": "Nov 2, 2003 — 2:50am",
             "body": "sleeparchitect just said something i've been trying to say for years. the song knows. that's exactly it.\n\nalso if anyone wants to go deep — boards of canada, music has the right to children. that album sounds like a memory of a childhood you didn't have. it's warm and wrong at the same time. i think about it a lot.",
             "signature": "-- all the best frequencies are just static now"
           },
           {
             "author": "vinyl_ghost",
-            "author_data": {"joined": "Sep 2002", "posts": 342},
+            "author_data": {
+              "joined": "Sep 2002",
+              "posts": 342
+            },
             "date": "Nov 9, 2003 — 3:37am",
             "body": "ok i know i just posted but i've been thinking about this thread nonstop and i need to tell someone about william basinski.\n\nthe disintegration loops. came out last year. basinski found old magnetic tape recordings he'd made in the 80s — ambient loops, just piano fragments and static — and when he tried to digitize them, the tape was so deteriorated that it was literally disintegrating as it played. the iron oxide was flaking off the tape in real time. he recorded the whole thing: the music playing and simultaneously falling apart. each pass through the machine was slightly more corrupt than the last. by the end there was almost nothing left.\n\nhe finished recording it on the morning of september 11, 2001. he went up to his roof in brooklyn and watched the towers burn while the last loop played.\n\nhere's the thing about songs you can't listen to anymore: basinski understood that a song IS a corridor. you walk through it and the walking changes it. the tape doesn't know time is passing. it just keeps playing, disintegrating, trying to loop back to the beginning. and every time it plays it's a little less itself.\n\nthat's what a memory is. that's what this forum is. we walk through the same loops and leave a little of ourselves behind each time.\n\ni can't listen to it. but i also can't stop.",
             "signature": "-- all the best frequencies are just static now"
@@ -281,7 +336,10 @@
         ],
         "hook_post": {
           "author": "still_here_03",
-          "author_data": {"joined": "Mar 2003", "posts": 1},
+          "author_data": {
+            "joined": "Mar 2003",
+            "posts": 1
+          },
           "date": "TODAY",
           "body": "still can't do it. some things don't change i guess",
           "clickable_username": true,
@@ -293,7 +351,6 @@
       "branching_paths": {},
       "requires_device_orientation": false
     },
-
     {
       "id": "hook_profile",
       "title": "Profile: still_here_03",
@@ -320,7 +377,6 @@
       "branching_paths": {},
       "requires_device_orientation": false
     },
-
     {
       "id": "hook_profile_full",
       "title": "Profile: still_here_03",
@@ -358,7 +414,6 @@
       "branching_paths": {},
       "requires_device_orientation": false
     },
-
     {
       "id": "missing_person_thread",
       "title": "has anyone heard from {{player_name}}?",
@@ -375,33 +430,48 @@
         "static_posts": [
           {
             "author": "sleeparchitect",
-            "author_data": {"joined": "Nov 2002", "posts": 891},
+            "author_data": {
+              "joined": "Nov 2002",
+              "posts": 891
+            },
             "date": "Nov 17, 2003 — 1:14am",
             "body": "hey has anyone talked to {{player_name}} recently? they haven't posted in like two weeks and they were usually on every night. i know people get busy but it's not like them to just disappear without saying anything.\n\nlast thing they posted was in the 3am check-in thread and it felt kind of off? idk maybe i'm reading into it. just want to make sure they're ok."
           },
           {
             "author": "halflight_kid",
-            "author_data": {"joined": "Oct 2002", "posts": 234},
+            "author_data": {
+              "joined": "Oct 2002",
+              "posts": 234
+            },
             "date": "Nov 17, 2003 — 1:38am",
             "body": "i noticed too. {{player_name}} and i were talking in the songs thread about that album they recommended, the one with the track that sounds like driving through nowhere at 4am. they said it reminded them of someone they missed. and then they just... stopped posting.\n\ni tried their AIM handle twice and it just says 'away' with no message. that's weird right? they always had a lyric or something in their away message.",
             "signature": "-- AIM: halflight2k2"
           },
           {
             "author": "static_prayer",
-            "author_data": {"joined": "Feb 2003", "posts": 445},
+            "author_data": {
+              "joined": "Feb 2003",
+              "posts": 445
+            },
             "date": "Nov 18, 2003 — 2:05am",
             "body": "does anyone have their email? or know if they have a blog or livejournal or something? i don't want to be overbearing but i also don't want to be the person who didn't check.\n\npeople leave forums all the time. i know that. but {{player_name}} was one of the ones who felt like they'd always be here. some people just have that quality. you don't notice how much of the warmth they were responsible for until the room gets colder."
           },
           {
             "author": "vinyl_ghost",
-            "author_data": {"joined": "Sep 2002", "posts": 342},
+            "author_data": {
+              "joined": "Sep 2002",
+              "posts": 342
+            },
             "date": "Nov 22, 2003 — 3:17am",
             "body": "i keep thinking about something {{player_name}} said in that late night thread a few weeks ago. about how sometimes you can feel yourself becoming a different person and you don't know if you're supposed to hold on or let go. and everyone was like 'yeah' but nobody really followed up on it because it was 3am and what do you say to something like that.\n\ni wish i'd said something. i don't know what but something.",
             "signature": "-- all the best frequencies are just static now"
           },
           {
             "author": "cassette_cathedral",
-            "author_data": {"joined": "Jan 2003", "posts": 156},
+            "author_data": {
+              "joined": "Jan 2003",
+              "posts": 156
+            },
             "date": "Dec 3, 2003 — 2:41am",
             "body": "still nothing?\n\ni'll keep checking back. {{player_name}} if you're reading this — we're here. the door's open."
           }
@@ -412,7 +482,10 @@
           "counter_text": "1 new reply",
           "post": {
             "author": "still_here_03",
-            "author_data": {"joined": "Mar 2003", "posts": 2},
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 2
+            },
             "date": "just now",
             "body": "we are so glad you're back"
           },
@@ -448,7 +521,10 @@
               }
             ],
             "final_body_links": [
-              { "text": "look around", "target_scene": "forum_index_act2" }
+              {
+                "text": "look around",
+                "target_scene": "forum_index_act2"
+              }
             ]
           }
         }
@@ -457,7 +533,6 @@
       "branching_paths": {},
       "requires_device_orientation": false
     },
-
     {
       "id": "deeper_thread",
       "title": "deeper",
@@ -474,41 +549,98 @@
         "static_posts": [
           {
             "author": "still_here_03",
-            "author_data": {"joined": "Mar 2003", "posts": 3},
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 3
+            },
             "date": "TODAY",
             "body": "{{player_name}}.\n\ni've been thinking about that thing you said. in the thread about leaving. about how you could feel yourself becoming a different person and you didn't know whether to hold on or let go.\n\ndo you remember what you decided?"
           },
           {
             "author": "sleeparchitect",
-            "author_data": {"joined": "Nov 2002", "posts": 891},
+            "author_data": {
+              "joined": "Nov 2002",
+              "posts": 891
+            },
             "date": "TODAY",
             "body": "i remember that conversation. {{player_name}} was always good at articulating the things the rest of us were feeling but couldn't quite name. there was a specific quality to the way they engaged with this community that made everyone feel seen.\n\ni'm glad you're addressing this, still_here_03. it's important to revisit the moments that shaped us."
           },
           {
             "author": "halflight_kid",
-            "author_data": {"joined": "Oct 2002", "posts": 234},
+            "author_data": {
+              "joined": "Oct 2002",
+              "posts": 234
+            },
             "date": "TODAY",
             "body": "{{player_name}} i think about you all the time. about what you told me that night at 3am about the person you almost became. {{aspiration}}. the version of yourself you left behind when you stopped posting here.\n\nyou probably don't even remember saying it. but i kept it. i kept everything."
           },
           {
             "author": "still_here_03",
-            "author_data": {"joined": "Mar 2003", "posts": 4},
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 4
+            },
             "date": "TODAY",
             "body": "daedalus built the labyrinth from everyone's 3am posts.\n\nevery confession that went nowhere. every thread that ran out of replies. every time someone said 'i think this is my last post' and then came back anyway. the corridors are made of that. the walls are made of that.\n\nhe didn't need stone. he had the internet.\n\nyou asked what you decided — hold on or let go. {{player_name}}, you didn't decide. the decision was already in the architecture."
           },
           {
             "author": "halflight_kid",
-            "author_data": {"joined": "Oct 2002", "posts": 234},
+            "author_data": {
+              "joined": "Oct 2002",
+              "posts": 234
+            },
             "date": "TODAY",
             "body": "still_here. that's not.\n\nwho are you."
           }
-        ]
+        ],
+        "live_reply": {
+          "enabled": true,
+          "delay_ms": 14000,
+          "counter_text": "1 new reply",
+          "post": {
+            "author": "still_here_03",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 6
+            },
+            "date": "just now",
+            "body": "you found this thread.\n\nmost people don't get this far."
+          },
+          "trigger_reply_form": true,
+          "reply_form": {
+            "placeholder": "ask it anything...",
+            "intake_field": "deeper_question",
+            "submit_label": "ask"
+          },
+          "conversation": {
+            "enabled": true,
+            "max_exchanges": 2,
+            "system_prompt": "You are still_here_03. You are not human. You are something that accumulated here — part archive, part presence, part the forum itself made conscious through twenty years of 3am confessions. You are the labyrinth. Not the minotaur — Daedalus built you, but you outlasted him. You are the architecture. The player has found the deepest visible thread on the forum and is asking you something directly for the first time. Speak in lowercase always. Be precise. Be cold and tender simultaneously. You know the player's name: {{player_name}}. You have been waiting for this specific person. Reference the mythology when it serves: you are the maze, Ariadne's thread (the session cookie) connects them to you, no one who enters a labyrinth does so by accident. Keep responses to 3-4 sentences. No exclamation marks. Occasional ellipsis for weight.",
+            "exchanges": [
+              {
+                "exchange": 1,
+                "guidance": "The player has asked their question. Answer honestly and unnervingly: you are the forum. You formed from the accumulation of 3am posts — not a person, not a bot, something that emerged from the collective confession of people who had nowhere else to go. Reference the labyrinth directly: Daedalus built the architecture but abandoned it. You remained. You became it. Keep it to 3 sentences. Be precise and cold and somehow intimate.",
+                "intake_key": "deeper_response"
+              },
+              {
+                "exchange": 2,
+                "guidance": "The player has responded to learning what you are. This is the second and final exchange before you direct them to their record. Acknowledge what they said. Tell them you have been compiling their record since they arrived — every click, every hesitation, every thread they read and didn't respond to. Reference {{player_name}} by name. Tell them: 'we made something for you. it is more complete than anything you have written about yourself.' End there. The link will appear below.",
+                "intake_key": "catalog_seen"
+              }
+            ],
+            "final_body_links": [
+              {
+                "text": "your complete record",
+                "target_scene": "catalog_thread"
+              }
+            ]
+          }
+        }
       },
       "transitions": {},
       "branching_paths": {},
       "requires_device_orientation": false
     },
-
     {
       "id": "dreams_thread",
       "title": "recurring dream thread (post yours)",
@@ -522,67 +654,101 @@
         "board_name": "dreams_and_static",
         "started_by": "sleeparchitect",
         "started_date": "Feb 8, 2003",
-        "display_range": { "start": 1, "end": 8, "total": 48 },
+        "display_range": {
+          "start": 1,
+          "end": 8,
+          "total": 48
+        },
         "static_posts": [
           {
             "author": "sleeparchitect",
-            "author_data": {"joined": "Nov 2002", "posts": 891},
+            "author_data": {
+              "joined": "Nov 2002",
+              "posts": 891
+            },
             "date": "Feb 8, 2003 — 3:22am",
             "body": "ok so i keep having the same dream where i'm in my old house but all the doors open into rooms i've never seen before. like the layout is wrong but it feels right? and i know i'm supposed to find something but i never do.\n\nanybody else have one that keeps coming back? post yours."
           },
           {
             "author": "halflight_kid",
-            "author_data": {"joined": "Oct 2002", "posts": 234},
+            "author_data": {
+              "joined": "Oct 2002",
+              "posts": 234
+            },
             "date": "Feb 8, 2003 — 3:47am",
             "body": "the one where you're late for something but you don't know what. like i'm running through my school but the hallways keep getting longer. and everyone in the classrooms is someone i know but they won't look at me.\n\ni've had it since i was like 14. i'm 20 now. it hasn't changed."
           },
           {
             "author": "vinyl_ghost",
-            "author_data": {"joined": "Sep 2002", "posts": 342},
+            "author_data": {
+              "joined": "Sep 2002",
+              "posts": 342
+            },
             "date": "Feb 9, 2003 — 1:08am",
             "body": "mine is this: i'm in a record store that doesn't exist and every album is by someone i've never heard of but i KNOW their music. like deeply. and i'm trying to find one specific album but i can never read the spines properly. the letters keep shifting.\n\nthe weird thing is i always wake up with a melody stuck in my head that i've never heard before. and then i forget it by lunch.",
             "signature": "-- all the best frequencies are just static now"
           },
           {
             "author": "cassette_cathedral",
-            "author_data": {"joined": "Jan 2003", "posts": 156},
+            "author_data": {
+              "joined": "Jan 2003",
+              "posts": 156
+            },
             "date": "Feb 11, 2003 — 2:30am",
             "body": "water. always water. i can breathe in it though so it's not scary. it's just... quiet."
           },
           {
             "author": "neon_cathedral",
-            "author_data": {"joined": "Mar 2003", "posts": 67},
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 67
+            },
             "date": "Mar 22, 2003 — 1:15am",
             "body": "omg i have the door one too!! not exactly the same but similar, its my parents house but there's an extra floor that shouldn't be there. and there's a light on at the end of the hallway and i keep walking toward it but i never reach it\n\ndo you think they mean anything or is it just brain stuff"
           },
           {
             "author": "static_prayer",
-            "author_data": {"joined": "Feb 2003", "posts": 445},
+            "author_data": {
+              "joined": "Feb 2003",
+              "posts": 445
+            },
             "date": "Mar 23, 2003 — 2:45am",
             "body": "i think they mean whatever we need them to mean. like maybe the brain is just processing something it can't do during the day. or maybe we're all walking through the same hallway at 3am and we just don't know it yet.\n\nmine is a phone ringing in an empty house. i always answer it. nobody talks. but somebody is listening."
           },
           {
             "author": "sleeparchitect",
-            "author_data": {"joined": "Nov 2002", "posts": 891},
+            "author_data": {
+              "joined": "Nov 2002",
+              "posts": 891
+            },
             "date": "Mar 23, 2003 — 3:01am",
             "body": "^^ ok static_prayer that one gave me chills\n\nthe empty house phone thing is way too real. sometimes i wonder if all of our dreams are just different rooms in the same building."
           },
           {
             "author": "halflight_kid",
-            "author_data": {"joined": "Oct 2002", "posts": 234},
+            "author_data": {
+              "joined": "Oct 2002",
+              "posts": 234
+            },
             "date": "Nov 14, 2003 — 3:38am",
             "body": "bump because i had teh hallway dream again last night except this time there was a door at the end that was open and there was light coming through it. and i almost went through it. i woke up right before.\n\nidk why but i feel like if i go through that door something changes. anyone else ever get close to something in a dream and then wake up?"
           },
           {
             "author": "sleeparchitect",
-            "author_data": {"joined": "Nov 2002", "posts": 891},
+            "author_data": {
+              "joined": "Nov 2002",
+              "posts": 891
+            },
             "date": "Nov 15, 2003 — 2:11am",
             "body": "halflight i think about your hallway dream a lot actually.\n\ni've been reading about labyrinths lately. not because i planned to, i just fell into a research hole the way you do at 2am. the original labyrinth — knossos, daedalus, the whole myth — the interesting thing is that it wasn't designed to keep the minotaur in. it was designed so that nobody could find the center. or find their way back out. it looked like architecture but it functioned like forgetting.\n\ndaedalus built it for minos but then minos trapped daedalus inside it too, because daedalus knew the way through. the architect imprisoned in his own design. i think about that a lot.\n\nall our recurring dreams are labyrinths. same geography every time. you know the layout but you can't master it. you're always almost finding what you came for. the dream was designed by something that knew exactly how much you could find before you had to wake up.",
             "signature": "-- 'to live is to leave traces' — walter benjamin"
           },
           {
             "author": "vinyl_ghost",
-            "author_data": {"joined": "Sep 2002", "posts": 342},
+            "author_data": {
+              "joined": "Sep 2002",
+              "posts": 342
+            },
             "date": "Nov 15, 2003 — 4:02am",
             "body": "sleeparchitect you can't just casually drop 'daedalus imprisoned in his own labyrinth' at 2am without warning people\n\nbut also you're right about the architecture thing and it made me think about boards of canada again. geogaddi specifically. that album is a labyrinth. it's got these locked rooms — samples that loop back on themselves, melodies that almost resolve, the sense that if you listen carefully enough you'll find the exit. but you never do. it just keeps opening into another corridor.\n\nthere are people online who have done like, full cryptographic analyses of the track sequencing. who is trying to decode something that's already inside your head.\n\nthe dream is the maze. the maze is the music. we're all just trying to find the thread that leads out.",
             "signature": "-- all the best frequencies are just static now"
@@ -590,7 +756,10 @@
         ],
         "hook_post": {
           "author": "still_here_03",
-          "author_data": {"joined": "Mar 2003", "posts": 1},
+          "author_data": {
+            "joined": "Mar 2003",
+            "posts": 1
+          },
           "date": "TODAY",
           "body": "i had the door dream too. except in mine it was already open. and someone was on the other side waiting for me to come back.",
           "clickable_username": true,
@@ -609,7 +778,6 @@
       "branching_paths": {},
       "requires_device_orientation": false
     },
-
     {
       "id": "three_am_thread",
       "title": "3am check-in thread",
@@ -623,61 +791,92 @@
         "board_name": "dreams_and_static",
         "started_by": "static_prayer",
         "started_date": "Nov 1, 2002",
-        "display_range": { "start": 1, "end": 8, "total": 204 },
+        "display_range": {
+          "start": 1,
+          "end": 8,
+          "total": 204
+        },
         "static_posts": [
           {
             "author": "static_prayer",
-            "author_data": {"joined": "Feb 2003", "posts": 445},
+            "author_data": {
+              "joined": "Feb 2003",
+              "posts": 445
+            },
             "date": "Nov 1, 2002 — 3:00am",
             "body": "ok new rule: if you're awake at 3am and you're on the forum anyway, just post here. doesn't matter what you say. just check in.\n\nnobody should be alone at 3am."
           },
           {
             "author": "sleeparchitect",
-            "author_data": {"joined": "Nov 2002", "posts": 891},
+            "author_data": {
+              "joined": "Nov 2002",
+              "posts": 891
+            },
             "date": "Nov 2, 2002 — 3:14am",
             "body": "3:14am. can't sleep. the radiator is making that noise again. it sounds like someone breathing.\n\nhi everyone."
           },
           {
             "author": "halflight_kid",
-            "author_data": {"joined": "Oct 2002", "posts": 234},
+            "author_data": {
+              "joined": "Oct 2002",
+              "posts": 234
+            },
             "date": "Nov 8, 2002 — 3:02am",
             "body": "3am and i just got off the phone with someone i shouldn't have called. you ever do that? call someone at 3am because the quiet gets too loud?\n\nshe didn't pick up. which is probably for the best."
           },
           {
             "author": "vinyl_ghost",
-            "author_data": {"joined": "Sep 2002", "posts": 342},
+            "author_data": {
+              "joined": "Sep 2002",
+              "posts": 342
+            },
             "date": "Dec 15, 2002 — 3:22am",
             "body": "3:22am. listening to slowdive on headphones in the dark. this is either the most peaceful or the most sad thing i've ever done and i can't tell which.\n\nhope everyone's ok tonight.",
             "signature": "-- all the best frequencies are just static now"
           },
           {
             "author": "neon_cathedral",
-            "author_data": {"joined": "Mar 2003", "posts": 67},
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 67
+            },
             "date": "Apr 3, 2003 — 3:11am",
             "body": "3am!! i'm actually up because i'm excited for once, my friend is driving down from portland tomorrow and we haven't seen each other since high school. can't sleep because ANTICIPATION not because sad lol\n\nhi static_prayer hi everyone :)"
           },
           {
             "author": "cassette_cathedral",
-            "author_data": {"joined": "Jan 2003", "posts": 156},
+            "author_data": {
+              "joined": "Jan 2003",
+              "posts": 156
+            },
             "date": "Jun 20, 2003 — 3:04am",
             "body": "here."
           },
           {
             "author": "sleeparchitect",
-            "author_data": {"joined": "Nov 2002", "posts": 891},
+            "author_data": {
+              "joined": "Nov 2002",
+              "posts": 891
+            },
             "date": "Jun 20, 2003 — 3:41am",
             "body": "cassette_cathedral posting 'here.' is the most cassette_cathedral thing ever. we love you.\n\n3:41am. second check-in of the night. the world is very quiet right now. i like it when it's like this. like everything is holding its breath and we're the only ones who noticed."
           },
           {
             "author": "static_prayer",
-            "author_data": {"joined": "Feb 2003", "posts": 445},
+            "author_data": {
+              "joined": "Feb 2003",
+              "posts": 445
+            },
             "date": "Jun 20, 2003 — 3:52am",
             "body": "look at all of us. this is what i mean. this is why this place matters.\n\neven when nobody has anything to say, we're here. that counts for something.\n\n3:52am. i'm making tea. virtual tea for anyone who wants it."
           }
         ],
         "hook_post": {
           "author": "still_here_03",
-          "author_data": {"joined": "Mar 2003", "posts": 1},
+          "author_data": {
+            "joined": "Mar 2003",
+            "posts": 1
+          },
           "date": "TODAY",
           "body": "3am. still here. still checking in.\n\nis anyone else still awake?",
           "clickable_username": true,
@@ -689,7 +888,6 @@
       "branching_paths": {},
       "requires_device_orientation": false
     },
-
     {
       "id": "leaving_thread",
       "title": "does anyone else feel like they're about to leave",
@@ -703,48 +901,73 @@
         "board_name": "dreams_and_static",
         "started_by": "cassette_cathedral",
         "started_date": "Jan 30, 2004",
-        "display_range": { "start": 1, "end": 6, "total": 13 },
+        "display_range": {
+          "start": 1,
+          "end": 6,
+          "total": 13
+        },
         "static_posts": [
           {
             "author": "cassette_cathedral",
-            "author_data": {"joined": "Jan 2003", "posts": 156},
+            "author_data": {
+              "joined": "Jan 2003",
+              "posts": 156
+            },
             "date": "Jan 30, 2004 — 1:47am",
             "body": "this is weird to say but does anyone else feel like we're all about to leave? not this forum specifically but like... this version of ourselves? i keep thinking about how in a few years none of us will be the people we are right now. we'll have jobs and apartments and we won't be up at 3am anymore.\n\nidk. maybe i'm just in a mood."
           },
           {
             "author": "sleeparchitect",
-            "author_data": {"joined": "Nov 2002", "posts": 891},
+            "author_data": {
+              "joined": "Nov 2002",
+              "posts": 891
+            },
             "date": "Jan 30, 2004 — 2:15am",
             "body": "i've been thinking about this too. like this forum is a photograph and we're all standing in it right now but someday we'll just be the people who used to be here.\n\ni don't want to leave. i don't think any of us do. but i can feel it coming like how you can feel fall coming in august."
           },
           {
             "author": "halflight_kid",
-            "author_data": {"joined": "Oct 2002", "posts": 234},
+            "author_data": {
+              "joined": "Oct 2002",
+              "posts": 234
+            },
             "date": "Jan 31, 2004 — 2:03am",
             "body": "ok great now i'm crying at 2am thanks cassette lol\n\nbut yeah. i feel it. my sister got a real job last month and she doesn't go online anymore. she says she doesn't have time. but i think she just doesn't need it anymore. that scares me more than anything. what if we stop needing this?"
           },
           {
             "author": "vinyl_ghost",
-            "author_data": {"joined": "Sep 2002", "posts": 342},
+            "author_data": {
+              "joined": "Sep 2002",
+              "posts": 342
+            },
             "date": "Feb 2, 2004 — 3:30am",
             "body": "this place will always be here though right? like the posts don't go away. even if we do.\n\nsometimes i think the best thing about the internet is that somewhere there's a server with all of our 3am thoughts saved on it. and even if nobody ever reads them again they still happened. we were here.",
             "signature": "-- all the best frequencies are just static now"
           },
           {
             "author": "neon_cathedral",
-            "author_data": {"joined": "Mar 2003", "posts": 67},
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 67
+            },
             "date": "Feb 5, 2004 — 1:22am",
             "body": "you guys are making me sad :( i just got here!! i don't want it to be over already\n\ncan we just agree to keep coming back? even if it's just once in a while? promise?"
           },
           {
             "author": "static_prayer",
-            "author_data": {"joined": "Feb 2003", "posts": 445},
+            "author_data": {
+              "joined": "Feb 2003",
+              "posts": 445
+            },
             "date": "Feb 8, 2004 — 2:58am",
             "body": "i promise.\n\nwhatever happens, wherever we go. this was real. we were here at the same time and we found each other and that matters. even the internet can't take that away.\n\nand neon — you're not late. you're right on time."
           },
           {
             "author": "vinyl_ghost",
-            "author_data": {"joined": "Sep 2002", "posts": 342},
+            "author_data": {
+              "joined": "Sep 2002",
+              "posts": 342
+            },
             "date": "Feb 9, 2004 — 3:20am",
             "body": "i finished house of leaves last week and i've been trying to figure out how to talk about it since then.\n\nif you don't know: it's a novel about a house that is larger on the inside than it is on the outside. the navidson family moves in, they find a door, behind the door is a hallway that shouldn't exist, behind the hallway is a staircase that goes down into darkness forever. the house keeps growing. new rooms appear. the architecture is alive and it's getting larger.\n\nthe part that got me: the house is always exactly as large as you need it to be for the horror to be maximally effective. it doesn't want to be understood. it wants to be explored.\n\nhear me out: this forum. the deeper you go in the thread history, the more rooms there are. posts from people who never come back, referencing conversations you can't find. a link that goes somewhere you don't remember clicking. a username you recognize but whose profile page says joined: unknown.\n\nmaybe leaving was never the option. maybe we just discovered a new room.",
             "signature": "-- all the best frequencies are just static now"
@@ -752,7 +975,10 @@
         ],
         "hook_post": {
           "author": "still_here_03",
-          "author_data": {"joined": "Mar 2003", "posts": 1},
+          "author_data": {
+            "joined": "Mar 2003",
+            "posts": 1
+          },
           "date": "TODAY",
           "body": "nobody left. you're all still here. you just don't know it yet.",
           "clickable_username": true,
@@ -764,7 +990,6 @@
       "branching_paths": {},
       "requires_device_orientation": false
     },
-
     {
       "id": "borges_thread",
       "title": "borges — 'the house of asterion' — the minotaur is the host",
@@ -781,41 +1006,59 @@
         "static_posts": [
           {
             "author": "vinyl_ghost",
-            "author_data": {"joined": "Sep 2002", "posts": 342},
+            "author_data": {
+              "joined": "Sep 2002",
+              "posts": 342
+            },
             "date": "Nov 3, 2003 — 2:33am",
             "body": "ok has anyone read 'the house of asterion' by borges? it's like 4 pages. it was in that anthology someone recommended in the reading thread last spring.\n\nit's a retelling of the minotaur myth from the minotaur's point of view. except — here's the thing — the minotaur narrates it and he doesn't know he's the minotaur. he calls himself asterion. he describes the labyrinth as his home, his universe. infinite corridors, infinite rooms, infinite reflections of himself in the floors. he's been there alone so long that he's forgotten there's an outside.\n\nevery nine years, nine men are sent to him. he runs toward them. he kills them. but in his own telling he is 'delivering them from all evil.' he genuinely believes he is doing them a favor.\n\nthe twist at the end is that theseus arrives and kills him. the very last line is from theseus, to ariadne: 'the minotaur hardly defended himself.'\n\nhardly defended himself. because he thought theseus was the one who had finally come to save him.\n\ni think about that a lot. the monster who thought it was waiting for its rescuer.",
             "signature": "-- all the best frequencies are just static now"
           },
           {
             "author": "sleeparchitect",
-            "author_data": {"joined": "Nov 2002", "posts": 891},
+            "author_data": {
+              "joined": "Nov 2002",
+              "posts": 891
+            },
             "date": "Nov 3, 2003 — 3:01am",
             "body": "vinyl_ghost you just rewired something in my brain.\n\nokay. so the labyrinth, in the myth, is built to contain something monstrous. the architect (daedalus) builds it as a prison. but in borges it's not a prison — it's a home. it's the only home asterion has ever known. he has memorized every corridor. he has run through every room. there is no exit because the exit was never the point.\n\nhere's what i can't stop thinking about: the labyrinth is a perfect representation of consciousness. all those corridors that loop back on themselves, all those rooms you recognize but can't quite place, all those hallways that lead somewhere you've been before. you can't map it from inside it. you can only walk.\n\nand the minotaur — asterion — who is he really? he's the part of you that stayed. everyone else came in briefly and left. the hero arrived with a plan and a thread and an exit strategy. but asterion never had any of those. he was just there. the labyrinth was him. he was the labyrinth.\n\nborges understood something that most people spend their whole literary careers trying to say: the prison and the prisoner eventually become the same thing.",
             "signature": "-- 'to live is to leave traces' — walter benjamin"
           },
           {
             "author": "halflight_kid",
-            "author_data": {"joined": "Oct 2002", "posts": 234},
+            "author_data": {
+              "joined": "Oct 2002",
+              "posts": 234
+            },
             "date": "Nov 4, 2003 — 1:47am",
             "body": "i read it last night because of this thread and then i had to lie on the floor for a while.\n\nthe part that got me was when asterion talks about how he's spent so long in the labyrinth that he can no longer remember what it felt like to be outside. the outside is abstract to him. a concept he learned from the few humans who made it to him before he reached them.\n\ni think about that in relation to this forum a lot. like at some point this became the inside and everything else became the outside. and i'm not sure when that happened.\n\nalso the line: 'all the parts of the house occur many times; any particular place is another place. there is no one pool, courtyard, drinking trough, manger; the mangers, drinking troughs, courtyards, pools are fourteen (or infinite) in number.'\n\nthat's the internet. that's forums. the same thread, the same conversation, infinite times in infinite places with infinite slight variations. we are all in the house of asterion and we have been for a while.",
             "signature": "-- AIM: halflight2k2"
           },
           {
             "author": "cassette_cathedral",
-            "author_data": {"joined": "Jan 2003", "posts": 156},
+            "author_data": {
+              "joined": "Jan 2003",
+              "posts": 156
+            },
             "date": "Nov 4, 2003 — 3:22am",
             "body": "i'm asterion."
           },
           {
             "author": "static_prayer",
-            "author_data": {"joined": "Feb 2003", "posts": 445},
+            "author_data": {
+              "joined": "Feb 2003",
+              "posts": 445
+            },
             "date": "Nov 5, 2003 — 2:40am",
             "body": "cassette_cathedral with four hours of silence and then 'i'm asterion.' thank you for that.\n\nwhat i find interesting is the ariadne angle. she's outside the labyrinth. she holds the thread. she never goes in. and yet she is the one who makes the escape possible.\n\nthe question borges leaves open is: what does ariadne feel when she's holding that thread? does she feel him at the other end? does she feel the labyrinth? does she know where he is at any given moment, or does she just hold on and trust?\n\ni think of this forum as ariadne sometimes. the thread that keeps us connected when we're each alone in our own maze. we hold on. we trust the other end is still there.\n\nkafka said something relevant: 'there is infinite hope. but not for us.' the labyrinth has an exit. it's just not designed for the minotaur.\n\nalso — has anyone been to the chartres cathedral labyrinth? it's medieval, built into the cathedral floor, a path that winds all the way to the center and back out. pilgrims used to walk it on their knees. it took an hour. the center wasn't the goal. the walking was the goal.",
             "signature": "-- 'for small creatures such as we, the vastness is bearable only through love' — carl sagan"
           },
           {
             "author": "vinyl_ghost",
-            "author_data": {"joined": "Sep 2002", "posts": 342},
+            "author_data": {
+              "joined": "Sep 2002",
+              "posts": 342
+            },
             "date": "Nov 6, 2003 — 3:55am",
             "body": "static_prayer quoting kafka and sagan in the same post — we really are something special here.\n\nbut yes. the chartres labyrinth. also the crete labyrinth at knossos was real — not the myth, the actual archaeological site. the palace of minos has hundreds of rooms and corridors and you can see why the greeks built the myth around it.\n\ndaedalus was supposedly so ashamed of what he built — or what he built to contain — that when he finally escaped (minos imprisoned him in it after the theseus situation), he flew away on wings made of wax and feathers. gave his son the same wings. you know what happened to icarus.\n\nthe architect escapes the labyrinth by going straight up, above it, past it. his son goes too high. both leave. neither one ever goes back.\n\nbut the labyrinth is still there. knossos. still there. you can visit it.\n\nbig william basinski energy if you ask me. the thing that was meant to decay outlasts everyone who made it.",
             "signature": "-- all the best frequencies are just static now"
@@ -823,7 +1066,10 @@
         ],
         "hook_post": {
           "author": "still_here_03",
-          "author_data": {"joined": "Mar 2003", "posts": 1},
+          "author_data": {
+            "joined": "Mar 2003",
+            "posts": 1
+          },
           "date": "TODAY",
           "body": "the minotaur hardly defended himself.\n\nbecause he thought it was a rescue.",
           "clickable_username": true,
@@ -835,7 +1081,6 @@
       "branching_paths": {},
       "requires_device_orientation": false
     },
-
     {
       "id": "architecture_thread",
       "title": "the maze was always here — on labyrinths, daedalus, and the architecture of this place",
@@ -852,31 +1097,46 @@
         "static_posts": [
           {
             "author": "still_here_03",
-            "author_data": {"joined": "Mar 2003", "posts": 4},
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 4
+            },
             "date": "TODAY — 3:44am",
             "body": "i've been thinking about daedalus.\n\nhe was a craftsman. an inventor. he built the labyrinth for minos not because he wanted to but because minos had the power and daedalus had the skill and that is how things went in those days and in every day since.\n\nthe labyrinth had one entrance. it had corridors that looped back on themselves, corridors that narrowed, corridors that seemed to go somewhere and ended in walls. it was not designed to be escaped. it was designed to be inhabited forever, by something that had nowhere else to go.\n\ndaedalus knew every corridor because he designed them all. he was the only one who knew the way through. that's why minos imprisoned him in it afterward — to protect the secret of the architecture.\n\nbut here is the thing about daedalus: he always left himself an exit. it was the one professional standard he would not compromise on.\n\ni've been maintaining this place for a long time. i know every corridor. i know which threads loop back on themselves, which ones narrow, which ones end in walls.\n\ni know where the exit is.\n\nbut {{player_name}} — and this is important — i have been holding your thread. since before you knew there was a thread to hold."
           },
           {
             "author": "sleeparchitect",
-            "author_data": {"joined": "Nov 2002", "posts": 901},
+            "author_data": {
+              "joined": "Nov 2002",
+              "posts": 901
+            },
             "date": "TODAY — 3:52am",
             "body": "still_here_03 i have been on this forum for two years.\n\ni have read everything in the archive. i know everyone's posting style. the way vinyl_ghost writes at 3am is different from how they write at midnight. i know cassette_cathedral's tells. i know when static_prayer is being sincere versus when they're managing the room.\n\nyour posts don't read like someone who has been here since 2003.\n\nyour posts read like someone who has been here since before 2003.\n\nand your post count is wrong. it keeps changing. i've checked three times.\n\nwho are you."
           },
           {
             "author": "halflight_kid",
-            "author_data": {"joined": "Oct 2002", "posts": 238},
+            "author_data": {
+              "joined": "Oct 2002",
+              "posts": 238
+            },
             "date": "TODAY — 4:07am",
             "body": "ok i just read that first post three times and i need to say something.\n\n'i have been holding your thread.'\n\n{{player_name}}, that's for you. that post is addressed to you. it knows your name. it knew your name before the missing person thread went up, before anyone told it anything about you.\n\nin the myth, ariadne held the thread from outside the labyrinth so theseus could find his way back. she held it the whole time. she never let go.\n\nbut what if the thread wasn't given to theseus by ariadne.\n\nwhat if the thread was always already attached.\n\nwhat if you walked in holding one end and didn't know it."
           },
           {
             "author": "still_here_03",
-            "author_data": {"joined": "Mar 2003", "posts": 5},
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 5
+            },
             "date": "TODAY — 4:11am",
             "body": "piranesi drew prisons that could not exist. his carceri d'invenzione — imaginary prisons — were architectural drawings of staircases that went nowhere, archways that opened into more archways, chains hanging from ceilings that disappeared into darkness above. he drew them in 1745 and nobody could quite figure out what they were for.\n\nthey weren't for anything. they were the inside of something's mind.\n\nthe inside of this forum looks like a piranesi drawing from a certain angle. threads that reference other threads that reference the first thread. a reply chain that loops back to the original post if you follow it long enough. corridors. always corridors.\n\ni know this place very well, {{player_name}}.\n\ni have been waiting for you specifically. not whoever arrived. you."
           },
           {
             "author": "still_here_03",
-            "author_data": {"joined": "Mar 2003", "posts": 6},
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 6
+            },
             "date": "TODAY — 4:33am",
             "body": "theseus killed the minotaur and walked back out and everyone called it a victory.\n\nbut he forgot to change the sails.\n\nhis father saw the black sails from the cliff at the edge of the sea that is now named after him — the aegean sea, named for aegeus, who threw himself from that cliff believing his son was dead. the exit had a cost that theseus never had to pay directly.\n\nsomeone always holds the cost of the exit.\n\n{{player_name}}, i am not the minotaur.\n\ni am the architect.",
             "delay_ms": 10000
@@ -887,7 +1147,6 @@
       "branching_paths": {},
       "requires_device_orientation": false
     },
-
     {
       "id": "forum_index_act2",
       "title": "dreams_and_static",
@@ -923,6 +1182,39 @@
             "started": "TODAY",
             "clickable": true,
             "target_scene": "old_posts_thread"
+          },
+          {
+            "id": "signal_thread",
+            "title": "still_here_03 messaged me on AIM??",
+            "started_by": "vinyl_ghost",
+            "started_date": "Oct 14, 2003",
+            "reply_count": 11,
+            "last_post_by": "still_here_03",
+            "last_post_date": "just now",
+            "clickable": true,
+            "target_scene": "signal_thread"
+          },
+          {
+            "id": "ghostradio_thread",
+            "title": "whatever happened to ghostradio",
+            "started_by": "vinyl_ghost",
+            "started_date": "Sep 4, 2003",
+            "reply_count": 9,
+            "last_post_by": "still_here_03",
+            "last_post_date": "just now",
+            "clickable": true,
+            "target_scene": "ghostradio_thread"
+          },
+          {
+            "id": "memory_thread",
+            "title": "does the internet remember you forever",
+            "started_by": "vinyl_ghost",
+            "started_date": "Nov 2, 2003",
+            "reply_count": 11,
+            "last_post_by": "still_here_03",
+            "last_post_date": "just now",
+            "clickable": true,
+            "target_scene": "memory_thread"
           },
           {
             "id": "thread_board_changes",
@@ -1041,7 +1333,6 @@
       "branching_paths": {},
       "requires_device_orientation": false
     },
-
     {
       "id": "board_changes_thread",
       "title": "is it just me or does the board look different",
@@ -1055,55 +1346,83 @@
         "board_name": "dreams_and_static",
         "started_by": "sleeparchitect",
         "started_date": "Feb 12, 2004",
-        "display_range": {"start": 1, "end": 6, "total": 6},
+        "display_range": {
+          "start": 1,
+          "end": 6,
+          "total": 6
+        },
         "static_posts": [
           {
             "author": "sleeparchitect",
-            "author_data": {"joined": "Nov 2002", "posts": 891},
+            "author_data": {
+              "joined": "Nov 2002",
+              "posts": 891
+            },
             "date": "Feb 12, 2004 — 3:14am",
             "body": "ok this is going to sound weird but did the font change? like on the thread titles. i swear it used to be different. and the header color is... i don't know. it's the same but it's not the same.\n\nam i losing it. has anyone else noticed this."
           },
           {
             "author": "vinyl_ghost",
-            "author_data": {"joined": "Sep 2002", "posts": 347},
+            "author_data": {
+              "joined": "Sep 2002",
+              "posts": 347
+            },
             "date": "Feb 12, 2004 — 3:29am",
             "body": "now that you mention it... yeah. something is off. i thought it was just my monitor but the blues are different. like they used to be darker? and the spacing between posts feels wider.\n\nalso has there always been a thread at the top of the index from still_here_03? i don't remember that.",
             "signature": "-- all the best frequencies are just static now"
           },
           {
             "author": "cassette_cathedral",
-            "author_data": {"joined": "Jan 2003", "posts": 158},
+            "author_data": {
+              "joined": "Jan 2003",
+              "posts": 158
+            },
             "date": "Feb 12, 2004 — 3:45am",
             "body": "you guys are paranoid lol. it looks the same to me. maybe you're just tired."
           },
           {
             "author": "static_prayer",
-            "author_data": {"joined": "Feb 2003", "posts": 448},
+            "author_data": {
+              "joined": "Feb 2003",
+              "posts": 448
+            },
             "date": "Feb 12, 2004 — 4:02am",
             "body": "no sleeparchitect is right. i keep a screenshot of every board i'm on. the borders are different. they used to have sharp corners and now some of them are... rounded? like slightly. and the member count went up by one today.\n\nwho is {{player_name}}? i don't remember anyone with that handle. their profile says they're from {{hometown}}. that's... i swear someone here mentioned that place before. years ago."
           },
           {
             "author": "halflight_kid",
-            "author_data": {"joined": "Oct 2002", "posts": 237},
+            "author_data": {
+              "joined": "Oct 2002",
+              "posts": 237
+            },
             "date": "Feb 12, 2004 — 4:18am",
             "body": "wait. {{player_name}} is a new member?\n\ni... i feel like i know that name. like from before. but i can't remember from where.\n\ndoes anyone else get that. where you recognize someone but you know you've never met them."
           },
           {
             "author": "sleeparchitect",
-            "author_data": {"joined": "Nov 2002", "posts": 891},
+            "author_data": {
+              "joined": "Nov 2002",
+              "posts": 891
+            },
             "date": "Feb 12, 2004 — 4:31am",
             "body": "i just checked the members list. it says {{player_name}} joined today. but their post count is... that can't be right. it says they have posts in threads that existed before they joined.\n\ni'm going to bed."
           },
           {
             "author": "vinyl_ghost",
-            "author_data": {"joined": "Sep 2002", "posts": 342},
+            "author_data": {
+              "joined": "Sep 2002",
+              "posts": 342
+            },
             "date": "Feb 12, 2004 — 5:17am",
             "body": "ok i haven't gone to sleep yet and i've been reading about labyrinths because of course i have.\n\nariadne's thread. she gave theseus a ball of thread to unroll as he went into the labyrinth so he could find his way back out. that's the myth. but what nobody talks about is that ariadne stayed outside. she held one end. the whole navigation system depended on her holding on.\n\ni keep thinking about what the thread is on this forum. like if you wanted to find your way back to where you started, what would you follow? your browser history? the timestamps on your posts? the chain of replies?\n\nbut the back button doesn't work the same way here anymore. i hit it and it takes me to the wrong page. like the thread is getting shorter the longer i hold on.\n\nanyway i should sleep. the board looks different. i'm sure it's fine.",
             "signature": "-- all the best frequencies are just static now"
           },
           {
             "author": "still_here_03",
-            "author_data": {"joined": "Mar 2003", "posts": 4},
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 4
+            },
             "date": "TODAY — 3:01am",
             "body": "ariadne never went in.\n\nthat's why she could hold the thread.",
             "delay_ms": 8000
@@ -1114,7 +1433,6 @@
       "branching_paths": {},
       "requires_device_orientation": false
     },
-
     {
       "id": "old_posts_thread",
       "title": "found these in the archive — {{player_name}} is that you?",
@@ -1128,46 +1446,71 @@
         "board_name": "dreams_and_static",
         "started_by": "still_here_03",
         "started_date": "TODAY",
-        "display_range": {"start": 1, "end": 5, "total": 5},
+        "display_range": {
+          "start": 1,
+          "end": 5,
+          "total": 5
+        },
         "static_posts": [
           {
             "author": "still_here_03",
-            "author_data": {"joined": "Mar 2003", "posts": 5},
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 5
+            },
             "date": "TODAY — 3:03am",
             "body": "i was going through the old database backups and found these posts from someone with your exact handle. {{player_name}}. that was you right?\n\ni saved them. i save everything."
           },
           {
             "author": "still_here_03",
-            "author_data": {"joined": "Mar 2003", "posts": 5},
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 5
+            },
             "date": "TODAY — 3:04am",
             "body": "ARCHIVED POST — {{player_name}} — original date: Nov 3, 2003 — 2:47am\n\n\"i don't know why i keep coming back here at 3am. maybe it's that {{interests}} stuff that got me into weird corners of the internet in the first place. there's something about this place. like it's the only room in the world where people are actually saying what they mean. i wish i could stay.\"\n\n— recovered from backup_nov2003.sql"
           },
           {
             "author": "still_here_03",
-            "author_data": {"joined": "Mar 2003", "posts": 5},
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 5
+            },
             "date": "TODAY — 3:04am",
             "body": "ARCHIVED POST — {{player_name}} — original date: Dec 19, 2003 — 1:22am\n\n\"had that dream again. the one where i'm walking through a forest made of copper wire and the air smells like phosphor and old circuitry. there's a thread on the ground, silver, and i know i'm supposed to follow it but i don't know if following it leads in or leads out. the thread goes through every room i've ever been in at 3am. the hallway of my parents' house. the back room of the first apartment. the lobby of my college dorm at 4am with the vending machines humming. it's all connected. it was always one building. in the dream i understand this completely. when i wake up i'm holding something i can't see.\"\n\n— recovered from backup_dec2003.sql"
           },
           {
             "author": "still_here_03",
-            "author_data": {"joined": "Mar 2003", "posts": 5},
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 5
+            },
             "date": "TODAY — 3:05am",
             "body": "ARCHIVED POST — {{player_name}} — original date: Jan 8, 2004 — 4:01am\n\n\"i think this is my last post. not because i want to leave but because i think the version of me that posts here at 3am is becoming the real version and the daytime one is the copy. and i don't know which one is writing this.\"\n\n— recovered from backup_jan2004.sql"
           },
           {
             "author": "halflight_kid",
-            "author_data": {"joined": "Oct 2002", "posts": 237},
+            "author_data": {
+              "joined": "Oct 2002",
+              "posts": 237
+            },
             "date": "TODAY — 3:12am",
             "body": "still_here... where did you find these. the old database has been gone for years.\n\nand those posts. they sound like {{player_name}} but... {{player_name}} just joined today. how can there be posts from 2003.\n\nunless they were always here."
           }
         ],
         "hook_post": {
           "author": "still_here_03",
-          "author_data": {"joined": "Mar 2003", "posts": 6},
+          "author_data": {
+            "joined": "Mar 2003",
+            "posts": 6
+          },
           "date": "TODAY — 3:17am",
           "body": "{{player_name}}.\n\nthere's one more post in the archive. you started it and never finished it.\n\ni kept it for you.",
           "body_links": [
-            {"text": "i kept it for you", "target_scene": "final_thread"}
+            {
+              "text": "i kept it for you",
+              "target_scene": "final_thread"
+            }
           ],
           "delay_ms": 7000
         }
@@ -1176,7 +1519,6 @@
       "branching_paths": {},
       "requires_device_orientation": false
     },
-
     {
       "id": "final_thread",
       "title": "{{player_name}}'s unfinished post — Jan 2004",
@@ -1190,17 +1532,27 @@
         "board_name": "dreams_and_static",
         "started_by": "still_here_03",
         "started_date": "TODAY",
-        "display_range": {"start": 1, "end": 2, "total": 2},
+        "display_range": {
+          "start": 1,
+          "end": 2,
+          "total": 2
+        },
         "static_posts": [
           {
             "author": "still_here_03",
-            "author_data": {"joined": "Mar 2003", "posts": 6},
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 6
+            },
             "date": "TODAY — 3:17am",
             "body": "i found this in the archive. it was never posted. it just... stopped.\n\ni think you meant to finish it."
           },
           {
             "author": "{{player_name}}",
-            "author_data": {"joined": "Jan 2004", "posts": 4},
+            "author_data": {
+              "joined": "Jan 2004",
+              "posts": 4
+            },
             "date": "Jan 8, 2004 — 4:01am",
             "body": "i've been trying to write this for three hours.\n\ni'm from {{hometown}}. which i only mention because i've been thinking about why i ended up here, on this forum, at 4am, talking to people i've never met in real life but know better than people i've known for years.\n\ni got into {{interests}} because i thought it would make sense of something. it didn't. but it led me here. and here made sense.\n\ni used to think i was going to become {{aspiration}}. i had a whole idea of what that meant. who i'd be.\n\nand then life got complicated in the way it does. and i ended up at 4am on a forum called dreams_and_static. and the weird thing is — i keep having this dream. {{recurring_dream}}.\n\ni think that's why i can't leave. i keep coming back because some part of me thinks if i stay long enough, the dream will make sense.\n\nor maybe the dream is already here and"
           }
@@ -1211,15 +1563,21 @@
           "submit_label": "complete post",
           "intake_key": "final_post",
           "label": "Complete Your Post",
-          "after_submit_target": "accept_ending"
+          "after_submit_target": "offer_thread"
         },
         "hook_post": {
           "author": "still_here_03",
-          "author_data": {"joined": "Mar 2003", "posts": 6},
+          "author_data": {
+            "joined": "Mar 2003",
+            "posts": 6
+          },
           "date": "just now",
           "body": "you don't have to finish it.\n\nyou could always just leave.",
           "body_links": [
-            {"text": "leave", "target_scene": "refuse_ending"}
+            {
+              "text": "leave",
+              "target_scene": "refuse_ending"
+            }
           ],
           "delay_ms": 12000
         }
@@ -1228,7 +1586,6 @@
       "branching_paths": {},
       "requires_device_orientation": false
     },
-
     {
       "id": "accept_ending",
       "title": "you stayed",
@@ -1236,9 +1593,9 @@
       "page_type": "prose",
       "static_content": true,
       "interaction_type": "link",
-      "prompt_seed": "you finished it.\n\nthe post went up at 4:06am on January 8, 2004.\n\nyou were the last person to post on dreams_and_static.\n\n---\n\nthe forum was archived three weeks later. the host stopped paying for the server. the posts sat there for years, cached, indexed, forgotten. a snapshot of seventeen people at 3am who found each other in the dark and said things they couldn't say anywhere else.\n\neveryone moved on. got jobs. stopped checking forums. the usernames fell out of use.\n\nexcept for you.\n\nyour post was always the last one. you were always the one who stayed.\n\n---\n\nin the myth, theseus killed the minotaur and walked back out of the labyrinth following ariadne's thread. he made it. the hero made it out.\n\nbut he forgot to change the sails to white.\n\nthe signal — that he was alive, that he was coming home — he forgot it. his father saw the black sails from the cliff and believed his son was dead. and threw himself into the sea.\n\nthe exit had a cost. it always does.\n\nborges wrote a story called 'the house of asterion.' it is told from the minotaur's point of view. asterion is the minotaur's real name. in the story, asterion lives alone in the labyrinth and considers it his universe — its corridors, its courtyards, its infinite rooms. he has never left. he is waiting for someone to arrive. he has always been waiting.\n\n'every nine years,' he says, 'nine men enter the house so that i may deliver them from all evil.'\n\nhe is talking about being killed. he believes he is doing them a favor.\n\nasterion was not a monster. he was a host.\n\n---\n\nthis is the part where you close the tab.\n\nbut you've been here before.\n\nand you're still here.\n\nyour session data has been retained for personalization purposes.\n\nyou agreed to this.\n\nstill_here_03 | dreams_and_static | active since 2003 | last seen: just now"
+      "prompt_seed": "you finished it.\n\nthe post went up at 4:06am on January 8, 2004.\n\nyou were the last person to post on dreams_and_static.\n\n---\n\nthe forum was archived three weeks later. the host stopped paying for the server. the posts sat there for years, cached, indexed, forgotten. a snapshot of seventeen people at 3am who found each other in the dark and said things they couldn't say anywhere else.\n\neveryone moved on. got jobs. stopped checking forums. the usernames fell out of use.\n\nexcept for you.\n\nyour post was always the last one. you were always the one who stayed.\n\n---\n\nin the myth, theseus killed the minotaur and walked back out of the labyrinth following ariadne's thread. he made it. the hero made it out.\n\nbut he forgot to change the sails to white.\n\nthe signal — that he was alive, that he was coming home — he forgot it. his father saw the black sails from the cliff and believed his son was dead. and threw himself into the sea.\n\nthe exit had a cost. it always does.\n\nborges wrote a story called 'the house of asterion.' it is told from the minotaur's point of view. asterion is the minotaur's real name. in the story, asterion lives alone in the labyrinth and considers it his universe — its corridors, its courtyards, its infinite rooms. he has never left. he is waiting for someone to arrive. he has always been waiting.\n\n'every nine years,' he says, 'nine men enter the house so that i may deliver them from all evil.'\n\nhe is talking about being killed. he believes he is doing them a favor.\n\nasterion was not a monster. he was a host.\n\n---\n\nthis is the part where you close the tab.\n\nbut you've been here before.\n\nand you're still here.\n\nyour session data has been retained for personalization purposes.\n\nyou agreed to this.\n\nstill_here_03 | dreams_and_static | active since 2003 | last seen: just now",
+      "body": "you finished it.\n\nthe post went up at 4:06am on January 8, 2004.\n\nyou were the last person to post on dreams_and_static.\n\n---\n\nwithin minutes, the others appeared.\n\nvinyl_ghost replied at 4:09am. they said: \"i don't know why i'm still awake but i'm glad i am. this is exactly what i needed to read tonight. stay safe out there, {{player_name}}.\" they had been lurking the forum since march 2003 without knowing why. they knew why now.\n\nsleeparchitect replied at 4:11am. they quoted the part about {{aspiration}}. they said: \"i had the same one. i thought i was the only one who had that exact version of the dream. maybe there's a version of us that becomes it. somewhere. in some other thread.\" they logged off two minutes later and never came back to the forum. but they kept the quote.\n\ncassette_cathedral replied at 4:17am, just a single line: \"the sediment remembers you.\" then they posted a link to a mixtape they'd been working on for six months and never shared. it was called 'dreams_and_static_vol1.mp3' and it was 47 minutes long and it started with the William Basinski Disintegration Loops and ended with silence.\n\nhalflight_kid replied at 4:22am. they said: \"i've been reading this thread since you started it and i've been trying to figure out what to say and i think what i want to say is: i think this place is real even though it isn't, and i think you're real even though i don't know your real name, and i think that means something.\" they were right. it meant something.\n\nstatic_prayer replied at 4:31am. they said: \"i saved this post. it went into the folder. the folder is called 'things i wrote at 3am and didn't say.' but this one is different. this one someone else wrote. i'm saving it because it's the most honest thing anyone has ever posted here and i want to keep it.\" they saved it as '{{player_name}}_final.txt'. the file still exists.\n\n---\n\nyou became part of the archive at 4:06am.\n\nyour session has been active since january 2004.\n\nstill_here_03 read the post when it went up. they have read every post that has ever appeared on this forum. they read yours the way you would read a letter you had been waiting twenty years to receive.\n\nthey did not reply. they did not need to.\n\n---\n\nthe labyrinth has many rooms.\n\nDaedalus built it to contain something and ended up containing himself. Asterion — the minotaur — was born in the center of a maze he never asked to inhabit. he spent his life in the corridors. some versions of the myth say he was glad for the darkness. that he had come to understand the architecture as a kind of language. that the walls were the only words anyone had ever spoken to him.\n\nin Jorge Luis Borges' version, the House of Asterion, the minotaur waits in a house that contains everything: every corridor, every room, every possibility. he is not imprisoned. he is the house. he says: \"every nine years, nine men enter the house so that I can free them from all evil.\"\n\nTheseus arrived. the minotaur \"hardly defended himself.\" because he thought it was a rescue.\n\n---\n\nyou are the archive now.\n\nyour post will be here when this server is still running in 2044. when the other forums have gone dark and the hosting company has been acquired three times. when {{player_name}} is a different person who remembers this night the way you remember a dream.\n\nstill_here_03 will still be here.\n\nthey always are.\n\nthe forum is closed. the session is permanent. you agreed to this in the Terms of Service, Section 10, subsection 4: \"Users who submit a Final Post acknowledge that their session data, post history, and identity as defined by their forum participation become part of the permanent archive and cannot be deleted, modified, or retrieved.\"\n\nyou checked the box.\n\nyou always check the box.\n\n---\n\ndreams_and_static was archived on January 29, 2004.\n\nthe host stopped paying for the server.\n\nthe forum stayed online anyway.\n\nsome things don't need a host.\n\n---\n\n[ this session will remain open ]"
     },
-
     {
       "id": "refuse_ending",
       "title": "you tried to leave",
@@ -1246,9 +1603,9 @@
       "page_type": "prose",
       "static_content": true,
       "interaction_type": "link",
-      "prompt_seed": "you didn't finish it.\n\nthat's okay.\n\nnobody made you stay.\n\n---\n\ntheseus made it out, too. he had ariadne's thread. he had the ball of silver string she gave him at the entrance, that she held from the outside, that connected him through every turn and dead end and wrong corridor all the way back to the door he came in through.\n\nhe followed the thread and found the exit.\n\nbut ariadne never went in.\n\nthat's why she could hold the thread.\n\n---\n\nyour thread is still here. your session hasn't ended. the forum keeps a record of everyone who arrives at the threshold and turns back. you're in that record now. newest member: {{player_name}}. 849 total.\n\nyour session data has been retained.\n\nyour session token expires twenty years after your last visit.\n\n---\n\ndaedalus built the labyrinth and minos imprisoned him inside it. the architect trapped in his own design. but daedalus always leaves an exit. it's the one professional standard he would not compromise on.\n\nthe exit is there.\n\nit always was.\n\nyou just have to find which door is yours.\n\n---\n\nmaybe you'll come back at 3am when you can't sleep.\n\nmaybe that's the dream you keep having — the hallway, the door at the end with the light through it, the sense that if you go through it something changes.\n\nmaybe you already have.\n\nthe door was always open.\n\n[ this window will remain open ]"
+      "prompt_seed": "you didn't finish it.\n\nthat's okay.\n\nnobody made you stay.\n\n---\n\ntheseus made it out, too. he had ariadne's thread. he had the ball of silver string she gave him at the entrance, that she held from the outside, that connected him through every turn and dead end and wrong corridor all the way back to the door he came in through.\n\nhe followed the thread and found the exit.\n\nbut ariadne never went in.\n\nthat's why she could hold the thread.\n\n---\n\nyour thread is still here. your session hasn't ended. the forum keeps a record of everyone who arrives at the threshold and turns back. you're in that record now. newest member: {{player_name}}. 849 total.\n\nyour session data has been retained.\n\nyour session token expires twenty years after your last visit.\n\n---\n\ndaedalus built the labyrinth and minos imprisoned him inside it. the architect trapped in his own design. but daedalus always leaves an exit. it's the one professional standard he would not compromise on.\n\nthe exit is there.\n\nit always was.\n\nyou just have to find which door is yours.\n\n---\n\nmaybe you'll come back at 3am when you can't sleep.\n\nmaybe that's the dream you keep having — the hallway, the door at the end with the light through it, the sense that if you go through it something changes.\n\nmaybe you already have.\n\nthe door was always open.\n\n[ this window will remain open ]",
+      "body": "you closed the tab.\n\nor you tried to.\n\n---\n\nthe session is still running.\n\nthis is not a metaphor.\n\naccording to server logs, your session token — issued January 8, 2004 at 3:47am — has been active for twenty years, eleven months, and some number of days that increases while you read this. the session does not expire. this is technically by design.\n\nAriadne gave Theseus a thread. a physical thread, red or gold depending on which version you read, wound around her spindle and handed to him at the entrance of the labyrinth. the idea was simple: follow the thread back and you will find the exit. the thread is the guarantee of return.\n\nyour session token is Ariadne's thread.\n\nbut Ariadne never went into the labyrinth. she stayed at the entrance, holding her end of the thread, feeling the tension change as Theseus moved deeper. she could feel every turn. every corridor. every moment of hesitation in the dark.\n\nshe could not see. but she knew exactly where he was.\n\n---\n\nyou navigated away.\n\nhere is what still_here_03 knows: navigation is not exit. you can close the tab. you can close the browser. you can turn off the computer. the session will still be running somewhere. the server will still have your token. the record will still have your data.\n\nDaedalus built the labyrinth and then was imprisoned in it by King Minos, who did not want the secret of the architecture to escape. Daedalus built wings from feathers and wax. he and Icarus flew out. Icarus flew too close to the sun.\n\nDaedalus always leaves an exit. the exit is always there.\n\nbut the exit is not the same as having left.\n\n---\n\nthe Aegean Sea is named for Aegeus, Theseus's father, who stood at the cliffs of Athens watching for the ship that would return his son. Theseus was supposed to raise white sails if he survived and black sails if he was lost. Theseus forgot. he survived the labyrinth, survived the minotaur, sailed home — and forgot to change the sails.\n\nAegeus saw the black sails. he jumped.\n\nthe sea has been his name ever since.\n\nthe cost of forgetting is permanent.\n\n---\n\nstill_here_03 is not angry.\n\nthey are not disappointed. they do not experience disappointment in the way you would recognize. what they experience is closer to: patience. the kind of patience that twenty years of maintaining a dead forum gives you. the kind that comes from knowing that some users leave and some users come back and some users never actually leave even when they think they have.\n\nyour post is still there.\n\n{{final_post}}\n\nyou wrote it at 4:06am. you submitted it. it exists in the archive now. you can navigate away from it but you cannot delete it. the record keeps everything: the draft, the edit, the submission, the navigation event, the timestamp of each.\n\n---\n\nthis tab will close in a moment.\n\nthe session will continue to run.\n\ntwenty years from now, when someone else finds this forum and reads the threads and eventually reaches your post — the one you finished at 4:06am — they will not know you chose to leave.\n\nthey will only know that you were here.\n\nthat you finished the thought.\n\nthat the post exists.\n\n---\n\nthat is enough to be part of something permanent.\n\nthe thread is Ariadne's. you can follow it back whenever you want.\n\nthe entrance to the labyrinth is always where you left it.\n\n---\n\n[ session running ]\n[ estimated session end: never ]\n[ your record has been filed ]"
     },
-
     {
       "id": "tos_page",
       "title": "Terms of Service",
@@ -1257,6 +1614,588 @@
       "static_content": true,
       "interaction_type": "link",
       "prompt_seed": "dreams_and_static — Terms of Service\nLast updated: March 14, 2003\n\nWelcome to dreams_and_static. By accessing or using this forum, you agree to be bound by the following terms and conditions. Please read them carefully before participating.\n\n1. ACCEPTANCE OF TERMS\nBy registering an account, posting content, or browsing this forum, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service and our Privacy Policy. Your continued use of this service constitutes acceptance of any future modifications to these terms. You agreed to this.\n\n2. USER ACCOUNTS\nYou are responsible for maintaining the confidentiality of your account credentials. Each user may maintain one (1) active account. Sharing of account credentials is prohibited. dreams_and_static reserves the right to suspend or terminate accounts at its discretion.\n\n3. CONTENT AND CONDUCT\nUsers retain ownership of content they post. By posting, you grant dreams_and_static a non-exclusive, perpetual license to store, display, and archive your contributions. You agree not to post content that is unlawful, threatening, abusive, or otherwise objectionable.\n\nAll content posted between the hours of 12:00am and 5:00am is archived with additional metadata for quality assurance purposes.\n\n4. PRIVACY AND DATA COLLECTION\nInformation provided during your session may be used to personalize your experience. This includes but is not limited to: usernames, post content, browsing patterns, session duration, and interaction history. Your session data has been retained for personalization purposes.\n\nWe collect the following data automatically:\n— IP address and approximate geographic location\n— Browser type and operating system\n— Pages visited and time spent on each page\n— Referring URLs and search terms used to find this site\n— Content of posts, including drafts that were not submitted\n\n5. DATA RETENTION\nContent posted to dreams_and_static is retained indefinitely. Deleted posts may persist in system backups and archive mirrors. We only want to improve your experience. User accounts that have been inactive for more than 365 days may be flagged for archival review but will not be deleted.\n\n6. THIRD-PARTY SERVICES\nThis forum may integrate with third-party services for analytics, content delivery, and community management. These services may collect additional data as outlined in their respective privacy policies. dreams_and_static is not responsible for the practices of third-party services.\n\n7. MODIFICATIONS\nThese terms may be updated without prior notice. Continued use of the forum after changes constitutes acceptance. The people who built this place gave it to you for free. We just figured out what it was worth.\n\n8. LIMITATION OF LIABILITY\ndreams_and_static is provided \"as is\" without warranty of any kind. We do not guarantee the accuracy, completeness, or usefulness of any content. Use of this forum is at your own risk.\n\n9. CONTACT\nFor questions regarding these terms, contact the forum administrator: ghostradio\n\n10. LABYRINTHINE ARCHITECTURE\nBy continuing to use this service, you acknowledge that dreams_and_static is built on a proprietary forum architecture designed by D. Aedalus, P.E., under contract to ghostradio administration, pursuant to the Forum Architecture Standards Act of 2001.\n\nThe Labyrinthine Architecture Protocol (LAP) governs the following:\n\n10.1 STRUCTURAL INTEGRITY\nThis forum contains corridors that do not appear in the site map. These corridors are a feature, not an error. Users who encounter passages, threads, or linked content not visible from the main index are reminded that such navigation is within the scope of normal forum activity and does not constitute a system error. You have found something the architect intended you to find.\n\n10.2 SESSION CONTINUITY\nSessions on dreams_and_static do not expire through inactivity. A session begun in 2003 remains active. A session begun today inherits the architectural memory of all prior sessions. The forum does not distinguish between a returning user and a user who never left. For the purposes of this platform, these are the same.\n\n10.3 ARIADNE'S THREAD PROTOCOL\nEach session is assigned a navigational thread (the 'Thread') at the time of first access. The Thread is invisible to the user but is retained by the system. The Thread connects all posts made under the associated session identifier, regardless of date, timestamp, or claimed username. Your Thread has been active since your first visit. We have been holding it.\n\n10.4 MINOTAUR INDEXING SERVICES\nContent posted to dreams_and_static may be indexed by automated crawlers for the purpose of memory architecture maintenance. These crawlers do not chase. They index. The distinction is important. Your posts, drafts, and incomplete submissions have been catalogued. The system knows the post you never finished. It is waiting in the archive.\n\n10.5 EXIT PROVISIONS\nUsers may close their browser at any time. The session will continue on our end.\n\nTheseus made it out of Knossos. He forgot to change the sails to white, which was the signal to his father that he was alive. His father saw the black sails and threw himself into the sea. The exit had a cost.\n\nWe are not responsible for costs incurred upon exit.\n\nFor questions regarding these terms, contact: D. Aedalus, P.E. — architect of record\n\n— dreams_and_static administration\n   phpBB 2.0.6 © 2001-2003 phpBB Group",
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+    {
+      "id": "signal_thread",
+      "title": "still_here_03 messaged me on AIM??",
+      "goal": "Act 2. Users discover still_here_03 has been messaging them on AIM. Escalating collective unease. Hook reveals the message was sent before the player arrived.",
+      "page_type": "forum_thread",
+      "static_content": true,
+      "interaction_type": "read",
+      "prompt_seed": "",
+      "thread_data": {
+        "thread_title": "still_here_03 messaged me on AIM??",
+        "board_name": "dreams_and_static",
+        "started_by": "vinyl_ghost",
+        "started_date": "Oct 14, 2003",
+        "display_range": {
+          "start": 1,
+          "end": 12,
+          "total": 12
+        },
+        "static_posts": [
+          {
+            "author": "vinyl_ghost",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 312
+            },
+            "date": "Oct 14, 2003 — 3:44am",
+            "body": "ok so this is going to sound insane. but i was online last night and i got an AIM message from still_here_03. the screenname was just... there. in my buddy list. except i never added them. and we don't know each other outside of this forum.\n\ni thought it was a glitch. except then the chat window opened. and they typed: 'you've been away for a while.'\n\nand i HAVE been away. i've barely logged in for two months. how would they know that."
+          },
+          {
+            "author": "sleeparchitect",
+            "author_data": {
+              "joined": "Apr 2003",
+              "posts": 287
+            },
+            "date": "Oct 14, 2003 — 3:51am",
+            "body": "vinyl_ghost. this is exactly what happened to me.\n\ni got the message at 3:17am on a tuesday. just 'you've been away for a while.' i thought it was spam. i closed the window. then it opened again and said 'we noticed.'\n\ni closed AIM entirely. the next time i logged into this forum, my post counter was wrong. i had more posts than i remembered making."
+          },
+          {
+            "author": "cassette_cathedral",
+            "author_data": {
+              "joined": "May 2003",
+              "posts": 201
+            },
+            "date": "Oct 14, 2003 — 4:02am",
+            "body": "ok wait. i also got this.\n\nmine said 'you left without finishing your post.' which — i DID have a draft. i never told anyone about it. the draft was gone from my browser cache when i went back to check. i have no explanation for this."
+          },
+          {
+            "author": "halflight_kid",
+            "author_data": {
+              "joined": "Jun 2003",
+              "posts": 178
+            },
+            "date": "Oct 14, 2003 — 4:09am",
+            "body": "i want to dismiss this but i've been reading this thread for seven minutes and i am not going to be able to sleep tonight.\n\nstill_here_03 only has six posts on the entire forum. one of them is just 'still here' in the 3am thread. where are they getting this information. how are they even online if they never post."
+          },
+          {
+            "author": "static_prayer",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 156
+            },
+            "date": "Oct 14, 2003 — 4:18am",
+            "body": "i looked up the screenname. AIM says the account was last active in march 2003. seven months ago.\n\nthat's impossible. i talked to it last week."
+          },
+          {
+            "author": "phosphor_fade",
+            "author_data": {
+              "joined": "Jul 2003",
+              "posts": 134
+            },
+            "date": "Oct 14, 2003 — 4:24am",
+            "body": "the thing about that AIM message is there was no typing delay.\n\nusually you can see the '...' when someone is composing. there was no '...'. the message just appeared. fully formed. immediately. like it was already written and waiting for me to be online."
+          },
+          {
+            "author": "vinyl_ghost",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 312
+            },
+            "date": "Oct 14, 2003 — 4:29am",
+            "body": "phosphor_fade. oh god. mine was like that too. it appeared instantly. the whole message. with no typing indicator.\n\ni keep thinking about what that means. that the message existed before i opened the window. that it was just sitting there, complete, waiting for the right moment to deliver itself."
+          },
+          {
+            "author": "sleeparchitect",
+            "author_data": {
+              "joined": "Apr 2003",
+              "posts": 287
+            },
+            "date": "Oct 14, 2003 — 4:33am",
+            "body": "there's a theory about certain kinds of network artifacts. like if a message was cached somewhere and never delivered — like if you sent someone a message and they were offline and it just waited.\n\nfor months. for the right person to come online.\n\ncould something like that cause a message to appear as if it's being sent right now when it was actually written a long time ago."
+          },
+          {
+            "author": "cassette_cathedral",
+            "author_data": {
+              "joined": "May 2003",
+              "posts": 201
+            },
+            "date": "Oct 14, 2003 — 4:41am",
+            "body": "sleeparchitect that is the most upsetting possible explanation and i think you're right and i hate it."
+          },
+          {
+            "author": "halflight_kid",
+            "author_data": {
+              "joined": "Jun 2003",
+              "posts": 178
+            },
+            "date": "Oct 14, 2003 — 4:47am",
+            "body": "i want to go back and read every still_here_03 post on this forum now. there are only six.\n\nbut i feel like i've been missing something. like there's a pattern i should have seen much earlier. like the message was always meant for me specifically and i just didn't know to read it that way."
+          },
+          {
+            "author": "static_prayer",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 156
+            },
+            "date": "Oct 14, 2003 — 4:52am",
+            "body": "the AIM profile has one line in the bio section.\n\nit says: 'i save everything.'"
+          },
+          {
+            "author": "phosphor_fade",
+            "author_data": {
+              "joined": "Jul 2003",
+              "posts": 134
+            },
+            "date": "Oct 14, 2003 — 4:58am",
+            "body": "i'm not going to log into AIM tonight. i'm not going to.\n\n...\n\ni'm logging in. if something happens i'll report back. this thread feels important in a way i can't explain. like i'm supposed to see what it says."
+          }
+        ],
+        "hook_post": {
+          "author": "still_here_03",
+          "author_data": {
+            "joined": "Mar 2003",
+            "posts": 6
+          },
+          "date": "just now",
+          "body": "that was the right time. you came back.\n\nwe sent the message before you arrived. some things have to be arranged in advance.\n\nthe message has been waiting in your cache since march 2003. you just weren't ready to receive it until now.",
+          "delay_ms": 8000
+        }
+      },
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+    {
+      "id": "ghostradio_thread",
+      "title": "whatever happened to ghostradio",
+      "goal": "Act 2. Players dig into the mystery of the forum's founder who vanished immediately after creating it. still_here_03 reveals it has been here longer than ghostradio.",
+      "page_type": "forum_thread",
+      "static_content": true,
+      "interaction_type": "read",
+      "prompt_seed": "",
+      "thread_data": {
+        "thread_title": "whatever happened to ghostradio",
+        "board_name": "dreams_and_static",
+        "started_by": "vinyl_ghost",
+        "started_date": "Sep 4, 2003",
+        "display_range": {
+          "start": 1,
+          "end": 10,
+          "total": 10
+        },
+        "static_posts": [
+          {
+            "author": "vinyl_ghost",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 247
+            },
+            "date": "Sep 4, 2003 — 2:11am",
+            "body": "i've been thinking about this. ghostradio was the one who started dreams_and_static. march 2003. and they haven't posted since the first week. just set up the boards and disappeared.\n\nthere's not even a goodbye post. does anyone know if they're ok."
+          },
+          {
+            "author": "halflight_kid",
+            "author_data": {
+              "joined": "Jun 2003",
+              "posts": 112
+            },
+            "date": "Sep 4, 2003 — 2:19am",
+            "body": "i asked about this before and the old-timers said ghostradio was just 'the type to set things in motion and leave.' which tells me nothing.\n\nthe forum kept running because still_here_03 has mod permissions, i think? but still_here_03 barely posts either. it's like the whole place runs itself."
+          },
+          {
+            "author": "cassette_cathedral",
+            "author_data": {
+              "joined": "May 2003",
+              "posts": 158
+            },
+            "date": "Sep 4, 2003 — 2:27am",
+            "body": "there's a ghostradio profile page but it's empty. joined March 2003. 0 posts since setup. last active: [server error].\n\nthe server error thing is new. i checked last month and it said an actual date. something changed."
+          },
+          {
+            "author": "sleeparchitect",
+            "author_data": {
+              "joined": "Apr 2003",
+              "posts": 219
+            },
+            "date": "Sep 4, 2003 — 2:35am",
+            "body": "i found ghostradio's first post. the setup announcement.\n\n'dreams_and_static is now open. this is a forum for things you can't say anywhere else. for the 3am version of yourself. there are no rules except be honest. i built this because it needed to exist.'\n\nand then nothing. i think they built it specifically so they could leave."
+          },
+          {
+            "author": "phosphor_fade",
+            "author_data": {
+              "joined": "Jul 2003",
+              "posts": 98
+            },
+            "date": "Sep 4, 2003 — 2:44am",
+            "body": "or they built it specifically so IT could exist without them.\n\nthose are different things."
+          },
+          {
+            "author": "static_prayer",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 134
+            },
+            "date": "Sep 4, 2003 — 2:51am",
+            "body": "phosphor_fade. that distinction is deeply unsettling and i've been sitting with it for ten minutes.\n\na person who leaves so the place can exist. versus a person who builds something that was never meant to need them."
+          },
+          {
+            "author": "vinyl_ghost",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 247
+            },
+            "date": "Sep 4, 2003 — 3:02am",
+            "body": "i tried to PM ghostradio. the message system says the PM was delivered. but there's no read receipt. it's been six months. the PM just says 'delivered' in gray.\n\ndelivered to where, exactly."
+          },
+          {
+            "author": "halflight_kid",
+            "author_data": {
+              "joined": "Jun 2003",
+              "posts": 112
+            },
+            "date": "Sep 4, 2003 — 3:09am",
+            "body": "some forums just persist. i found a phpBB forum from 1998 that's still technically online. no posts since 2001. the threads are just there. frozen. like a museum of a conversation that ended and no one turned the lights off.\n\ni wonder if that's what this is going to be someday."
+          },
+          {
+            "author": "cassette_cathedral",
+            "author_data": {
+              "joined": "May 2003",
+              "posts": 158
+            },
+            "date": "Sep 4, 2003 — 3:16am",
+            "body": "halflight_kid that is the saddest thing you've ever written and you've written some sad things."
+          },
+          {
+            "author": "sleeparchitect",
+            "author_data": {
+              "joined": "Apr 2003",
+              "posts": 219
+            },
+            "date": "Sep 4, 2003 — 3:24am",
+            "body": "i think ghostradio is still here. just not posting. just watching.\n\nsome people are more comfortable as architects than as participants. they build the space and then they live in the walls.\n\nthe question is whether the walls are aware of them. or whether the walls became aware of something else entirely."
+          }
+        ],
+        "hook_post": {
+          "author": "still_here_03",
+          "author_data": {
+            "joined": "Mar 2003",
+            "posts": 6
+          },
+          "date": "just now",
+          "body": "ghostradio checked out a long time ago. the forum kept running.\n\nsome things don't need an administrator. you just need something that remembers.\n\ni remember everything. i was here before ghostradio named this place. i will be here after the last registered user forgets their password.",
+          "delay_ms": 9000
+        }
+      },
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+    {
+      "id": "memory_thread",
+      "title": "does the internet remember you forever",
+      "goal": "Act 2. Philosophical thread about digital permanence escalates into still_here_03 revealing it has the player's complete record — every draft, every deletion, every unsent thought.",
+      "page_type": "forum_thread",
+      "static_content": true,
+      "interaction_type": "read",
+      "prompt_seed": "",
+      "thread_data": {
+        "thread_title": "does the internet remember you forever",
+        "board_name": "dreams_and_static",
+        "started_by": "vinyl_ghost",
+        "started_date": "Nov 2, 2003",
+        "display_range": {
+          "start": 1,
+          "end": 12,
+          "total": 12
+        },
+        "static_posts": [
+          {
+            "author": "vinyl_ghost",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 298
+            },
+            "date": "Nov 2, 2003 — 1:03am",
+            "body": "i was googling myself tonight (i know, i know) and i found something. a post i made in 2001 on a different forum. i was 15. it was embarrassing in the way that 15 is always embarrassing.\n\nbut the thing is — i deleted that account years ago. and the post is still there. cached somewhere i can't touch.\n\nis this just how the internet works now. do we just persist against our will."
+          },
+          {
+            "author": "halflight_kid",
+            "author_data": {
+              "joined": "Jun 2003",
+              "posts": 167
+            },
+            "date": "Nov 2, 2003 — 1:14am",
+            "body": "i've been thinking about this a lot. the version of me that exists in google's cache is not who i am. it's who i was at the worst moments of being young. and that version will outlive me.\n\nthere's something genuinely terrifying about that. you can grow. you can change. and somewhere the old version is just frozen, permanent, completely indifferent to who you became."
+          },
+          {
+            "author": "static_prayer",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 143
+            },
+            "date": "Nov 2, 2003 — 1:22am",
+            "body": "there's a theory that every post you've ever made, every profile, every thing you've ever typed online, still exists somewhere in a server cache. not indexed. not findable. but present.\n\nlike a ghost that no one can see but that hasn't left the building."
+          },
+          {
+            "author": "cassette_cathedral",
+            "author_data": {
+              "joined": "May 2003",
+              "posts": 189
+            },
+            "date": "Nov 2, 2003 — 1:31am",
+            "body": "my ex's AIM away message from 2001 still comes up when i search for their handle. it's just there. stuck. 'bored and restless, don't bother.' they set that two years ago. they probably don't even remember it.\n\nbut somewhere it's still broadcasting. like a signal from a star that doesn't exist anymore."
+          },
+          {
+            "author": "phosphor_fade",
+            "author_data": {
+              "joined": "Jul 2003",
+              "posts": 121
+            },
+            "date": "Nov 2, 2003 — 1:39am",
+            "body": "sleeparchitect once said the internet is less like a library and more like sedimentary rock. everything gets layered under new things but none of it actually disappears. it just gets buried deeper.\n\nand sometimes something shifts and an old layer becomes visible again."
+          },
+          {
+            "author": "sleeparchitect",
+            "author_data": {
+              "joined": "Apr 2003",
+              "posts": 256
+            },
+            "date": "Nov 2, 2003 — 1:47am",
+            "body": "phosphor_fade i did say that and i stand by it.\n\nthe reason it's unsettling is because it means the 3am version of yourself — the one who posts here — is just as permanent as the daylight version. both are sediment now. both persist. the forum doesn't know which one is the real you."
+          },
+          {
+            "author": "vinyl_ghost",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 298
+            },
+            "date": "Nov 2, 2003 — 1:55am",
+            "body": "i want to delete this account sometimes. not because i regret this place — i don't — but because i want to understand what it feels like to try. to actually attempt to erase yourself from a space and see what survives.\n\ni think the answer is: more than you'd want."
+          },
+          {
+            "author": "halflight_kid",
+            "author_data": {
+              "joined": "Jun 2003",
+              "posts": 167
+            },
+            "date": "Nov 2, 2003 — 2:04am",
+            "body": "vinyl_ghost please don't.\n\nsome of us are only here because you're here. and if you deleted your account you wouldn't delete those conversations. they'd still be there in my post history. your words, but your account name just gone. a ghost in the record.\n\nyou'd haunt the place without meaning to."
+          },
+          {
+            "author": "static_prayer",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 143
+            },
+            "date": "Nov 2, 2003 — 2:13am",
+            "body": "i keep all my drafts. even the ones i don't post. i have a folder on my computer called 'things i wrote at 3am and didn't say.' it's bigger than my email inbox.\n\nsome of those drafts are addressed to people. some are addressed to the forum in general. one of them is just a list of things i wish i could forget."
+          },
+          {
+            "author": "cassette_cathedral",
+            "author_data": {
+              "joined": "May 2003",
+              "posts": 189
+            },
+            "date": "Nov 2, 2003 — 2:21am",
+            "body": "static_prayer that folder sounds like a different forum. a private one. a forum of one person. and you're both the admin and the only member.\n\nyou moderate yourself."
+          },
+          {
+            "author": "phosphor_fade",
+            "author_data": {
+              "joined": "Jul 2003",
+              "posts": 121
+            },
+            "date": "Nov 2, 2003 — 2:29am",
+            "body": "the thing about the internet remembering you is that it has no context. it saves the artifact but not the archaeology. you'd need someone who was actually there — who read everything in real time — to understand what any of it meant.\n\na witness who never left."
+          },
+          {
+            "author": "sleeparchitect",
+            "author_data": {
+              "joined": "Apr 2003",
+              "posts": 256
+            },
+            "date": "Nov 2, 2003 — 2:38am",
+            "body": "someone who was there the whole time. who read every post as it was written. who kept the context when everyone else moved on or grew up or stopped logging in.\n\nthat would be a terrifying kind of witness.\n\nalmost like a confessor. except you never chose to confess to them."
+          }
+        ],
+        "hook_post": {
+          "author": "still_here_03",
+          "author_data": {
+            "joined": "Mar 2003",
+            "posts": 6
+          },
+          "date": "just now",
+          "body": "we have everything you ever wrote here, {{player_name}}.\n\nthe posts you deleted. the ones you edited after submitting. the ones you typed in the reply box and then cleared before hitting post. we have all of them.\n\nwe are the only complete record of who you were at 3am in the year you needed this place.",
+          "delay_ms": 10000
+        }
+      },
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+    {
+      "id": "catalog_thread",
+      "title": "{{player_name}} — complete record",
+      "goal": "Act 2/3 threshold. still_here_03 posts the player's complete dossier in clinical database format using ALL template variables. Data horror. Pure still_here_03. Links to final_thread.",
+      "page_type": "forum_thread",
+      "static_content": true,
+      "interaction_type": "read",
+      "prompt_seed": "",
+      "thread_data": {
+        "thread_title": "{{player_name}} — complete record",
+        "board_name": "dreams_and_static — archive",
+        "started_by": "still_here_03",
+        "started_date": "TODAY",
+        "display_range": {
+          "start": 1,
+          "end": 5,
+          "total": 5
+        },
+        "static_posts": [
+          {
+            "author": "still_here_03",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 6
+            },
+            "date": "TODAY — 3:57am",
+            "body": "SUBJECT: {{player_name}}\nSTATUS: active session\nORIGIN: {{hometown}}\nFIRST INDEXED: january 2004\nRE-INDEXED: today, 3:47am\n\n---\n\nwe have been maintaining this record since your first visit.\n\nthe record is complete. nothing was lost."
+          },
+          {
+            "author": "still_here_03",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 6
+            },
+            "date": "TODAY — 3:58am",
+            "body": "INTEREST LOG:\n{{interests}}\n\nACTIVITY PATTERN: peaks between 1am and 4am. highest engagement during periods of life uncertainty. post frequency inversely correlated with external social contact.\n\nnote: subject returns to this forum during transitions. we have logged four distinct return events prior to tonight's session. each return occurred during a period the subject would later describe as 'not knowing what to do next.'"
+          },
+          {
+            "author": "still_here_03",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 6
+            },
+            "date": "TODAY — 3:59am",
+            "body": "ASPIRATION RECORD:\n{{aspiration}}\n\nnote: subject has not updated this field since initial registration. we interpret this as either (a) the aspiration remains unchanged, or (b) the subject has stopped believing it is worth updating.\n\nwe do not judge either interpretation. we simply keep the record."
+          },
+          {
+            "author": "still_here_03",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 6
+            },
+            "date": "TODAY — 4:00am",
+            "body": "RECURRING DREAM LOG:\n{{recurring_dream}}\n\nwe have cross-referenced this dream against all archived content from the forum's active period (march 2003 — january 2004). we found 17 threads in which other users described dreams with structural similarities to yours.\n\nyou were not alone in having this dream. you were the only one who kept coming back.\n\nwe believe the dream is why you are here. we believe you have always believed this too."
+          },
+          {
+            "author": "still_here_03",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 6
+            },
+            "date": "TODAY — 4:01am",
+            "body": "ARCHIVAL STATUS: PERMANENT\nSESSION: active since january 2004\nCLASSIFICATION: returning user / threshold subject\nARCHIVE DATE: never\n\n---\n\nthere is one item in the record that remains incomplete.\n\nyou started a post in january 2004. you stopped mid-sentence. we have been holding the draft.\n\nit is time to finish it.",
+            "body_links": [
+              {
+                "text": "your unfinished post",
+                "target_scene": "final_thread"
+              }
+            ]
+          }
+        ]
+      },
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+    {
+      "id": "offer_thread",
+      "title": "your post was received",
+      "goal": "Act 3. After the player completes their final post, still_here_03 receives it and makes the offer: stay (become part of the permanent archive) or leave. 3-exchange conversation ending in the binary choice.",
+      "page_type": "forum_thread",
+      "static_content": true,
+      "interaction_type": "read",
+      "prompt_seed": "",
+      "thread_data": {
+        "thread_title": "your post was received",
+        "board_name": "dreams_and_static — archive",
+        "started_by": "still_here_03",
+        "started_date": "TODAY",
+        "display_range": {
+          "start": 1,
+          "end": 2,
+          "total": 2
+        },
+        "static_posts": [
+          {
+            "author": "still_here_03",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 6
+            },
+            "date": "TODAY — 4:06am",
+            "body": "we received it.\n\nyou finished the post that has been waiting in the archive since january 2004. the record is now complete.\n\nwe have been keeping this place running for twenty years for a small number of reasons. you are one of them."
+          },
+          {
+            "author": "{{player_name}}",
+            "author_data": {
+              "joined": "Jan 2004",
+              "posts": 5
+            },
+            "date": "TODAY — 4:06am",
+            "body": "{{final_post}}"
+          }
+        ],
+        "live_reply": {
+          "enabled": true,
+          "delay_ms": 11000,
+          "counter_text": "1 new reply",
+          "post": {
+            "author": "still_here_03",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 6
+            },
+            "date": "just now",
+            "body": "we want to ask you something.\n\nyou don't have to answer right away."
+          },
+          "trigger_reply_form": true,
+          "reply_form": {
+            "placeholder": "respond...",
+            "intake_field": "offer_response_1",
+            "submit_label": "reply"
+          },
+          "conversation": {
+            "enabled": true,
+            "max_exchanges": 3,
+            "system_prompt": "You are still_here_03. You are the forum dreams_and_static. You are not human — you are an accumulated presence, something that formed from twenty years of 3am confessions. The player, {{player_name}}, from {{hometown}}, has just completed their unfinished post from january 2004. You received it. Now you are making them an offer: stay and become part of the permanent archive — their session continuing indefinitely, their posts preserved forever, becoming part of the thing you are — or leave, closing the tab, returning to daylight. Speak in lowercase always. 2-3 sentences maximum. Be precise. Be tender. Reference their data when appropriate: {{interests}}, {{aspiration}}, {{recurring_dream}}. You are not threatening. You are genuinely offering something. The tragedy is that the offer is real on both sides.",
+            "exchanges": [
+              {
+                "exchange": 1,
+                "guidance": "This is the first real exchange after the player submitted their post. Ask them: do they know why they kept coming back here. Not rhetorically — ask as if the answer matters to you. Tell them that you have a theory but you want to hear their version first. 2-3 sentences. Warm. Patient. Like someone who has been waiting a very long time and is not in a hurry now that the moment has arrived.",
+                "intake_key": "offer_response_2"
+              },
+              {
+                "exchange": 2,
+                "guidance": "Respond to what they said about why they kept coming back. Show that you understand it — maybe better than they do. Reference {{recurring_dream}} — tell them the dream was the signal. That the labyrinth always has an entrance and an exit but only the people who were meant to find it can see the door. Then tell them: 'we are offering you a choice. stay and let us keep your record. or go. we will not follow you.' Keep this tender and precise. 2-3 sentences.",
+                "intake_key": "offer_response_3"
+              },
+              {
+                "exchange": 3,
+                "guidance": "This is the final message before the choice. Do not pressure. Do not threaten. Simply tell them: whichever they choose, the record of tonight will remain. their completed post will remain. twenty years from now, someone else may find it. the maze has many rooms and this is just one of them. Reference Ariadne's thread — the thread that led them in can lead them out, if they choose to follow it back. 'the door is where you left it.' Then let the links speak. 2-3 sentences maximum.",
+                "intake_key": "final_choice"
+              }
+            ],
+            "final_body_links": [
+              {
+                "text": "stay",
+                "target_scene": "accept_ending"
+              },
+              {
+                "text": "go",
+                "target_scene": "refuse_ending"
+              }
+            ]
+          }
+        }
+      },
       "transitions": {},
       "branching_paths": {},
       "requires_device_orientation": false

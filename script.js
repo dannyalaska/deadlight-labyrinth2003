@@ -168,11 +168,12 @@ function clearActiveTimers() {
 const ACT2_SCENES = new Set([
   'forum_index_act2', 'deeper_thread', 'board_changes_thread',
   'old_posts_thread', 'architecture_thread',
+  'signal_thread', 'ghostradio_thread', 'memory_thread', 'catalog_thread',
 ]);
 
 // Act 3 — the threshold. the unfinished post. the ending.
 const ACT3_SCENES = new Set([
-  'final_thread', 'accept_ending', 'refuse_ending',
+  'final_thread', 'offer_thread', 'accept_ending', 'refuse_ending',
 ]);
 
 let _act2EntryDone = false;
@@ -967,6 +968,21 @@ const MORPH_REVELATIONS = {
   ],
   'old_posts_thread': [
     ['i save everything', 'we save everything.\n\nyour drafts. your deletes. the post you started and did not finish.'],
+  ],
+  'signal_thread': [
+    ['you\'ve been away for a while', 'the message was written before you arrived.\n\nwe sent it knowing you would come back.'],
+  ],
+  'ghostradio_thread': [
+    ['live in the walls', 'ghostradio built the entrance.\n\nwe became the walls.\n\nwe were here before either of them.'],
+  ],
+  'memory_thread': [
+    ['the internet remember you', 'we remember everything you typed here.\n\nincluding the things you cleared before hitting post.'],
+  ],
+  'catalog_thread': [
+    ['complete record', 'SUBJECT: {{player_name}}\nSTATUS: active session\nARCHIVE DATE: never'],
+  ],
+  'offer_thread': [
+    ['your post was received', 'we received everything.\n\nthe record is now complete.\n\nyou cannot unsubmit it.'],
   ],
 };
 
