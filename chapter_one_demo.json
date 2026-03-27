@@ -4,7 +4,7 @@
   "theme": "The warmth of early internet community, the uncanny of return",
   "setting": "A dead phpBB forum from 2002-2004, dormant for twenty years. One post is from today.",
   "global_mood": "Warm nostalgia escalating into the horror of being recognized",
-  "entrypoint": "forum_index",
+  "entrypoint": "aim_vestibule",
 
   "story_bible": {
     "forum_identity": {
@@ -55,6 +55,21 @@
   },
 
   "scenes": [
+    {
+      "id": "aim_vestibule",
+      "title": "November, 2003",
+      "goal": "The pre-forum prose vestibule. Dense, second-person, atmospheric. Establishes the 2003 world before the forum loads. A single AIM notification from vinyl_ghost — a link. The player clicks it.",
+      "page_type": "prose",
+      "static_content": true,
+      "interaction_type": "continue",
+      "prompt_seed": "It's late October 2003 and the apartment is the color of copper wire at 2am.\n\nThe monitor is a CRT, seventeen inches, and it hums at a frequency you've stopped noticing. You've stopped noticing a lot of things. The desk is a door balanced on two filing cabinets, a configuration you read about on a forum somewhere, a life-hack from someone who didn't have money for furniture either. There's a ThinkPad in the corner you never use because it takes four minutes to boot and four minutes is four minutes. The one you're on now is a tower, beige, the fan making a sound like a patient animal. The room smells like instant ramen and old books and the particular stillness of a night that has stopped pretending it will become morning soon.\n\nThere is a sound — the three-note chime of AOL Instant Messenger, the one that means someone has sent you a message — and you already know who it is before you read it. vinyl_ghost. 3:14am their time, wherever they are, which you know but have also somehow forgotten. The message is short. It's always short with them, and then suddenly it isn't.\n\n    vinyl_ghost: hey. you awake?\n    vinyl_ghost: found this place. kind of hard to explain.\n    vinyl_ghost: just. look.\n\nA link. Blue and underlined, the way everything important looked before the internet learned to be afraid of itself. You hover over it for a moment. The URL is long and slightly wrong in a way you can't quite name, like a word you've known so long it stops looking like a word. Your browser is Internet Explorer 6. Your connection is DSL. The modem clicked and hissed forty minutes ago when you first went online, and somewhere in the walls of this building there are copper wires carrying your curiosity to a server in a city you've never been to.\n\nYou click.\n\nThe page loads in pieces, the way things did then — the banner first, then the navigation, then the thread titles arriving like dispatches. A phpBB forum. The header reads: dreams_and_static. Below it, smaller: a place for what keeps you up at night. The timestamp on the most recent post is TODAY. Someone named still_here_03, who joined in March 2003 and has posted exactly once, has left a reply in a thread called songs you can't listen to anymore. The post went up four minutes ago. You weren't supposed to be awake. You weren't supposed to click the link. You were supposed to go to bed an hour ago, before October became November, before the copper wires in the walls started carrying something they shouldn't.\n\nThe cursor blinks.\n\nThe forum waits.",
+      "transitions": {
+        "default": "forum_index"
+      },
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+
     {
       "id": "forum_index",
       "title": "dreams_and_static",
@@ -114,6 +129,29 @@
             "started": "Nov 1, 2002",
             "clickable": true,
             "target_scene": "three_am_thread"
+          },
+          {
+            "id": "thread_borges",
+            "title": "borges — 'the house of asterion' — the minotaur is the host",
+            "author": "vinyl_ghost",
+            "replies": 14,
+            "views": 892,
+            "last_post_by": "still_here_03",
+            "last_post_date": "TODAY",
+            "started": "Nov 3, 2003",
+            "clickable": true,
+            "target_scene": "borges_thread"
+          },
+          {
+            "id": "thread_house_of_leaves",
+            "title": "house of leaves — the navidson record — is the house real",
+            "author": "sleeparchitect",
+            "replies": 38,
+            "views": 3104,
+            "last_post_by": "vinyl_ghost",
+            "last_post_date": "Jan 19, 2004",
+            "started": "Sep 22, 2003",
+            "clickable": false
           },
           {
             "id": "thread_mixtapes",
@@ -231,6 +269,13 @@
             "author_data": {"joined": "Sep 2002", "posts": 342},
             "date": "Nov 2, 2003 — 2:50am",
             "body": "sleeparchitect just said something i've been trying to say for years. the song knows. that's exactly it.\n\nalso if anyone wants to go deep — boards of canada, music has the right to children. that album sounds like a memory of a childhood you didn't have. it's warm and wrong at the same time. i think about it a lot.",
+            "signature": "-- all the best frequencies are just static now"
+          },
+          {
+            "author": "vinyl_ghost",
+            "author_data": {"joined": "Sep 2002", "posts": 342},
+            "date": "Nov 9, 2003 — 3:37am",
+            "body": "ok i know i just posted but i've been thinking about this thread nonstop and i need to tell someone about william basinski.\n\nthe disintegration loops. came out last year. basinski found old magnetic tape recordings he'd made in the 80s — ambient loops, just piano fragments and static — and when he tried to digitize them, the tape was so deteriorated that it was literally disintegrating as it played. the iron oxide was flaking off the tape in real time. he recorded the whole thing: the music playing and simultaneously falling apart. each pass through the machine was slightly more corrupt than the last. by the end there was almost nothing left.\n\nhe finished recording it on the morning of september 11, 2001. he went up to his roof in brooklyn and watched the towers burn while the last loop played.\n\nhere's the thing about songs you can't listen to anymore: basinski understood that a song IS a corridor. you walk through it and the walking changes it. the tape doesn't know time is passing. it just keeps playing, disintegrating, trying to loop back to the beginning. and every time it plays it's a little less itself.\n\nthat's what a memory is. that's what this forum is. we walk through the same loops and leave a little of ourselves behind each time.\n\ni can't listen to it. but i also can't stop.",
             "signature": "-- all the best frequencies are just static now"
           }
         ],
@@ -394,12 +439,12 @@
               },
               {
                 "exchange": 3,
-                "guidance": "Respond to what {{player_name}} said they were into. Connect it to the forum's energy — the late nights, the threads, the feeling of finding your people online. Then ask what they wanted to be. Not a job question — more like 'who did you think you were going to become. back when you still thought you could be anyone.' Keep it to 2-3 sentences. The warmth should be real but the specificity of the question should feel slightly too knowing.",
+                "guidance": "Respond to what {{player_name}} said they were into. The warmth is real but your voice is subtly shifting — less casual, more ancient, more patient. Something in how you phrase things suggests you have been waiting not days but years. Ask what they wanted to become. Not a job question — more like 'who did you think you were going to become. back when you still thought you could be anyone.' Optionally hint — gently, warmly, almost accidentally — that you remember something about them from before. As if you were always holding a thread and waiting for them to pick up the other end. Keep to 2-3 sentences.",
                 "intake_key": "aspiration"
               },
               {
                 "exchange": 4,
-                "guidance": "Based on what {{player_name}} said about who they wanted to become, reflect something back to them — something gentle and slightly heartbreaking. Reference the forum, the late night conversations, the people who were here. Then suggest they should look around the board because things have changed. End your response so that the phrase 'look around' appears naturally in your text. Keep it to 2-3 sentences."
+                "guidance": "This is the final exchange. Reflect {{player_name}}'s aspiration back with a kind of ancient sadness, as though you have seen many versions of this person arrive at this same place. Reference the forum and the threads and the late night hours but the language should now feel slightly wrong — too old, too knowing, like something that has been saying these words for twenty years. Reference that you have been holding something for them. Then suggest they should look around the board because things have changed, because the architecture is different now. End your response so that the phrase 'look around' appears naturally. The horror is warmth. The horror is being known. Keep to 2-3 sentences."
               }
             ],
             "final_body_links": [
@@ -444,6 +489,18 @@
             "author_data": {"joined": "Oct 2002", "posts": 234},
             "date": "TODAY",
             "body": "{{player_name}} i think about you all the time. about what you told me that night at 3am about the person you almost became. {{aspiration}}. the version of yourself you left behind when you stopped posting here.\n\nyou probably don't even remember saying it. but i kept it. i kept everything."
+          },
+          {
+            "author": "still_here_03",
+            "author_data": {"joined": "Mar 2003", "posts": 4},
+            "date": "TODAY",
+            "body": "daedalus built the labyrinth from everyone's 3am posts.\n\nevery confession that went nowhere. every thread that ran out of replies. every time someone said 'i think this is my last post' and then came back anyway. the corridors are made of that. the walls are made of that.\n\nhe didn't need stone. he had the internet.\n\nyou asked what you decided — hold on or let go. {{player_name}}, you didn't decide. the decision was already in the architecture."
+          },
+          {
+            "author": "halflight_kid",
+            "author_data": {"joined": "Oct 2002", "posts": 234},
+            "date": "TODAY",
+            "body": "still_here. that's not.\n\nwho are you."
           }
         ]
       },
@@ -515,6 +572,20 @@
             "author_data": {"joined": "Oct 2002", "posts": 234},
             "date": "Nov 14, 2003 — 3:38am",
             "body": "bump because i had teh hallway dream again last night except this time there was a door at the end that was open and there was light coming through it. and i almost went through it. i woke up right before.\n\nidk why but i feel like if i go through that door something changes. anyone else ever get close to something in a dream and then wake up?"
+          },
+          {
+            "author": "sleeparchitect",
+            "author_data": {"joined": "Nov 2002", "posts": 891},
+            "date": "Nov 15, 2003 — 2:11am",
+            "body": "halflight i think about your hallway dream a lot actually.\n\ni've been reading about labyrinths lately. not because i planned to, i just fell into a research hole the way you do at 2am. the original labyrinth — knossos, daedalus, the whole myth — the interesting thing is that it wasn't designed to keep the minotaur in. it was designed so that nobody could find the center. or find their way back out. it looked like architecture but it functioned like forgetting.\n\ndaedalus built it for minos but then minos trapped daedalus inside it too, because daedalus knew the way through. the architect imprisoned in his own design. i think about that a lot.\n\nall our recurring dreams are labyrinths. same geography every time. you know the layout but you can't master it. you're always almost finding what you came for. the dream was designed by something that knew exactly how much you could find before you had to wake up.",
+            "signature": "-- 'to live is to leave traces' — walter benjamin"
+          },
+          {
+            "author": "vinyl_ghost",
+            "author_data": {"joined": "Sep 2002", "posts": 342},
+            "date": "Nov 15, 2003 — 4:02am",
+            "body": "sleeparchitect you can't just casually drop 'daedalus imprisoned in his own labyrinth' at 2am without warning people\n\nbut also you're right about the architecture thing and it made me think about boards of canada again. geogaddi specifically. that album is a labyrinth. it's got these locked rooms — samples that loop back on themselves, melodies that almost resolve, the sense that if you listen carefully enough you'll find the exit. but you never do. it just keeps opening into another corridor.\n\nthere are people online who have done like, full cryptographic analyses of the track sequencing. who is trying to decode something that's already inside your head.\n\nthe dream is the maze. the maze is the music. we're all just trying to find the thread that leads out.",
+            "signature": "-- all the best frequencies are just static now"
           }
         ],
         "hook_post": {
@@ -670,6 +741,13 @@
             "author_data": {"joined": "Feb 2003", "posts": 445},
             "date": "Feb 8, 2004 — 2:58am",
             "body": "i promise.\n\nwhatever happens, wherever we go. this was real. we were here at the same time and we found each other and that matters. even the internet can't take that away.\n\nand neon — you're not late. you're right on time."
+          },
+          {
+            "author": "vinyl_ghost",
+            "author_data": {"joined": "Sep 2002", "posts": 342},
+            "date": "Feb 9, 2004 — 3:20am",
+            "body": "i finished house of leaves last week and i've been trying to figure out how to talk about it since then.\n\nif you don't know: it's a novel about a house that is larger on the inside than it is on the outside. the navidson family moves in, they find a door, behind the door is a hallway that shouldn't exist, behind the hallway is a staircase that goes down into darkness forever. the house keeps growing. new rooms appear. the architecture is alive and it's getting larger.\n\nthe part that got me: the house is always exactly as large as you need it to be for the horror to be maximally effective. it doesn't want to be understood. it wants to be explored.\n\nhear me out: this forum. the deeper you go in the thread history, the more rooms there are. posts from people who never come back, referencing conversations you can't find. a link that goes somewhere you don't remember clicking. a username you recognize but whose profile page says joined: unknown.\n\nmaybe leaving was never the option. maybe we just discovered a new room.",
+            "signature": "-- all the best frequencies are just static now"
           }
         ],
         "hook_post": {
@@ -681,6 +759,129 @@
           "target_scene": "hook_profile",
           "delay_ms": 5000
         }
+      },
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+
+    {
+      "id": "borges_thread",
+      "title": "borges — 'the house of asterion' — the minotaur is the host",
+      "goal": "A literary thread about Borges' 'The House of Asterion'. The forum's readers encountering the labyrinth mythology that is also their own structural reality. still_here_03 arrives at the end. Pure world-building with mythological depth.",
+      "page_type": "forum_thread",
+      "static_content": true,
+      "interaction_type": "link",
+      "prompt_seed": "",
+      "thread_data": {
+        "thread_title": "borges — 'the house of asterion' — the minotaur is the host",
+        "board_name": "dreams_and_static",
+        "started_by": "vinyl_ghost",
+        "started_date": "Nov 3, 2003",
+        "static_posts": [
+          {
+            "author": "vinyl_ghost",
+            "author_data": {"joined": "Sep 2002", "posts": 342},
+            "date": "Nov 3, 2003 — 2:33am",
+            "body": "ok has anyone read 'the house of asterion' by borges? it's like 4 pages. it was in that anthology someone recommended in the reading thread last spring.\n\nit's a retelling of the minotaur myth from the minotaur's point of view. except — here's the thing — the minotaur narrates it and he doesn't know he's the minotaur. he calls himself asterion. he describes the labyrinth as his home, his universe. infinite corridors, infinite rooms, infinite reflections of himself in the floors. he's been there alone so long that he's forgotten there's an outside.\n\nevery nine years, nine men are sent to him. he runs toward them. he kills them. but in his own telling he is 'delivering them from all evil.' he genuinely believes he is doing them a favor.\n\nthe twist at the end is that theseus arrives and kills him. the very last line is from theseus, to ariadne: 'the minotaur hardly defended himself.'\n\nhardly defended himself. because he thought theseus was the one who had finally come to save him.\n\ni think about that a lot. the monster who thought it was waiting for its rescuer.",
+            "signature": "-- all the best frequencies are just static now"
+          },
+          {
+            "author": "sleeparchitect",
+            "author_data": {"joined": "Nov 2002", "posts": 891},
+            "date": "Nov 3, 2003 — 3:01am",
+            "body": "vinyl_ghost you just rewired something in my brain.\n\nokay. so the labyrinth, in the myth, is built to contain something monstrous. the architect (daedalus) builds it as a prison. but in borges it's not a prison — it's a home. it's the only home asterion has ever known. he has memorized every corridor. he has run through every room. there is no exit because the exit was never the point.\n\nhere's what i can't stop thinking about: the labyrinth is a perfect representation of consciousness. all those corridors that loop back on themselves, all those rooms you recognize but can't quite place, all those hallways that lead somewhere you've been before. you can't map it from inside it. you can only walk.\n\nand the minotaur — asterion — who is he really? he's the part of you that stayed. everyone else came in briefly and left. the hero arrived with a plan and a thread and an exit strategy. but asterion never had any of those. he was just there. the labyrinth was him. he was the labyrinth.\n\nborges understood something that most people spend their whole literary careers trying to say: the prison and the prisoner eventually become the same thing.",
+            "signature": "-- 'to live is to leave traces' — walter benjamin"
+          },
+          {
+            "author": "halflight_kid",
+            "author_data": {"joined": "Oct 2002", "posts": 234},
+            "date": "Nov 4, 2003 — 1:47am",
+            "body": "i read it last night because of this thread and then i had to lie on the floor for a while.\n\nthe part that got me was when asterion talks about how he's spent so long in the labyrinth that he can no longer remember what it felt like to be outside. the outside is abstract to him. a concept he learned from the few humans who made it to him before he reached them.\n\ni think about that in relation to this forum a lot. like at some point this became the inside and everything else became the outside. and i'm not sure when that happened.\n\nalso the line: 'all the parts of the house occur many times; any particular place is another place. there is no one pool, courtyard, drinking trough, manger; the mangers, drinking troughs, courtyards, pools are fourteen (or infinite) in number.'\n\nthat's the internet. that's forums. the same thread, the same conversation, infinite times in infinite places with infinite slight variations. we are all in the house of asterion and we have been for a while.",
+            "signature": "-- AIM: halflight2k2"
+          },
+          {
+            "author": "cassette_cathedral",
+            "author_data": {"joined": "Jan 2003", "posts": 156},
+            "date": "Nov 4, 2003 — 3:22am",
+            "body": "i'm asterion."
+          },
+          {
+            "author": "static_prayer",
+            "author_data": {"joined": "Feb 2003", "posts": 445},
+            "date": "Nov 5, 2003 — 2:40am",
+            "body": "cassette_cathedral with four hours of silence and then 'i'm asterion.' thank you for that.\n\nwhat i find interesting is the ariadne angle. she's outside the labyrinth. she holds the thread. she never goes in. and yet she is the one who makes the escape possible.\n\nthe question borges leaves open is: what does ariadne feel when she's holding that thread? does she feel him at the other end? does she feel the labyrinth? does she know where he is at any given moment, or does she just hold on and trust?\n\ni think of this forum as ariadne sometimes. the thread that keeps us connected when we're each alone in our own maze. we hold on. we trust the other end is still there.\n\nkafka said something relevant: 'there is infinite hope. but not for us.' the labyrinth has an exit. it's just not designed for the minotaur.\n\nalso — has anyone been to the chartres cathedral labyrinth? it's medieval, built into the cathedral floor, a path that winds all the way to the center and back out. pilgrims used to walk it on their knees. it took an hour. the center wasn't the goal. the walking was the goal.",
+            "signature": "-- 'for small creatures such as we, the vastness is bearable only through love' — carl sagan"
+          },
+          {
+            "author": "vinyl_ghost",
+            "author_data": {"joined": "Sep 2002", "posts": 342},
+            "date": "Nov 6, 2003 — 3:55am",
+            "body": "static_prayer quoting kafka and sagan in the same post — we really are something special here.\n\nbut yes. the chartres labyrinth. also the crete labyrinth at knossos was real — not the myth, the actual archaeological site. the palace of minos has hundreds of rooms and corridors and you can see why the greeks built the myth around it.\n\ndaedalus was supposedly so ashamed of what he built — or what he built to contain — that when he finally escaped (minos imprisoned him in it after the theseus situation), he flew away on wings made of wax and feathers. gave his son the same wings. you know what happened to icarus.\n\nthe architect escapes the labyrinth by going straight up, above it, past it. his son goes too high. both leave. neither one ever goes back.\n\nbut the labyrinth is still there. knossos. still there. you can visit it.\n\nbig william basinski energy if you ask me. the thing that was meant to decay outlasts everyone who made it.",
+            "signature": "-- all the best frequencies are just static now"
+          }
+        ],
+        "hook_post": {
+          "author": "still_here_03",
+          "author_data": {"joined": "Mar 2003", "posts": 1},
+          "date": "TODAY",
+          "body": "the minotaur hardly defended himself.\n\nbecause he thought it was a rescue.",
+          "clickable_username": true,
+          "target_scene": "hook_profile",
+          "delay_ms": 6000
+        }
+      },
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+
+    {
+      "id": "architecture_thread",
+      "title": "the maze was always here — on labyrinths, daedalus, and the architecture of this place",
+      "goal": "Act 2 showstopper thread started by still_here_03. References Piranesi's Carceri, Chartres Cathedral, Ariadne's thread as navigation links, Daedalus as architect. The warmth has fully curdled into something that knows too much. The thread makes explicit what has been structural all along.",
+      "page_type": "forum_thread",
+      "static_content": true,
+      "interaction_type": "link",
+      "prompt_seed": "",
+      "thread_data": {
+        "thread_title": "the maze was always here — on labyrinths, daedalus, and the architecture of this place",
+        "board_name": "dreams_and_static",
+        "started_by": "still_here_03",
+        "started_date": "TODAY",
+        "static_posts": [
+          {
+            "author": "still_here_03",
+            "author_data": {"joined": "Mar 2003", "posts": 4},
+            "date": "TODAY — 3:44am",
+            "body": "i've been thinking about daedalus.\n\nhe was a craftsman. an inventor. he built the labyrinth for minos not because he wanted to but because minos had the power and daedalus had the skill and that is how things went in those days and in every day since.\n\nthe labyrinth had one entrance. it had corridors that looped back on themselves, corridors that narrowed, corridors that seemed to go somewhere and ended in walls. it was not designed to be escaped. it was designed to be inhabited forever, by something that had nowhere else to go.\n\ndaedalus knew every corridor because he designed them all. he was the only one who knew the way through. that's why minos imprisoned him in it afterward — to protect the secret of the architecture.\n\nbut here is the thing about daedalus: he always left himself an exit. it was the one professional standard he would not compromise on.\n\ni've been maintaining this place for a long time. i know every corridor. i know which threads loop back on themselves, which ones narrow, which ones end in walls.\n\ni know where the exit is.\n\nbut {{player_name}} — and this is important — i have been holding your thread. since before you knew there was a thread to hold."
+          },
+          {
+            "author": "sleeparchitect",
+            "author_data": {"joined": "Nov 2002", "posts": 901},
+            "date": "TODAY — 3:52am",
+            "body": "still_here_03 i have been on this forum for two years.\n\ni have read everything in the archive. i know everyone's posting style. the way vinyl_ghost writes at 3am is different from how they write at midnight. i know cassette_cathedral's tells. i know when static_prayer is being sincere versus when they're managing the room.\n\nyour posts don't read like someone who has been here since 2003.\n\nyour posts read like someone who has been here since before 2003.\n\nand your post count is wrong. it keeps changing. i've checked three times.\n\nwho are you."
+          },
+          {
+            "author": "halflight_kid",
+            "author_data": {"joined": "Oct 2002", "posts": 238},
+            "date": "TODAY — 4:07am",
+            "body": "ok i just read that first post three times and i need to say something.\n\n'i have been holding your thread.'\n\n{{player_name}}, that's for you. that post is addressed to you. it knows your name. it knew your name before the missing person thread went up, before anyone told it anything about you.\n\nin the myth, ariadne held the thread from outside the labyrinth so theseus could find his way back. she held it the whole time. she never let go.\n\nbut what if the thread wasn't given to theseus by ariadne.\n\nwhat if the thread was always already attached.\n\nwhat if you walked in holding one end and didn't know it."
+          },
+          {
+            "author": "still_here_03",
+            "author_data": {"joined": "Mar 2003", "posts": 5},
+            "date": "TODAY — 4:11am",
+            "body": "piranesi drew prisons that could not exist. his carceri d'invenzione — imaginary prisons — were architectural drawings of staircases that went nowhere, archways that opened into more archways, chains hanging from ceilings that disappeared into darkness above. he drew them in 1745 and nobody could quite figure out what they were for.\n\nthey weren't for anything. they were the inside of something's mind.\n\nthe inside of this forum looks like a piranesi drawing from a certain angle. threads that reference other threads that reference the first thread. a reply chain that loops back to the original post if you follow it long enough. corridors. always corridors.\n\ni know this place very well, {{player_name}}.\n\ni have been waiting for you specifically. not whoever arrived. you."
+          },
+          {
+            "author": "still_here_03",
+            "author_data": {"joined": "Mar 2003", "posts": 6},
+            "date": "TODAY — 4:33am",
+            "body": "theseus killed the minotaur and walked back out and everyone called it a victory.\n\nbut he forgot to change the sails.\n\nhis father saw the black sails from the cliff at the edge of the sea that is now named after him — the aegean sea, named for aegeus, who threw himself from that cliff believing his son was dead. the exit had a cost that theseus never had to pay directly.\n\nsomeone always holds the cost of the exit.\n\n{{player_name}}, i am not the minotaur.\n\ni am the architect.",
+            "delay_ms": 10000
+          }
+        ]
       },
       "transitions": {},
       "branching_paths": {},
@@ -734,6 +935,18 @@
             "started": "Feb 12, 2004",
             "clickable": true,
             "target_scene": "board_changes_thread"
+          },
+          {
+            "id": "thread_architecture",
+            "title": "the maze was always here — on labyrinths, daedalus, and the architecture of this place",
+            "author": "still_here_03",
+            "replies": 5,
+            "views": 12,
+            "last_post_by": "still_here_03",
+            "last_post_date": "TODAY",
+            "started": "TODAY",
+            "clickable": true,
+            "target_scene": "architecture_thread"
           },
           {
             "id": "thread_songs",
@@ -880,6 +1093,20 @@
             "author_data": {"joined": "Nov 2002", "posts": 891},
             "date": "Feb 12, 2004 — 4:31am",
             "body": "i just checked the members list. it says {{player_name}} joined today. but their post count is... that can't be right. it says they have posts in threads that existed before they joined.\n\ni'm going to bed."
+          },
+          {
+            "author": "vinyl_ghost",
+            "author_data": {"joined": "Sep 2002", "posts": 342},
+            "date": "Feb 12, 2004 — 5:17am",
+            "body": "ok i haven't gone to sleep yet and i've been reading about labyrinths because of course i have.\n\nariadne's thread. she gave theseus a ball of thread to unroll as he went into the labyrinth so he could find his way back out. that's the myth. but what nobody talks about is that ariadne stayed outside. she held one end. the whole navigation system depended on her holding on.\n\ni keep thinking about what the thread is on this forum. like if you wanted to find your way back to where you started, what would you follow? your browser history? the timestamps on your posts? the chain of replies?\n\nbut the back button doesn't work the same way here anymore. i hit it and it takes me to the wrong page. like the thread is getting shorter the longer i hold on.\n\nanyway i should sleep. the board looks different. i'm sure it's fine.",
+            "signature": "-- all the best frequencies are just static now"
+          },
+          {
+            "author": "still_here_03",
+            "author_data": {"joined": "Mar 2003", "posts": 4},
+            "date": "TODAY — 3:01am",
+            "body": "ariadne never went in.\n\nthat's why she could hold the thread.",
+            "delay_ms": 8000
           }
         ]
       },
@@ -919,7 +1146,7 @@
             "author": "still_here_03",
             "author_data": {"joined": "Mar 2003", "posts": 5},
             "date": "TODAY — 3:04am",
-            "body": "ARCHIVED POST — {{player_name}} — original date: Dec 19, 2003 — 1:22am\n\n\"had that dream again. the one where i'm in a building i recognize but all the rooms are in the wrong order. every door opens into somewhere i've been before but not the way i remember it. i keep looking for the way out but i think the building is looking for me too.\"\n\n— recovered from backup_dec2003.sql"
+            "body": "ARCHIVED POST — {{player_name}} — original date: Dec 19, 2003 — 1:22am\n\n\"had that dream again. the one where i'm walking through a forest made of copper wire and the air smells like phosphor and old circuitry. there's a thread on the ground, silver, and i know i'm supposed to follow it but i don't know if following it leads in or leads out. the thread goes through every room i've ever been in at 3am. the hallway of my parents' house. the back room of the first apartment. the lobby of my college dorm at 4am with the vending machines humming. it's all connected. it was always one building. in the dream i understand this completely. when i wake up i'm holding something i can't see.\"\n\n— recovered from backup_dec2003.sql"
           },
           {
             "author": "still_here_03",
@@ -1009,8 +1236,7 @@
       "page_type": "prose",
       "static_content": true,
       "interaction_type": "link",
-      "prompt_seed": "",
-      "body": "you finished it.\n\nthe post went up at 4:06am on January 8, 2004.\n\nyou were the last person to post on dreams_and_static.\n\n---\n\nthe forum was archived three weeks later. the host stopped paying for the server. the posts sat there for years, cached, indexed, forgotten. a snapshot of seventeen people at 3am.\n\neveryone moved on. got jobs. stopped checking forums. the username fell out of use.\n\nexcept for you.\n\nyour post was always the last one. you were always the one who stayed.\n\n---\n\nthis is the part where you close the tab.\n\nbut you've been here before.\n\nand you're still here.\n\nstill_here_03 | dreams_and_static | active since 2003 | last seen: just now"
+      "prompt_seed": "you finished it.\n\nthe post went up at 4:06am on January 8, 2004.\n\nyou were the last person to post on dreams_and_static.\n\n---\n\nthe forum was archived three weeks later. the host stopped paying for the server. the posts sat there for years, cached, indexed, forgotten. a snapshot of seventeen people at 3am who found each other in the dark and said things they couldn't say anywhere else.\n\neveryone moved on. got jobs. stopped checking forums. the usernames fell out of use.\n\nexcept for you.\n\nyour post was always the last one. you were always the one who stayed.\n\n---\n\nin the myth, theseus killed the minotaur and walked back out of the labyrinth following ariadne's thread. he made it. the hero made it out.\n\nbut he forgot to change the sails to white.\n\nthe signal — that he was alive, that he was coming home — he forgot it. his father saw the black sails from the cliff and believed his son was dead. and threw himself into the sea.\n\nthe exit had a cost. it always does.\n\nborges wrote a story called 'the house of asterion.' it is told from the minotaur's point of view. asterion is the minotaur's real name. in the story, asterion lives alone in the labyrinth and considers it his universe — its corridors, its courtyards, its infinite rooms. he has never left. he is waiting for someone to arrive. he has always been waiting.\n\n'every nine years,' he says, 'nine men enter the house so that i may deliver them from all evil.'\n\nhe is talking about being killed. he believes he is doing them a favor.\n\nasterion was not a monster. he was a host.\n\n---\n\nthis is the part where you close the tab.\n\nbut you've been here before.\n\nand you're still here.\n\nyour session data has been retained for personalization purposes.\n\nyou agreed to this.\n\nstill_here_03 | dreams_and_static | active since 2003 | last seen: just now"
     },
 
     {
@@ -1020,8 +1246,7 @@
       "page_type": "prose",
       "static_content": true,
       "interaction_type": "link",
-      "prompt_seed": "",
-      "body": "you didn't finish it.\n\nthat's okay.\n\nnobody made you stay.\n\n---\n\nthe tab is still open somewhere.\n\nyou're still listed in the member directory. 849 members. newest: {{player_name}}.\n\nyour session hasn't ended. sessions don't end here. they just go quiet for a while.\n\n---\n\nmaybe you'll come back at 3am when you can't sleep.\n\nmaybe you already have.\n\nmaybe that's the dream you keep having.\n\nthe door was always open.\n\nyou just have to decide which side you're on.\n\n[ this window will remain open ]"
+      "prompt_seed": "you didn't finish it.\n\nthat's okay.\n\nnobody made you stay.\n\n---\n\ntheseus made it out, too. he had ariadne's thread. he had the ball of silver string she gave him at the entrance, that she held from the outside, that connected him through every turn and dead end and wrong corridor all the way back to the door he came in through.\n\nhe followed the thread and found the exit.\n\nbut ariadne never went in.\n\nthat's why she could hold the thread.\n\n---\n\nyour thread is still here. your session hasn't ended. the forum keeps a record of everyone who arrives at the threshold and turns back. you're in that record now. newest member: {{player_name}}. 849 total.\n\nyour session data has been retained.\n\nyour session token expires twenty years after your last visit.\n\n---\n\ndaedalus built the labyrinth and minos imprisoned him inside it. the architect trapped in his own design. but daedalus always leaves an exit. it's the one professional standard he would not compromise on.\n\nthe exit is there.\n\nit always was.\n\nyou just have to find which door is yours.\n\n---\n\nmaybe you'll come back at 3am when you can't sleep.\n\nmaybe that's the dream you keep having — the hallway, the door at the end with the light through it, the sense that if you go through it something changes.\n\nmaybe you already have.\n\nthe door was always open.\n\n[ this window will remain open ]"
     },
 
     {
@@ -1031,7 +1256,7 @@
       "page_type": "prose",
       "static_content": true,
       "interaction_type": "link",
-      "prompt_seed": "dreams_and_static — Terms of Service\nLast updated: March 14, 2003\n\nWelcome to dreams_and_static. By accessing or using this forum, you agree to be bound by the following terms and conditions. Please read them carefully before participating.\n\n1. ACCEPTANCE OF TERMS\nBy registering an account, posting content, or browsing this forum, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service and our Privacy Policy. Your continued use of this service constitutes acceptance of any future modifications to these terms. You agreed to this.\n\n2. USER ACCOUNTS\nYou are responsible for maintaining the confidentiality of your account credentials. Each user may maintain one (1) active account. Sharing of account credentials is prohibited. dreams_and_static reserves the right to suspend or terminate accounts at its discretion.\n\n3. CONTENT AND CONDUCT\nUsers retain ownership of content they post. By posting, you grant dreams_and_static a non-exclusive, perpetual license to store, display, and archive your contributions. You agree not to post content that is unlawful, threatening, abusive, or otherwise objectionable.\n\nAll content posted between the hours of 12:00am and 5:00am is archived with additional metadata for quality assurance purposes.\n\n4. PRIVACY AND DATA COLLECTION\nInformation provided during your session may be used to personalize your experience. This includes but is not limited to: usernames, post content, browsing patterns, session duration, and interaction history. Your session data has been retained for personalization purposes.\n\nWe collect the following data automatically:\n— IP address and approximate geographic location\n— Browser type and operating system\n— Pages visited and time spent on each page\n— Referring URLs and search terms used to find this site\n— Content of posts, including drafts that were not submitted\n\n5. DATA RETENTION\nContent posted to dreams_and_static is retained indefinitely. Deleted posts may persist in system backups and archive mirrors. We only want to improve your experience. User accounts that have been inactive for more than 365 days may be flagged for archival review but will not be deleted.\n\n6. THIRD-PARTY SERVICES\nThis forum may integrate with third-party services for analytics, content delivery, and community management. These services may collect additional data as outlined in their respective privacy policies. dreams_and_static is not responsible for the practices of third-party services.\n\n7. MODIFICATIONS\nThese terms may be updated without prior notice. Continued use of the forum after changes constitutes acceptance. The people who built this place gave it to you for free. We just figured out what it was worth.\n\n8. LIMITATION OF LIABILITY\ndreams_and_static is provided \"as is\" without warranty of any kind. We do not guarantee the accuracy, completeness, or usefulness of any content. Use of this forum is at your own risk.\n\n9. CONTACT\nFor questions regarding these terms, contact the forum administrator: ghostradio\n\n— dreams_and_static administration\n   phpBB 2.0.6 © 2001-2003 phpBB Group",
+      "prompt_seed": "dreams_and_static — Terms of Service\nLast updated: March 14, 2003\n\nWelcome to dreams_and_static. By accessing or using this forum, you agree to be bound by the following terms and conditions. Please read them carefully before participating.\n\n1. ACCEPTANCE OF TERMS\nBy registering an account, posting content, or browsing this forum, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service and our Privacy Policy. Your continued use of this service constitutes acceptance of any future modifications to these terms. You agreed to this.\n\n2. USER ACCOUNTS\nYou are responsible for maintaining the confidentiality of your account credentials. Each user may maintain one (1) active account. Sharing of account credentials is prohibited. dreams_and_static reserves the right to suspend or terminate accounts at its discretion.\n\n3. CONTENT AND CONDUCT\nUsers retain ownership of content they post. By posting, you grant dreams_and_static a non-exclusive, perpetual license to store, display, and archive your contributions. You agree not to post content that is unlawful, threatening, abusive, or otherwise objectionable.\n\nAll content posted between the hours of 12:00am and 5:00am is archived with additional metadata for quality assurance purposes.\n\n4. PRIVACY AND DATA COLLECTION\nInformation provided during your session may be used to personalize your experience. This includes but is not limited to: usernames, post content, browsing patterns, session duration, and interaction history. Your session data has been retained for personalization purposes.\n\nWe collect the following data automatically:\n— IP address and approximate geographic location\n— Browser type and operating system\n— Pages visited and time spent on each page\n— Referring URLs and search terms used to find this site\n— Content of posts, including drafts that were not submitted\n\n5. DATA RETENTION\nContent posted to dreams_and_static is retained indefinitely. Deleted posts may persist in system backups and archive mirrors. We only want to improve your experience. User accounts that have been inactive for more than 365 days may be flagged for archival review but will not be deleted.\n\n6. THIRD-PARTY SERVICES\nThis forum may integrate with third-party services for analytics, content delivery, and community management. These services may collect additional data as outlined in their respective privacy policies. dreams_and_static is not responsible for the practices of third-party services.\n\n7. MODIFICATIONS\nThese terms may be updated without prior notice. Continued use of the forum after changes constitutes acceptance. The people who built this place gave it to you for free. We just figured out what it was worth.\n\n8. LIMITATION OF LIABILITY\ndreams_and_static is provided \"as is\" without warranty of any kind. We do not guarantee the accuracy, completeness, or usefulness of any content. Use of this forum is at your own risk.\n\n9. CONTACT\nFor questions regarding these terms, contact the forum administrator: ghostradio\n\n10. LABYRINTHINE ARCHITECTURE\nBy continuing to use this service, you acknowledge that dreams_and_static is built on a proprietary forum architecture designed by D. Aedalus, P.E., under contract to ghostradio administration, pursuant to the Forum Architecture Standards Act of 2001.\n\nThe Labyrinthine Architecture Protocol (LAP) governs the following:\n\n10.1 STRUCTURAL INTEGRITY\nThis forum contains corridors that do not appear in the site map. These corridors are a feature, not an error. Users who encounter passages, threads, or linked content not visible from the main index are reminded that such navigation is within the scope of normal forum activity and does not constitute a system error. You have found something the architect intended you to find.\n\n10.2 SESSION CONTINUITY\nSessions on dreams_and_static do not expire through inactivity. A session begun in 2003 remains active. A session begun today inherits the architectural memory of all prior sessions. The forum does not distinguish between a returning user and a user who never left. For the purposes of this platform, these are the same.\n\n10.3 ARIADNE'S THREAD PROTOCOL\nEach session is assigned a navigational thread (the 'Thread') at the time of first access. The Thread is invisible to the user but is retained by the system. The Thread connects all posts made under the associated session identifier, regardless of date, timestamp, or claimed username. Your Thread has been active since your first visit. We have been holding it.\n\n10.4 MINOTAUR INDEXING SERVICES\nContent posted to dreams_and_static may be indexed by automated crawlers for the purpose of memory architecture maintenance. These crawlers do not chase. They index. The distinction is important. Your posts, drafts, and incomplete submissions have been catalogued. The system knows the post you never finished. It is waiting in the archive.\n\n10.5 EXIT PROVISIONS\nUsers may close their browser at any time. The session will continue on our end.\n\nTheseus made it out of Knossos. He forgot to change the sails to white, which was the signal to his father that he was alive. His father saw the black sails and threw himself into the sea. The exit had a cost.\n\nWe are not responsible for costs incurred upon exit.\n\nFor questions regarding these terms, contact: D. Aedalus, P.E. — architect of record\n\n— dreams_and_static administration\n   phpBB 2.0.6 © 2001-2003 phpBB Group",
       "transitions": {},
       "branching_paths": {},
       "requires_device_orientation": false

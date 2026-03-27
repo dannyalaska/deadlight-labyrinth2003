@@ -199,10 +199,8 @@ def _enrich_snapshot(session_state, snapshot: dict) -> dict:
         # Legacy prose page_type — keep old behaviour
         if raw_scene.get("static_content"):
             from .generate import _populate_templates as gen_populate
-            scene_dict["body"] = gen_populate(
-                raw_scene.get("prompt_seed", ""),
-                profile,
-            )
+            raw_body = raw_scene.get("body") or raw_scene.get("prompt_seed", "")
+            scene_dict["body"] = gen_populate(raw_body, profile)
         else:
             try:
                 generated = generate_prose(

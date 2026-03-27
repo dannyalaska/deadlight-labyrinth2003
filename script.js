@@ -87,7 +87,7 @@ const BANNER_AD_TEXTS = [
   'You have (1) unread message. Click to view.',
   'Someone is looking for you. Click to find out who.',
   '{{player_name}} — your session has not ended.',
-  'you\'re still here. we kept your place.',
+  'you\'re still here. we kept your thread.',
 ];
 
 function updateBannerAd() {
