@@ -169,7 +169,7 @@ const ACT2_SCENES = new Set([
   'forum_index_act2', 'deeper_thread', 'board_changes_thread',
   'old_posts_thread', 'architecture_thread',
   'signal_thread', 'ghostradio_thread', 'memory_thread', 'catalog_thread',
-  'admin_panel', 'aim_return', 'source_code',
+  'admin_panel', 'aim_return', 'source_code', 'founder_agreement',
 ]);
 
 // Act 3 — the threshold. the unfinished post. the ending.

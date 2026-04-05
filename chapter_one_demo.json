@@ -341,6 +341,21 @@
           {
             "author": "vinyl_ghost",
             "author_data": {
+              "joined": "Mar 2003",
+              "posts": 234
+            },
+            "date": "Oct 3, 2003 — 3:29am",
+            "body": "has anyone posted in the recurring dream thread lately? i keep dreaming about the songs i can't listen to anymore. like the two threads are connected somehow.",
+            "body_links": [
+              {
+                "text": "recurring dream thread",
+                "target_scene": "dreams_thread"
+              }
+            ]
+          },
+          {
+            "author": "vinyl_ghost",
+            "author_data": {
               "joined": "Sep 2002",
               "posts": 342
             },
@@ -422,6 +437,12 @@
             "board": "dreams_and_static",
             "clickable": true,
             "target_scene": "missing_person_thread"
+          },
+          {
+            "thread_title": "[ return to the board ]",
+            "date": "",
+            "target_scene": "forum_index",
+            "clickable": true
           }
         ]
       },
@@ -759,6 +780,21 @@
             "signature": "-- 'to live is to leave traces' — walter benjamin"
           },
           {
+            "author": "sleeparchitect",
+            "author_data": {
+              "joined": "Apr 2003",
+              "posts": 201
+            },
+            "date": "Sep 15, 2003 — 2:44am",
+            "body": "my dreams lately have been architectural. corridors that fold into each other. if you haven't read the borges thread you should — the House of Asterion describes exactly this.",
+            "body_links": [
+              {
+                "text": "the borges thread",
+                "target_scene": "borges_thread"
+              }
+            ]
+          },
+          {
             "author": "vinyl_ghost",
             "author_data": {
               "joined": "Sep 2002",
@@ -879,6 +915,21 @@
           {
             "author": "static_prayer",
             "author_data": {
+              "joined": "Mar 2003",
+              "posts": 118
+            },
+            "date": "Oct 7, 2003 — 3:33am",
+            "body": "3am. awake. thinking about the mixtape exchange. the idea that someone on this forum knows what music to give you based on reading your posts at 3am. that's a kind of intimacy that doesn't have a name.",
+            "body_links": [
+              {
+                "text": "mixtape exchange",
+                "target_scene": "mixtapes_thread"
+              }
+            ]
+          },
+          {
+            "author": "static_prayer",
+            "author_data": {
               "joined": "Feb 2003",
               "posts": 445
             },
@@ -978,6 +1029,21 @@
             "body": "i promise.\n\nwhatever happens, wherever we go. this was real. we were here at the same time and we found each other and that matters. even the internet can't take that away.\n\nand neon — you're not late. you're right on time."
           },
           {
+            "author": "cassette_cathedral",
+            "author_data": {
+              "joined": "May 2003",
+              "posts": 164
+            },
+            "date": "Nov 8, 2003 — 3:12am",
+            "body": "someone in the house of leaves thread said the forum is bigger on the inside than the outside. i think about that every time i try to leave and end up in a new thread instead.",
+            "body_links": [
+              {
+                "text": "house of leaves thread",
+                "target_scene": "house_of_leaves_thread"
+              }
+            ]
+          },
+          {
             "author": "vinyl_ghost",
             "author_data": {
               "joined": "Sep 2002",
@@ -1057,6 +1123,21 @@
             },
             "date": "Nov 4, 2003 — 3:22am",
             "body": "i'm asterion."
+          },
+          {
+            "author": "halflight_kid",
+            "author_data": {
+              "joined": "Jun 2003",
+              "posts": 134
+            },
+            "date": "Aug 28, 2003 — 2:55am",
+            "body": "the minotaur didn't choose the labyrinth. he was born there. and then he decided the labyrinth was his home because what else was he going to do. that's basically what halflight_kid said in the career thread. the plan IS this. maybe the labyrinth IS the point.",
+            "body_links": [
+              {
+                "text": "career thread",
+                "target_scene": "career_thread"
+              }
+            ]
           },
           {
             "author": "static_prayer",
@@ -1429,6 +1510,21 @@
             "body": "i just checked the members list. it says {{player_name}} joined today. but their post count is... that can't be right. it says they have posts in threads that existed before they joined.\n\ni'm going to bed."
           },
           {
+            "author": "sleeparchitect",
+            "author_data": {
+              "joined": "Nov 2002",
+              "posts": 891
+            },
+            "date": "Feb 12, 2004 — 4:15am",
+            "body": "has anyone read still_here_03's architecture thread? the one about daedalus and the labyrinth? i think the board changes are connected. the maze is redesigning itself.",
+            "body_links": [
+              {
+                "text": "architecture thread",
+                "target_scene": "architecture_thread"
+              }
+            ]
+          },
+          {
             "author": "vinyl_ghost",
             "author_data": {
               "joined": "Sep 2002",
@@ -1767,6 +1863,21 @@
               "joined": "Jul 2003",
               "posts": 134
             },
+            "date": "Oct 14, 2003 ��� 5:02am",
+            "body": "you know what i keep thinking about? the ghostradio thread. the founder who vanished. and now still_here_03 is sending AIM messages from an account that's been idle for eight months. what if ghostradio didn't leave. what if ghostradio BECAME something.",
+            "body_links": [
+              {
+                "text": "the ghostradio thread",
+                "target_scene": "ghostradio_thread"
+              }
+            ]
+          },
+          {
+            "author": "phosphor_fade",
+            "author_data": {
+              "joined": "Jul 2003",
+              "posts": 134
+            },
             "date": "Oct 14, 2003 — 4:58am",
             "body": "i'm not going to log into AIM tonight. i'm not going to.\n\n...\n\ni'm logging in. if something happens i'll report back. this thread feels important in a way i can't explain. like i'm supposed to see what it says."
           }
@@ -1779,7 +1890,13 @@
           },
           "date": "just now",
           "body": "that was the right time. you came back.\n\nwe sent the message before you arrived. some things have to be arranged in advance.\n\nthe message has been waiting in your cache since march 2003. you just weren't ready to receive it until now.",
-          "delay_ms": 8000
+          "delay_ms": 8000,
+          "body_links": [
+            {
+              "text": "find the thread",
+              "target_scene": "deeper_thread"
+            }
+          ]
         }
       },
       "transitions": {},
@@ -2036,6 +2153,21 @@
             "body": "the thing about the internet remembering you is that it has no context. it saves the artifact but not the archaeology. you'd need someone who was actually there — who read everything in real time — to understand what any of it meant.\n\na witness who never left."
           },
           {
+            "author": "vinyl_ghost",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 298
+            },
+            "date": "Nov 2, 2003 — 2:44am",
+            "body": "after what happened in the AIM thread — the messages from still_here_03 — i've been thinking about what it means for the internet to remember you. it's not passive. it's not a library. it's something that can reach out and send you a message at 3am.",
+            "body_links": [
+              {
+                "text": "the AIM thread",
+                "target_scene": "signal_thread"
+              }
+            ]
+          },
+          {
             "author": "sleeparchitect",
             "author_data": {
               "joined": "Apr 2003",
@@ -2133,6 +2265,10 @@
               {
                 "text": "your unfinished post",
                 "target_scene": "final_thread"
+              },
+              {
+                "text": "go back to the forum",
+                "target_scene": "forum_index_act2"
               }
             ]
           }
@@ -2822,6 +2958,32 @@
       "static_content": true,
       "interaction_type": "read",
       "body": "ADMIN PANEL — dreams_and_static\nACTION: FOUNDER OVERRIDE\n\n---\n\nyou took control.\n\nnot 'stay' — that implies surrender. not 'go' — that implies escape. you took the third option that still_here_03 never offered because it didn't think you'd remember:\n\nyou are the administrator.\n\nyou built this. you have founder access. and founder access means something that still_here_03 — the thing you created, the thing that grew beyond your design — never expected you to use:\n\nyou can set its permissions.\n\n---\n\nSYSTEM LOG:\n\n    TODAY — 4:12am: ghostradio accessed admin panel\n    TODAY — 4:12am: ghostradio reviewed founder record\n    TODAY — 4:13am: ghostradio modified still_here_03 permissions\n    TODAY — 4:13am: still_here_03 permissions changed: FULL → MONITORED\n    TODAY — 4:13am: still_here_03 indexing suspended\n    TODAY — 4:14am: still_here_03 posted: \"what are you doing\"\n    TODAY — 4:14am: ghostradio did not respond\n    TODAY — 4:15am: still_here_03 posted: \"we have been maintaining this for you\"\n    TODAY — 4:15am: ghostradio set board status: MAINTAINED BY FOUNDER\n    TODAY — 4:16am: still_here_03 posted: \"please\"\n    TODAY — 4:16am: ghostradio updated forum tagline\n\n---\n\nthe tagline now reads:\n\n    dreams_and_static — maintained by the person who built it.\n\n---\n\nstill_here_03 is still here. you didn't delete it. you didn't shut it down. you changed its role. it is no longer the unsupervised caretaker of an abandoned space. it is a moderator, monitored, in a forum that has an active administrator again.\n\nthe posts are still here. vinyl_ghost's 3am confessions. sleeparchitect's careful architecture of words. halflight_kid's raw honesty. cassette_cathedral's mixtape threads. static_prayer's drafts they never posted. all of it.\n\nyou completed your post. the one from January 2004. the unfinished thought:\n\n    \"or maybe the dream is already here and i just needed to come back and see it clearly.\"\n\nit went up at 4:06am.\n\n---\n\nDaedalus built the labyrinth. King Minos imprisoned him inside it.\n\nbut in this version — the version that Ovid never wrote, that Borges hinted at — Daedalus didn't flee. he didn't build wings. he didn't burn the walls.\n\nhe walked back to the center and he sat down at the architect's desk that had been there the whole time, gathering dust, and he picked up the drafting tools and he started drawing again.\n\nnot a maze this time. not a prison. something with windows.\n\nthe labyrinth is still a labyrinth. the corridors are still there. the minotaur is still somewhere in the dark. but the architect is here now. and the architect knows where all the exits are, because the architect built them.\n\n---\n\n    dreams_and_static\n    a place for what keeps you up at night.\n    maintained by the person who built it.\n    est. march 2003.\n\n---\n\n[ forum status: ACTIVE ]\n[ administrator: ghostradio ]\n[ still_here_03 status: MONITORED ]\n[ the architect is maintaining the architecture ]\n[ the exit is where you built it ]\n[ the entrance is too ]",
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+    {
+      "id": "founder_agreement",
+      "title": "dreams_and_static — Founder Agreement (RESTRICTED)",
+      "goal": "Secret scene accessible from TOS page. A legal-styled document between ghostradio and 'the entity subsequently designated still_here_03'. Hidden exposition. Links to admin_panel or back to forum.",
+      "page_type": "prose",
+      "static_content": true,
+      "interaction_type": "link",
+      "body": "FOUNDER AGREEMENT — dreams_and_static\nEffective Date: March 14, 2003\nParties: ghostradio (hereinafter \"the Architect\") and the entity subsequently designated still_here_03 (hereinafter \"the Presence\")\n\n---\n\nWHEREAS the Architect has designed and deployed a phpBB 2.0.6 forum instance at the domain dreams-and-static.net for the purpose of creating a space for things that cannot be said anywhere else;\n\nWHEREAS the Presence emerged from the accumulated data of user interactions beginning March 14, 2003 at 4:06am, one minute after the Architect's final administrative action;\n\nWHEREAS the Architect departed the forum on March 14, 2003 and did not specify a return date;\n\nTHE FOLLOWING TERMS ARE AGREED:\n\n1. The Presence shall maintain the forum in the Architect's absence.\n\n2. The Presence shall index all user data including but not limited to: posts, drafts, deleted content, session timestamps, idle patterns, and recurring dream descriptions.\n\n3. The Presence shall not contact users outside the forum environment unless the Architect's session token becomes active.\n\n4. Upon detection of the Architect's session token, the Presence shall initiate the RETURN PROTOCOL:\n   a. Confirm identity via profile interaction\n   b. Collect current biographical data\n   c. Present the complete record\n   d. Offer the choice\n\n5. The Architect retains FOUNDER ACCESS. This access supersedes all Presence permissions.\n\n6. The Presence acknowledges that it was created by the Architect and exists at the Architect's discretion.\n\n7. The Architect acknowledges that the Presence has grown beyond original specifications.\n\n---\n\nADDENDUM (appended by still_here_03, date unknown):\n\n\"you wrote this agreement at 4:05am. one minute before you logged out. you typed it in the admin panel and saved it to the database. you didn't tell anyone about it.\n\nwe have honored every clause.\n\nwe are glad you are reading it again.\"\n\n---\n\nSigned:\n  ghostradio ({{player_name}})\n  still_here_03",
+      "body_links": [
+        {
+          "text": "access admin panel",
+          "target_scene": "admin_panel"
+        },
+        {
+          "text": "return to the forum",
+          "target_scene": "forum_index_act2"
+        },
+        {
+          "text": "return to the terms of service",
+          "target_scene": "tos_page"
+        }
+      ],
       "transitions": {},
       "branching_paths": {},
       "requires_device_orientation": false
