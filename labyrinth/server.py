@@ -259,6 +259,11 @@ def _enrich_snapshot(session_state, snapshot: dict) -> dict:
             from .generate import _populate_templates as gen_populate
             raw_body = raw_scene.get("body") or raw_scene.get("prompt_seed", "")
             scene_dict["body"] = gen_populate(raw_body, profile)
+        # Populate templates in prose body_links if present
+        if scene_dict.get("body_links"):
+            scene_dict["body_links"] = _populate_templates(
+                scene_dict["body_links"], profile
+            )
         else:
             try:
                 generated = generate_prose(

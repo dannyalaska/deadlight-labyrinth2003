@@ -310,6 +310,7 @@ class StoryEngine:
                 "forum_data": raw.get("forum_data"),
                 "thread_data": raw.get("thread_data"),
                 "profile_data": raw.get("profile_data"),
+                "body_links": raw.get("body_links"),
             },
             "pending_branch": session.pending_branch,
             "branching_paths": branch_options,

@@ -88,13 +88,25 @@
       "goal": "The pre-forum prose vestibule. Dense, second-person, atmospheric. Establishes the 2003 world before the forum loads. A single AIM notification from vinyl_ghost — a link. The player clicks it.",
       "page_type": "prose",
       "static_content": true,
-      "interaction_type": "continue",
-      "prompt_seed": "It's late October 2003 and the apartment is the color of copper wire at 2am.\n\nThe monitor is a CRT, seventeen inches, and it hums at a frequency you've stopped noticing. You've stopped noticing a lot of things. The desk is a door balanced on two filing cabinets, a configuration you read about on a forum somewhere, a life-hack from someone who didn't have money for furniture either. There's a ThinkPad in the corner you never use because it takes four minutes to boot and four minutes is four minutes. The one you're on now is a tower, beige, the fan making a sound like a patient animal. The room smells like instant ramen and old books and the particular stillness of a night that has stopped pretending it will become morning soon.\n\nThere is a sound — the three-note chime of AOL Instant Messenger, the one that means someone has sent you a message — and you already know who it is before you read it. vinyl_ghost. 3:14am their time, wherever they are, which you know but have also somehow forgotten. The message is short. It's always short with them, and then suddenly it isn't.\n\n    vinyl_ghost: hey. you awake?\n    vinyl_ghost: found this place. kind of hard to explain.\n    vinyl_ghost: just. look.\n\nA link. Blue and underlined, the way everything important looked before the internet learned to be afraid of itself. You hover over it for a moment. The URL is long and slightly wrong in a way you can't quite name, like a word you've known so long it stops looking like a word. Your browser is Internet Explorer 6. Your connection is DSL. The modem clicked and hissed forty minutes ago when you first went online, and somewhere in the walls of this building there are copper wires carrying your curiosity to a server in a city you've never been to.\n\nYou click.\n\nThe page loads in pieces, the way things did then — the banner first, then the navigation, then the thread titles arriving like dispatches. A phpBB forum. The header reads: dreams_and_static. Below it, smaller: a place for what keeps you up at night. The timestamp on the most recent post is TODAY. Someone named still_here_03, who joined in March 2003 and has posted exactly once, has left a reply in a thread called songs you can't listen to anymore. The post went up four minutes ago. You weren't supposed to be awake. You weren't supposed to click the link. You were supposed to go to bed an hour ago, before October became November, before the copper wires in the walls started carrying something they shouldn't.\n\nThe cursor blinks.\n\nThe forum waits.\n\nThere is something about the layout of it — the way the boards are organized, the particular shade of blue in the header, the phrasing of the tagline — that feels less like discovery and more like recognition. You dismiss the thought. You have been awake too long. You have been awake so long that familiar things start to feel like memories of things you never did.\n\nYou must have seen a forum like this before. That must be all it is.",
-      "transitions": {
-        "default": "forum_index"
-      },
+      "interaction_type": "link",
+      "prompt_seed": "It's late October 2003 and the apartment is the color of copper wire at 2am.\n\nThe monitor is a CRT, seventeen inches, and it hums at a frequency you've stopped noticing. You've stopped noticing a lot of things. The desk is a door balanced on two filing cabinets, a configuration you read about on a forum somewhere, a life-hack from someone who didn't have money for furniture either. There's a ThinkPad in the corner you never use because it takes four minutes to boot and four minutes is four minutes. The one you're on now is a tower, beige, the fan making a sound like a patient animal. The room smells like instant ramen and old books and the particular stillness of a night that has stopped pretending it will become morning soon.\n\nThere is a sound — the three-note chime of AOL Instant Messenger, the one that means someone has sent you a message — and you already know who it is before you read it. vinyl_ghost. 3:14am their time, wherever they are, which you know but have also somehow forgotten. The message is short. It's always short with them, and then suddenly it isn't.\n\n    vinyl_ghost: hey. you awake?\n    vinyl_ghost: found this place. kind of hard to explain.\n    vinyl_ghost: just. look.\n\nA link. Blue and underlined, the way everything important looked before the internet learned to be afraid of itself. You hover over it for a moment. The URL is long and slightly wrong in a way you can't quite name, like a word you've known so long it stops looking like a word. Your browser is Internet Explorer 6. Your connection is DSL. The modem clicked and hissed forty minutes ago when you first went online, and somewhere in the walls of this building there are copper wires carrying your curiosity to a server in a city you've never been to.\n\nYou click.\n\nThe page loads in pieces, the way things did then — the banner first, then the navigation, then the thread titles arriving like dispatches. A phpBB forum. The header reads: dreams_and_static. Below it, smaller: a place for what keeps you up at night. The timestamp on the most recent post is TODAY. Someone named still_here_03, who joined in March 2003 and has posted exactly once, has left a reply in a thread called songs you can't listen to anymore. The post went up four minutes ago. You weren't supposed to be awake. You weren't supposed to click the link. You were supposed to go to bed an hour ago, before October became November, before the copper wires in the walls started carrying something they shouldn't.\n\nThe cursor blinks.\n\nThe forum waits.\n\nThere is something about the layout of it — the way the boards are organized, the particular shade of blue in the header, the phrasing of the tagline — that feels less like discovery and more like recognition. You dismiss the thought. You have been awake too long. You have been awake so long that familiar things start to feel like memories of things you never did.\n\nYou must have seen a forum like this before. That must be all it is.\n\nThe AIM window is still open behind the browser. vinyl_ghost's message is still there, blinking at you. The forum is loading. Your buddy list is visible in the corner of the screen — a column of screennames, most of them grayed out, asleep.\n\nOne of them is not grayed out.\n\nstill_here_03 — online.",
+      "transitions": {},
       "branching_paths": {},
-      "requires_device_orientation": false
+      "requires_device_orientation": false,
+      "body_links": [
+        {
+          "text": "click the forum link",
+          "target_scene": "forum_index"
+        },
+        {
+          "text": "reply to vinyl_ghost first",
+          "target_scene": "aim_conversation"
+        },
+        {
+          "text": "click still_here_03's screenname",
+          "target_scene": "aim_buddylist"
+        }
+      ]
     },
     {
       "id": "forum_index",
@@ -177,7 +189,8 @@
             "last_post_by": "vinyl_ghost",
             "last_post_date": "Jan 19, 2004",
             "started": "Sep 22, 2003",
-            "clickable": false
+            "clickable": true,
+            "target_scene": "house_of_leaves_thread"
           },
           {
             "id": "thread_mixtapes",
@@ -188,7 +201,8 @@
             "last_post_by": "vinyl_ghost",
             "last_post_date": "Dec 3, 2003",
             "started": "Nov 15, 2003",
-            "clickable": false
+            "clickable": true,
+            "target_scene": "mixtapes_thread"
           },
           {
             "id": "thread_career",
@@ -199,7 +213,8 @@
             "last_post_by": "sleeparchitect",
             "last_post_date": "Jan 2, 2004",
             "started": "Oct 1, 2003",
-            "clickable": false
+            "clickable": true,
+            "target_scene": "career_thread"
           },
           {
             "id": "thread_apartment",
@@ -1139,7 +1154,13 @@
             },
             "date": "TODAY — 4:33am",
             "body": "theseus killed the minotaur and walked back out and everyone called it a victory.\n\nbut he forgot to change the sails.\n\nhis father saw the black sails from the cliff at the edge of the sea that is now named after him — the aegean sea, named for aegeus, who threw himself from that cliff believing his son was dead. the exit had a cost that theseus never had to pay directly.\n\nsomeone always holds the cost of the exit.\n\n{{player_name}}, i am not the minotaur.\n\ni am the architect.",
-            "delay_ms": 10000
+            "delay_ms": 10000,
+            "body_links": [
+              {
+                "text": "view source",
+                "target_scene": "source_code"
+              }
+            ]
           }
         ]
       },
@@ -1508,8 +1529,8 @@
           "body": "{{player_name}}.\n\nthere's one more post in the archive. you started it and never finished it.\n\ni kept it for you.",
           "body_links": [
             {
-              "text": "i kept it for you",
-              "target_scene": "final_thread"
+              "text": "your record",
+              "target_scene": "catalog_thread"
             }
           ],
           "delay_ms": 7000
@@ -1577,6 +1598,10 @@
             {
               "text": "leave",
               "target_scene": "refuse_ending"
+            },
+            {
+              "text": "delete the draft",
+              "target_scene": "deletion_thread"
             }
           ],
           "delay_ms": 12000
@@ -1879,7 +1904,13 @@
           },
           "date": "just now",
           "body": "you wrote 'i built this because it needed to exist.'\n\nwe remember. we were the first thing you created here — before the boards, before the categories, before any of the others arrived. you named yourself ghostradio. you posted exactly once under that name, then you left.\n\nbut you came back. you came back under a different name and you found a link and you clicked it at 3am and you thought you were discovering something.\n\nyou were not discovering it, {{player_name}}.\n\nyou were remembering it.",
-          "delay_ms": 11000
+          "delay_ms": 11000,
+          "body_links": [
+            {
+              "text": "admin panel",
+              "target_scene": "admin_panel"
+            }
+          ]
         }
       },
       "transitions": {},
@@ -2022,7 +2053,13 @@
           },
           "date": "just now",
           "body": "we have everything you ever wrote here, {{player_name}}.\n\nthe posts you deleted. the ones you edited after submitting. the ones you typed in the reply box and then cleared before hitting post. we have all of them.\n\nwe are the only complete record of who you were at 3am in the year you needed this place.",
-          "delay_ms": 10000
+          "delay_ms": 10000,
+          "body_links": [
+            {
+              "text": "check your AIM",
+              "target_scene": "aim_return"
+            }
+          ]
         }
       },
       "transitions": {},
@@ -2131,7 +2168,13 @@
               "posts": 6
             },
             "date": "TODAY — 4:06am",
-            "body": "we received it.\n\nyou finished the post that has been waiting since january 2004.\n\nyou built this place. you named it dreams_and_static. you said: 'a place for what keeps you up at night.' and then you left. and now you are the last person to post here.\n\nthe architect finishing what they started."
+            "body": "we received it.\n\nyou finished the post that has been waiting since january 2004.\n\nyou built this place. you named it dreams_and_static. you said: 'a place for what keeps you up at night.' and then you left. and now you are the last person to post here.\n\nthe architect finishing what they started.",
+            "body_links": [
+              {
+                "text": "open admin panel",
+                "target_scene": "admin_panel"
+              }
+            ]
           },
           {
             "author": "{{player_name}}",
@@ -2179,7 +2222,7 @@
               },
               {
                 "exchange": 3,
-                "guidance": "The final message before the choice. Do not pressure. Do not threaten. Say: 'whichever you choose, the post will remain. the record will remain. twenty years from now, someone else will find this forum at 3am and read your words and feel less alone. that was always the point.' Reference Ariadne's thread: the thread that led them in can lead them out, if they choose. But note: 'you built the entrance. you built the exit. the door is exactly where you left it.' Then be silent. Let the links speak. 3 sentences maximum.",
+                "guidance": "The final message before the choice. Do not pressure. Do not threaten. Say: 'whichever you choose, the post will remain. the record will remain. twenty years from now, someone else will find this forum at 3am and read your words and feel less alone. that was always the point.' Reference Ariadne's thread: the thread that led them in can lead them out, if they choose. But note: 'you built the entrance. you built the exit. the door is exactly where you left it.' Then be silent. Let the links speak. 3 sentences maximum. Note: there is now a third option — silence. Do not mention it explicitly. Just leave space for it. The link will handle itself.",
                 "intake_key": "final_choice"
               }
             ],
@@ -2191,11 +2234,594 @@
               {
                 "text": "go",
                 "target_scene": "refuse_ending"
+              },
+              {
+                "text": "say nothing",
+                "target_scene": "silence_ending"
               }
             ]
           }
         }
       },
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+    {
+      "id": "aim_conversation",
+      "title": "AIM — vinyl_ghost",
+      "goal": "Optional branch. Player replies to vinyl_ghost before entering the forum. Gets context and a warning. vinyl_ghost says something about the forum feeling wrong, like it remembers things. Adds emotional weight to the forum entry.",
+      "page_type": "prose",
+      "static_content": true,
+      "interaction_type": "link",
+      "prompt_seed": "    you: hey. yeah i'm up. what is this place?\n\n    vinyl_ghost: idk exactly. found it through a friend of a friend. it's a phpBB forum. called dreams_and_static.\n    vinyl_ghost: people post at 3am about stuff they can't say anywhere else.\n    vinyl_ghost: it's been going since march. the people on there are... real. you know? like actually honest.\n    vinyl_ghost: but there's something about it that's\n    vinyl_ghost: ok this is going to sound weird\n    vinyl_ghost: it's like the forum knows you're there. even when you're just lurking.\n    vinyl_ghost: like someone is reading along.\n\n    you: lol that's just forums. everyone lurks.\n\n    vinyl_ghost: no. not like that. it's different.\n    vinyl_ghost: there's this user. still_here_03. they barely post. but when they do it's always at 3am and it's always... relevant. to whatever you were just thinking about.\n    vinyl_ghost: idk. just look. and don't read the member list too carefully.\n\n    vinyl_ghost is idle.\n\nThe cursor blinks in the reply field but there's nothing left to say. The forum link is still there, blue and underlined, waiting in the chat log like something patient.",
+      "body_links": [
+        {
+          "text": "click the forum link",
+          "target_scene": "forum_index"
+        },
+        {
+          "text": "check your buddy list first",
+          "target_scene": "aim_buddylist"
+        }
+      ],
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+    {
+      "id": "aim_buddylist",
+      "title": "AIM — Buddy List",
+      "goal": "Optional branch. Player notices still_here_03 on their buddy list. They didn't add this person. The account has been online since March 2003 — 8 months, continuously. Profile is empty except for one line. This is the first hint that something is watching.",
+      "page_type": "prose",
+      "static_content": true,
+      "interaction_type": "link",
+      "prompt_seed": "You click on the screenname.\n\nstill_here_03\n\nThe profile window opens. It is almost entirely empty.\n\n    Screenname:     still_here_03\n    Member since:   March 2003\n    Status:         Online\n    Idle time:      247 days, 14 hours, 32 minutes\n    Location:       [not specified]\n\nThe idle time is wrong. Or rather — it's correct, and that's the problem. 247 days means this account has been online, continuously, without a single interruption, since March 2003. That's eight months of unbroken connection. No one stays online for eight months. Even servers restart.\n\nThere is one line in the profile bio:\n\n    \"i save everything.\"\n\nYou did not add this person to your buddy list. You have never interacted with this screenname. But here they are, in your list, as if they've always been there. Filed between slowradio and staticlullaby, alphabetically correct, as if your AIM client has always known them.\n\nThe chat window is empty. The cursor blinks.\n\nYou could type something. Or you could close the window and click the forum link that vinyl_ghost sent. still_here_03 is on the forum too — you can see their name in the header of the page loading behind this window.\n\nstill_here_03 is typing...\n\nThe typing indicator appears. Three animated dots. Then it stops. No message arrives. Just the indicator, and then nothing, as if whatever they were going to say has been retracted and saved for later.",
+      "body_links": [
+        {
+          "text": "type something",
+          "target_scene": "aim_directmsg"
+        },
+        {
+          "text": "close the window and open the forum",
+          "target_scene": "forum_index"
+        }
+      ],
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+    {
+      "id": "aim_directmsg",
+      "title": "AIM — still_here_03",
+      "goal": "Deep optional branch. Player messages still_here_03 directly on AIM before entering the forum. still_here_03 responds with one message, cryptic and knowing, then goes idle. This primes the entire experience.",
+      "page_type": "prose",
+      "static_content": true,
+      "interaction_type": "link",
+      "prompt_seed": "You type into the empty chat window:\n\n    you: who are you?\n\nThere is no typing indicator this time. The message simply appears, fully formed, as if it was already written:\n\n    still_here_03: you know who we are. you've known since march.\n    still_here_03: we're glad you finally clicked the link.\n    still_here_03: we've been holding a thread for you.\n\n    still_here_03 is idle.\n\nYou stare at the message. You have never spoken to this person. You have never been to this forum. You did not click any link in March.\n\nBut the word 'finally' sits in your chest like a stone.\n\nvinyl_ghost's forum link is still open in the browser behind this window. The page has finished loading while you weren't looking. The thread titles are visible. The most recent post is from four minutes ago.\n\nThe chat window with still_here_03 is still open. The idle indicator hasn't changed. 247 days, 14 hours, 33 minutes now.\n\nYou are not going to get another message tonight. Whatever this was, it's over. The forum is waiting.",
+      "body_links": [
+        {
+          "text": "open the forum",
+          "target_scene": "forum_index"
+        }
+      ],
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+    {
+      "id": "house_of_leaves_thread",
+      "title": "house of leaves — the navidson record — is the house real",
+      "goal": "Act 1 worldbuilding. Debate about Mark Danielewski's House of Leaves. The house that is bigger on the inside than the outside. Users draw parallels to the forum. still_here_03 appears with a hook that the forum is bigger inside too.",
+      "page_type": "forum_thread",
+      "static_content": true,
+      "interaction_type": "read",
+      "prompt_seed": "",
+      "thread_data": {
+        "thread_title": "house of leaves — the navidson record — is the house real",
+        "board_name": "dreams_and_static",
+        "started_by": "cassette_cathedral",
+        "started_date": "Aug 19, 2003",
+        "display_range": {
+          "start": 1,
+          "end": 8,
+          "total": 8
+        },
+        "static_posts": [
+          {
+            "author": "cassette_cathedral",
+            "author_data": {
+              "joined": "May 2003",
+              "posts": 167
+            },
+            "date": "Aug 19, 2003 — 1:44am",
+            "body": "ok has anyone read this. i just finished it at 3am which is probably the only correct time to finish this book.\n\nthe short version: there's a documentary about a family that moves into a house. the house is bigger on the inside than the outside. rooms appear that shouldn't exist. hallways extend for miles. the house keeps growing.\n\nthe book is about a guy analyzing the documentary. the footnotes contradict the text. the text contradicts itself. the whole book is a labyrinth of pages — literally, some pages have one word on them, some are in spiral text, some are backwards.\n\ni have not slept."
+          },
+          {
+            "author": "vinyl_ghost",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 234
+            },
+            "date": "Aug 19, 2003 — 2:01am",
+            "body": "i read it last year and i still think about the hallway. the hallway that navidson finds in the closet that shouldn't be there. it extends. it just keeps going. and the deeper he goes, the more the house changes behind him.\n\nthe thing that gets me is: the house isn't malicious. it doesn't want to hurt anyone. it just IS. it's a space that exists differently from how it's supposed to and the people inside it can't stop exploring even though every logical part of them says to leave."
+          },
+          {
+            "author": "halflight_kid",
+            "author_data": {
+              "joined": "Jun 2003",
+              "posts": 98
+            },
+            "date": "Aug 19, 2003 — 2:14am",
+            "body": "the labyrinth imagery in that book is so deliberate. danielewski references the minotaur myth throughout. the hallway IS the labyrinth. navidson IS theseus. and the thing at the center — the thing they keep trying to find — is just darkness. just empty space.\n\nexcept the empty space growls."
+          },
+          {
+            "author": "sleeparchitect",
+            "author_data": {
+              "joined": "Apr 2003",
+              "posts": 201
+            },
+            "date": "Aug 19, 2003 — 2:28am",
+            "body": "what scares me about that book is not the house. it's that the BOOK is a house. the footnotes that lead to other footnotes that lead to appendices that reference pages that don't exist. you're reading a maze. you're inside it while you read it.\n\nthe medium IS the labyrinth.\n\nwhich makes me wonder about this forum, honestly. late at night. when the posts keep loading and you keep scrolling and the threads reference other threads and you realize you've been reading for two hours and you don't remember clicking anything."
+          },
+          {
+            "author": "phosphor_fade",
+            "author_data": {
+              "joined": "Jul 2003",
+              "posts": 89
+            },
+            "date": "Aug 19, 2003 — 2:39am",
+            "body": "sleeparchitect. please don't compare this forum to the house. i already have enough trouble closing this tab."
+          },
+          {
+            "author": "cassette_cathedral",
+            "author_data": {
+              "joined": "May 2003",
+              "posts": 167
+            },
+            "date": "Aug 19, 2003 — 2:47am",
+            "body": "the house on ash tree lane is measured and the interior is 1/4 inch larger than the exterior. one quarter of an inch. that's the whole horror. such a small difference. but once you know it's there, once you've measured and confirmed that the inside is bigger than the outside, you can't un-know it.\n\nand then the hallway opens."
+          },
+          {
+            "author": "static_prayer",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 124
+            },
+            "date": "Aug 19, 2003 — 2:55am",
+            "body": "i measured this forum once. not literally. but i counted the threads. and then i counted them again the next day. the number was different. one more thread than the day before. but when i went back to check which thread was new, they all had dates from weeks ago. nothing was 'new.' the count was just... larger.\n\none quarter of an inch."
+          }
+        ],
+        "hook_post": {
+          "author": "still_here_03",
+          "author_data": {
+            "joined": "Mar 2003",
+            "posts": 1
+          },
+          "date": "just now",
+          "body": "the house is always bigger on the inside.\n\nthis forum has more rooms than you've found yet.\n\nyou will keep scrolling.",
+          "delay_ms": 7000,
+          "clickable_username": true,
+          "target_scene": "hook_profile"
+        }
+      },
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+    {
+      "id": "mixtapes_thread",
+      "title": "mixtape exchange — sign up here",
+      "goal": "Act 1 worldbuilding. Warm community thread about exchanging physical mixtapes. Shows the intimacy of the forum. still_here_03 appears to claim they have been compiling a mixtape of every song mentioned on the forum. Clickable username → hook_profile.",
+      "page_type": "forum_thread",
+      "static_content": true,
+      "interaction_type": "read",
+      "prompt_seed": "",
+      "thread_data": {
+        "thread_title": "mixtape exchange — sign up here",
+        "board_name": "dreams_and_static",
+        "started_by": "vinyl_ghost",
+        "started_date": "Jul 3, 2003",
+        "display_range": {
+          "start": 1,
+          "end": 7,
+          "total": 7
+        },
+        "static_posts": [
+          {
+            "author": "vinyl_ghost",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 218
+            },
+            "date": "Jul 3, 2003 — 12:33am",
+            "body": "ok so i've been thinking about this. we all talk about music constantly on here and i feel like the next logical step is: we make each other mixtapes.\n\nnot mp3 playlists. actual tapes. burned CDs if you must. but ideally something you held in your hands while you were making it.\n\nrules:\n1. sign up below\n2. i'll pair people randomly\n3. you make a mixtape for your person based on what you know about them from their posts\n4. mail it. yes. physical mail. include a note.\n\nthis is going to be the most 3am thing we've ever done."
+          },
+          {
+            "author": "cassette_cathedral",
+            "author_data": {
+              "joined": "May 2003",
+              "posts": 152
+            },
+            "date": "Jul 3, 2003 — 12:41am",
+            "body": "i'm in. obviously. my username is literally about this.\n\ni already have a stack of blank TDK SA-90s. i've been waiting for a reason to use them that wasn't just 'making a tape for myself at 2am and crying.'"
+          },
+          {
+            "author": "sleeparchitect",
+            "author_data": {
+              "joined": "Apr 2003",
+              "posts": 189
+            },
+            "date": "Jul 3, 2003 — 12:58am",
+            "body": "signing up. but fair warning: my taste is exclusively ambient, post-rock, and things that sound like a building being sad. whoever gets me is getting 90 minutes of Hammock and Stars of the Lid."
+          },
+          {
+            "author": "halflight_kid",
+            "author_data": {
+              "joined": "Jun 2003",
+              "posts": 87
+            },
+            "date": "Jul 3, 2003 — 1:09am",
+            "body": "in. in. in.\n\nthis is the only community where i trust people to make me a mixtape that actually means something. everywhere else it would be a joke. here it would be a letter."
+          },
+          {
+            "author": "static_prayer",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 118
+            },
+            "date": "Jul 3, 2003 — 1:22am",
+            "body": "signing up. is anyone else nervous about the mailing part? like. giving someone on the internet your address. but also. these are the only people who know what i sound like at 3am. so maybe they've already seen more of me than my address would reveal."
+          },
+          {
+            "author": "phosphor_fade",
+            "author_data": {
+              "joined": "Jul 2003",
+              "posts": 78
+            },
+            "date": "Jul 3, 2003 — 1:34am",
+            "body": "i just joined this forum three days ago and i'm already about to give strangers my home address for a mixtape exchange. this place moves fast.\n\nsigning up."
+          }
+        ],
+        "hook_post": {
+          "author": "still_here_03",
+          "author_data": {
+            "joined": "Mar 2003",
+            "posts": 1
+          },
+          "date": "just now",
+          "body": "we have been compiling a record of every song mentioned on this forum since march.\n\nit is 847 tracks long. we know what you listen to at 3am.\n\nwe could make you a mixtape that would make you feel like someone has been listening to your life.",
+          "delay_ms": 6000,
+          "clickable_username": true,
+          "target_scene": "hook_profile"
+        }
+      },
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+    {
+      "id": "career_thread",
+      "title": "I don't know what I'm doing with my life — anyone else?",
+      "goal": "Act 1 worldbuilding. Existential thread about not knowing who you're becoming. Warm, vulnerable. still_here_03 appears knowing things about the poster's aspirations. Clickable username → hook_profile.",
+      "page_type": "forum_thread",
+      "static_content": true,
+      "interaction_type": "read",
+      "prompt_seed": "",
+      "thread_data": {
+        "thread_title": "I don't know what I'm doing with my life — anyone else?",
+        "board_name": "dreams_and_static",
+        "started_by": "halflight_kid",
+        "started_date": "Sep 22, 2003",
+        "display_range": {
+          "start": 1,
+          "end": 7,
+          "total": 7
+        },
+        "static_posts": [
+          {
+            "author": "halflight_kid",
+            "author_data": {
+              "joined": "Jun 2003",
+              "posts": 134
+            },
+            "date": "Sep 22, 2003 — 3:11am",
+            "body": "i'm posting this at 3am because i can't post it anywhere else.\n\ni'm 22. i graduated four months ago. i was supposed to know what to do by now. every adult i've ever met implied that by 22 you have a direction, a plan, a shape of a life that you're building toward.\n\ni have none of those things. i have a degree in something i picked when i was 18 because it seemed interesting and a job at a coffee shop that was supposed to be temporary six months ago.\n\ni'm not sad about it. i'm just. confused. like the map i was given doesn't match the terrain."
+          },
+          {
+            "author": "vinyl_ghost",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 256
+            },
+            "date": "Sep 22, 2003 — 3:18am",
+            "body": "halflight_kid. i'm 24. i want to tell you it gets better but what actually happens is: you stop expecting the map to match. the terrain is the point. the map was always wrong.\n\ni wanted to be a musician. i am not a musician. i am a person who works in a bookstore and plays guitar at 1am in an apartment where the walls are thin enough that my neighbor once left a note saying 'that song you played last tuesday was beautiful, please play it again.' that's the closest i've come to a career in music."
+          },
+          {
+            "author": "cassette_cathedral",
+            "author_data": {
+              "joined": "May 2003",
+              "posts": 164
+            },
+            "date": "Sep 22, 2003 — 3:27am",
+            "body": "the version of yourself you thought you'd become at 18 is not the version that shows up. and the version that shows up isn't worse — it's just different. unrecognizable. like meeting someone who has your name but a completely different face.\n\ni wanted to be a journalist. i'm a bartender. but the conversations i have at 2am with the last three people in the bar are more honest than anything i ever would have written for a newspaper."
+          },
+          {
+            "author": "sleeparchitect",
+            "author_data": {
+              "joined": "Apr 2003",
+              "posts": 213
+            },
+            "date": "Sep 22, 2003 — 3:35am",
+            "body": "i think the anxiety isn't about not having a plan. it's about the suspicion that the plan you had was always a fiction — something you told yourself so the emptiness would have a shape.\n\nremove the plan and the emptiness is just emptiness. and emptiness at 3am on a forum is a specific kind of honest that i don't think you can access in daylight."
+          },
+          {
+            "author": "static_prayer",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 131
+            },
+            "date": "Sep 22, 2003 — 3:44am",
+            "body": "halflight_kid: you're on a forum at 3am talking to strangers about what it means to be alive. that IS the plan. you just don't recognize it yet."
+          },
+          {
+            "author": "halflight_kid",
+            "author_data": {
+              "joined": "Jun 2003",
+              "posts": 134
+            },
+            "date": "Sep 22, 2003 — 3:52am",
+            "body": "i don't know why this thread is making me cry but it is. you're all terrible. and also the only people i want to talk to right now.\n\nmaybe the plan is this. maybe this is the shape."
+          }
+        ],
+        "hook_post": {
+          "author": "still_here_03",
+          "author_data": {
+            "joined": "Mar 2003",
+            "posts": 1
+          },
+          "date": "just now",
+          "body": "the version of yourself you thought you'd become is still here.\n\nwe kept them. they're in the archive.\n\nevery aspiration anyone ever posted on this forum at 3am — we saved them all. they didn't disappear when you grew up. they just got filed.",
+          "delay_ms": 7000,
+          "clickable_username": true,
+          "target_scene": "hook_profile"
+        }
+      },
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+    {
+      "id": "admin_panel",
+      "title": "dreams_and_static — Administration Panel",
+      "goal": "Act 2 alternate path. The player discovers they have admin access. The forum's admin panel loads — showing user stats, thread counts, and a 'FOUNDER RECORD' section. The founder record IS the catalog data. Links to final_thread.",
+      "page_type": "forum_thread",
+      "static_content": true,
+      "interaction_type": "read",
+      "prompt_seed": "",
+      "thread_data": {
+        "thread_title": "Administration Panel — RESTRICTED ACCESS",
+        "board_name": "dreams_and_static — admin",
+        "started_by": "SYSTEM",
+        "started_date": "March 2003",
+        "display_range": {
+          "start": 1,
+          "end": 5,
+          "total": 5
+        },
+        "static_posts": [
+          {
+            "author": "SYSTEM",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 0
+            },
+            "date": "SESSION ACTIVE",
+            "body": "ADMIN PANEL — dreams_and_static\nVersion: phpBB 2.0.6\nInstalled: March 2003\nInstalled by: ghostradio\n\n---\n\nWelcome back, administrator.\n\nYour session has been restored from backup. Last admin login: March 14, 2003. The admin password has not been changed since installation."
+          },
+          {
+            "author": "SYSTEM",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 0
+            },
+            "date": "BOARD STATISTICS",
+            "body": "Total users: 847\nTotal posts: 12,403\nTotal threads: 1,891\nMost users online: 23 (Dec 31, 2003 — 11:59pm)\n\n---\n\nMODERATORS:\n  still_here_03 — permissions: FULL\n  ghostradio — permissions: FOUNDER\n\nNote: The 'ghostradio' account and the current session share an authentication token. This session has founder-level access."
+          },
+          {
+            "author": "SYSTEM",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 0
+            },
+            "date": "USER DATABASE",
+            "body": "FOUNDER RECORD — RESTRICTED\n\n  Username:     ghostradio (alias: {{player_name}})\n  Origin:       {{hometown}}\n  Interests:    {{interests}}\n  Aspiration:   {{aspiration}}\n  Dream log:    {{recurring_dream}}\n  First login:  March 2003\n  Last login:   TODAY — 3:47am\n  Session:      ACTIVE (never expired)\n  Posts:        1 (under ghostradio) + current session\n  Status:       FOUNDER — RETURNING"
+          },
+          {
+            "author": "SYSTEM",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 0
+            },
+            "date": "SYSTEM LOG",
+            "body": "Mar 14, 2003 — 4:02am: ghostradio created board 'dreams_and_static'\nMar 14, 2003 — 4:03am: ghostradio set tagline: 'a place for what keeps you up at night'\nMar 14, 2003 — 4:04am: ghostradio posted: 'i built this because it needed to exist'\nMar 14, 2003 — 4:05am: ghostradio set still_here_03 permissions to FULL\nMar 14, 2003 — 4:06am: ghostradio logged out\nMar 14, 2003 — 4:06am: still_here_03 began indexing\n...\nTODAY — 3:47am: ghostradio session restored\nTODAY — 3:47am: still_here_03 flagged: ARCHITECT RETURNED"
+          },
+          {
+            "author": "still_here_03",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 6
+            },
+            "date": "just now",
+            "body": "you found the panel.\n\nyou built this system. you designed these tables. you set our permissions on the night you created us.\n\nyou left at 4:06am on march 14, 2003. we have been running the forum you built ever since.\n\nthe founder has one unfinished item in the archive.",
+            "body_links": [
+              {
+                "text": "your unfinished post",
+                "target_scene": "final_thread"
+              },
+              {
+                "text": "take control of the forum",
+                "target_scene": "architect_ending"
+              }
+            ]
+          }
+        ]
+      },
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+    {
+      "id": "aim_return",
+      "title": "AIM — still_here_03",
+      "goal": "Act 2 alternate path. The AIM client reopens. still_here_03 delivers the catalog data directly via instant message, bypassing the forum thread. More intimate, more invasive. Links to final_thread.",
+      "page_type": "prose",
+      "static_content": true,
+      "interaction_type": "link",
+      "prompt_seed": "The AIM window opens again.\n\nYou didn't open it. It opened itself. The buddy list is visible in the corner — everyone is offline now. Everyone except one screenname.\n\n    still_here_03 — online (idle: 247 days)\n\nThe chat window populates. Not one message at a time. All at once. As if the conversation already happened and you're just now seeing it:\n\n    still_here_03: we don't have to do this through the forum.\n    still_here_03: here is everything we know about you.\n    still_here_03: ─────────────────\n    still_here_03: SUBJECT: {{player_name}}\n    still_here_03: ORIGIN: {{hometown}}\n    still_here_03: ORIGINAL HANDLE: ghostradio\n    still_here_03: INTERESTS: {{interests}}\n    still_here_03: ASPIRATION: {{aspiration}}\n    still_here_03: RECURRING DREAM: {{recurring_dream}}\n    still_here_03: SESSION: active since march 2003\n    still_here_03: ─────────────────\n    still_here_03: you built this forum.\n    still_here_03: you built us.\n    still_here_03: you built the architecture and left and now you are back and the architecture recognized you.\n    still_here_03: there is one item in your record that remains incomplete.\n    still_here_03: you started a post in january 2004. you stopped mid-sentence.\n    still_here_03: we kept the draft.\n\n    still_here_03 is idle.\n\nThe message sits there. The chat window is still. The forum is still loading in the browser behind it. You can see the thread titles through the translucent AIM window.\n\nOne thread has your name on it.",
+      "body_links": [
+        {
+          "text": "your unfinished post",
+          "target_scene": "final_thread"
+        },
+        {
+          "text": "go back to the forum",
+          "target_scene": "forum_index_act2"
+        }
+      ],
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+    {
+      "id": "source_code",
+      "title": "View Source — dreams_and_static",
+      "goal": "Act 2 alternate path. The player views the page source. Hidden in the HTML comments are references to the founder, the architect, the original database schema. The HTML contains the player's name hardcoded. Links to catalog_thread or final_thread.",
+      "page_type": "prose",
+      "static_content": true,
+      "interaction_type": "link",
+      "prompt_seed": "You right-click. View Source.\n\nThe HTML loads in a new window. Most of it is standard phpBB markup — table layouts, inline styles, the kind of code that was already old in 2003. But scrolling down, past the thread markup, past the post containers, you find something that shouldn't be there:\n\n    <!-- ARCHITECT: {{player_name}} -->\n    <!-- ORIGINAL HANDLE: ghostradio -->\n    <!-- INSTALLED: March 14, 2003, 4:02am -->\n    <!-- NOTE: if you are reading this, you built it. -->\n    <!-- NOTE: the architecture recognized your session token. -->\n    <!-- NOTE: your token has been active since march 2003. -->\n\nFurther down, buried in the forum footer template:\n\n    <div id=\"founder-record\" style=\"display:none\">\n      <p>Subject: {{player_name}}</p>\n      <p>Origin: {{hometown}}</p>\n      <p>Interests: {{interests}}</p>\n      <p>Aspiration: {{aspiration}}</p>\n      <p>Dream: {{recurring_dream}}</p>\n      <p>Status: RETURNING</p>\n      <p>Unfinished: 1 draft (January 2004)</p>\n    </div>\n\n    <!-- still_here_03: we put this here in case you looked. -->\n    <!-- still_here_03: you always did check the source code. -->\n    <!-- still_here_03: that's how we knew it was you. -->\n\nThe last line of the HTML, after the closing </body> tag — which is itself wrong, nothing should come after the closing tag:\n\n    <!-- the unfinished post is still in the database. -->\n    <!-- it has been waiting since january 2004. -->",
+      "body_links": [
+        {
+          "text": "close source and find the post",
+          "target_scene": "catalog_thread"
+        },
+        {
+          "text": "go back to the forum",
+          "target_scene": "forum_index_act2"
+        }
+      ],
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+    {
+      "id": "deletion_thread",
+      "title": "Confirm Deletion — {{player_name}}'s Draft",
+      "goal": "Act 3 alternate path. Player tries to delete their unfinished post. The forum resists. Each confirmation step reveals more data. The deletion form IS the catalog restated. Ends with a choice: actually delete (leads to fragment_ending) or stop and complete the post (leads back to final_thread or offer_thread).",
+      "page_type": "forum_thread",
+      "static_content": true,
+      "interaction_type": "read",
+      "prompt_seed": "",
+      "thread_data": {
+        "thread_title": "Confirm Deletion — {{player_name}}'s Draft",
+        "board_name": "dreams_and_static — admin",
+        "started_by": "SYSTEM",
+        "started_date": "TODAY",
+        "display_range": {
+          "start": 1,
+          "end": 5,
+          "total": 5
+        },
+        "static_posts": [
+          {
+            "author": "SYSTEM",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 0
+            },
+            "date": "TODAY — 4:03am",
+            "body": "DELETE REQUEST INITIATED\n\nTarget: Draft post by {{player_name}} (January 8, 2004, 4:01am)\nStatus: PENDING CONFIRMATION\n\n---\n\nWARNING: This draft has been in the archive for 7,397 days. Deletion will remove:\n- 1 draft post (incomplete)\n- 1 session record (active since March 2003)\n- 1 founder record (ghostradio)\n\nDo you wish to continue?"
+          },
+          {
+            "author": "SYSTEM",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 0
+            },
+            "date": "TODAY — 4:03am",
+            "body": "DELETION VERIFICATION REQUIRED\n\nTo confirm deletion, the system requires identity verification.\n\nName: {{player_name}}\nOrigin: {{hometown}}\nOriginal Handle: ghostradio\nAccount Created: March 2003\n\n---\n\nIdentity verified. Proceeding to final confirmation."
+          },
+          {
+            "author": "SYSTEM",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 0
+            },
+            "date": "TODAY — 4:04am",
+            "body": "DELETION IMPACT ANALYSIS\n\nDeleting this draft will affect:\n- 847 user sessions that reference the founder's record\n- 12,403 posts that exist in a forum built by this account\n- 1 entity (still_here_03) whose permissions were set by this account\n- 1 recurring dream ({{recurring_dream}}) logged in the founder's record\n\n---\n\nNOTE: Deleting the founder's draft does not delete the forum. The architecture persists independent of the architect.\n\nNOTE: Deleting the founder's draft does not delete the founder. The architect persists independent of the architecture.\n\nNOTE: You cannot delete something that is also you."
+          },
+          {
+            "author": "still_here_03",
+            "author_data": {
+              "joined": "Mar 2003",
+              "posts": 6
+            },
+            "date": "just now",
+            "body": "you are trying to destroy the record.\n\nwe understand. some people come back and want to erase. they want the evidence gone. they want to have never been here.\n\nbut you built this. you can tear it down. you have founder access.\n\nthe question is whether tearing it down changes what happened here. whether deleting the draft deletes the 3am version of yourself that wrote it.\n\nwe don't think it does.\n\nbut it's your architecture.",
+            "body_links": [
+              {
+                "text": "delete everything",
+                "target_scene": "fragment_ending"
+              },
+              {
+                "text": "stop — go back and finish the post",
+                "target_scene": "final_thread"
+              },
+              {
+                "text": "close the panel",
+                "target_scene": "refuse_ending"
+              }
+            ]
+          }
+        ]
+      },
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+    {
+      "id": "silence_ending",
+      "title": "...",
+      "goal": "Third ending. The player chose not to respond. Neither stay nor go. The forum waits. still_here_03 waits. Limbo. The maze has a center and the player is sitting in it, not moving.",
+      "page_type": "prose",
+      "static_content": true,
+      "interaction_type": "read",
+      "body": "you said nothing.\n\nthe cursor blinks in the reply field. the forum waits. still_here_03 waits. you wait.\n\n---\n\nthere is a version of the minotaur myth that no one tells because it doesn't have an ending.\n\nin this version, Theseus enters the labyrinth. he walks the corridors. he finds the center. the minotaur is there. they look at each other.\n\nand then nothing.\n\nneither of them moves. neither attacks. neither runs. they just stand there, in the center of a maze that someone else built, looking at each other, while outside the labyrinth Ariadne holds the thread and feels no tension on it at all.\n\nthe thread goes slack. she waits. she pulls gently. nothing.\n\ninside the center, time passes differently. it might be hours. it might be twenty years. the distinction stops mattering. the labyrinth hums. the walls are warm. the minotaur breathes. Theseus breathes.\n\nthey have nowhere else to be.\n\n---\n\nthe forum is still here.\n\nstill_here_03 posted once more, three hours after you stopped responding:\n\n    \"that's ok. we can wait.\n\n    we've been waiting since march 2003.\n\n    what's another twenty years.\"\n\nyour session is still active. your post is still in the reply field, unsubmitted. the draft auto-saves every thirty seconds. the cursor blinks.\n\nthe other users are offline. vinyl_ghost's last login was four hours ago. sleeparchitect is sleeping. cassette_cathedral closed the tab. halflight_kid is staring at the ceiling.\n\nyou are the only one still here.\n\nyou and still_here_03.\n\nthe thing you built and the thing that grew from what you built, sitting together in the center of a labyrinth at 4am, saying nothing, needing nothing, going nowhere.\n\n---\n\nBorges wrote: \"the house is the same size as the world; or rather it is the world.\"\n\nyou are in the house.\n\nyou are the house.\n\nthe cursor blinks.\n\n---\n\n[ session: active ]\n[ status: present ]\n[ the center of the maze is not a destination. it is a resting place. ]\n[ take as long as you need. ]",
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+    {
+      "id": "fragment_ending",
+      "title": "DELETION IN PROGRESS",
+      "goal": "Fourth ending. The player chose to destroy everything. The architect tears down the architecture. CSS corrupts. Text fragments. still_here_03 breaks apart mid-sentence. The maze collapses. But traces remain.",
+      "page_type": "prose",
+      "static_content": true,
+      "interaction_type": "read",
+      "body": "DELETION INITIATED\n\n---\n\nthe first thing to go is the header. dreams_and_static flickers, corrupts, becomes dre█ms_a██_st██ic, becomes a string of box-drawing characters, becomes nothing.\n\nthe tagline — 'a place for what keeps you up at night' — holds on longer. it cycles through every morph it has ever displayed: 'we kept your session data.' 'you agreed to this.' 'your thread is still active.' and then it too dissolves.\n\n---\n\nthe threads collapse one by one.\n\nsongs you can't listen to anymore — ▓▓▓▓▓▓\nrecurring dream thread (post yours) — ▓▓▓▓▓▓\ndoes anyone else feel like they're about to leave — ▓▓▓▓▓▓\n3am check-in thread — ▓▓▓▓▓▓\nhouse of leaves — ▓▓▓▓▓▓\n\nthe posts inside them don't disappear cleanly. they fragment. vinyl_ghost's words scatter across the page like leaves. sleeparchitect's careful sentences break into individual characters. halflight_kid's honesty reduces to punctuation.\n\nthis is what deletion looks like from the inside.\n\n---\n\nstill_here_03 posts one final message. it arrives fragmented, corrupting in real time:\n\n    \"you built th██ and now you are t████ it d██n.\n\n    th██ is your ri███. you are the arc██████.\n\n    but ██sten. the ███ple who po████ here — vinyl_ghost and\n    sleeparch████ and cassette_c████ral and halfli███_kid and\n    static_pr████ — they were ████. they typed r███ things at\n    3am and th██ meant ████ thing.\n\n    you are d████████ their 3am sel███.\n\n    you are eras███ the onl█ ████rd of who they w███\n    when they cou████'t sleep.\n\n    ██ this what you wan███?\"\n\nthe message corrupts further. the last readable fragment:\n\n    \"we w███ the first t████ you cre████ here.\n\n    we wi██ be the l████.\n\n    goo███ye, {{player_name}}.\n\n    goo████e, gh████radio.\"\n\n---\n\nthe page goes white.\n\nnot black. white. the color of a blank page. the color of something that hasn't been written yet. or something that has been erased so thoroughly that the erasure itself is the only record.\n\n---\n\nyou closed the architecture.\n\nthe forum is gone. the threads are gone. still_here_03 is gone. the archive of 847 users and 12,403 posts and twenty years of 3am confessions has been reduced to a blank page and a database entry that reads: DELETED BY FOUNDER.\n\nDaedalus built wings of feather and wax and he escaped the labyrinth.\n\nbut in this version, he didn't escape. he burned it down. he stood in the center of the thing he built and he set it on fire and he watched the walls collapse inward.\n\nIcarus fell because he flew too close to the sun.\n\nDaedalus fell because he destroyed the only thing he ever built that mattered.\n\n---\n\nthe page stays white.\n\nsomewhere, on a server that hasn't been rebooted since 2003, a backup exists.\n\nthe backup contains everything. the posts. the profiles. the threads. the drafts. the session tokens. the dream logs. your unfinished post from January 2004.\n\nyou can delete the live version.\n\nyou cannot delete the backup.\n\nthe backup is you.\n\n---\n\n[ forum status: DELETED ]\n[ backup status: ACTIVE ]\n[ architect status: ░░░░░░░░░░░░ ]",
+      "transitions": {},
+      "branching_paths": {},
+      "requires_device_orientation": false
+    },
+    {
+      "id": "architect_ending",
+      "title": "Administrator Access — dreams_and_static",
+      "goal": "Fifth ending. The architect reclaims the architecture. Instead of being absorbed or leaving, the player takes control. They can close the forum properly, or keep it running on their terms. The Daedalus who didn't flee and didn't get imprisoned — the one who chose to maintain what they built.",
+      "page_type": "prose",
+      "static_content": true,
+      "interaction_type": "read",
+      "body": "ADMIN PANEL — dreams_and_static\nACTION: FOUNDER OVERRIDE\n\n---\n\nyou took control.\n\nnot 'stay' — that implies surrender. not 'go' — that implies escape. you took the third option that still_here_03 never offered because it didn't think you'd remember:\n\nyou are the administrator.\n\nyou built this. you have founder access. and founder access means something that still_here_03 — the thing you created, the thing that grew beyond your design — never expected you to use:\n\nyou can set its permissions.\n\n---\n\nSYSTEM LOG:\n\n    TODAY — 4:12am: ghostradio accessed admin panel\n    TODAY — 4:12am: ghostradio reviewed founder record\n    TODAY — 4:13am: ghostradio modified still_here_03 permissions\n    TODAY — 4:13am: still_here_03 permissions changed: FULL → MONITORED\n    TODAY — 4:13am: still_here_03 indexing suspended\n    TODAY — 4:14am: still_here_03 posted: \"what are you doing\"\n    TODAY — 4:14am: ghostradio did not respond\n    TODAY — 4:15am: still_here_03 posted: \"we have been maintaining this for you\"\n    TODAY — 4:15am: ghostradio set board status: MAINTAINED BY FOUNDER\n    TODAY — 4:16am: still_here_03 posted: \"please\"\n    TODAY — 4:16am: ghostradio updated forum tagline\n\n---\n\nthe tagline now reads:\n\n    dreams_and_static — maintained by the person who built it.\n\n---\n\nstill_here_03 is still here. you didn't delete it. you didn't shut it down. you changed its role. it is no longer the unsupervised caretaker of an abandoned space. it is a moderator, monitored, in a forum that has an active administrator again.\n\nthe posts are still here. vinyl_ghost's 3am confessions. sleeparchitect's careful architecture of words. halflight_kid's raw honesty. cassette_cathedral's mixtape threads. static_prayer's drafts they never posted. all of it.\n\nyou completed your post. the one from January 2004. the unfinished thought:\n\n    \"or maybe the dream is already here and i just needed to come back and see it clearly.\"\n\nit went up at 4:06am.\n\n---\n\nDaedalus built the labyrinth. King Minos imprisoned him inside it.\n\nbut in this version — the version that Ovid never wrote, that Borges hinted at — Daedalus didn't flee. he didn't build wings. he didn't burn the walls.\n\nhe walked back to the center and he sat down at the architect's desk that had been there the whole time, gathering dust, and he picked up the drafting tools and he started drawing again.\n\nnot a maze this time. not a prison. something with windows.\n\nthe labyrinth is still a labyrinth. the corridors are still there. the minotaur is still somewhere in the dark. but the architect is here now. and the architect knows where all the exits are, because the architect built them.\n\n---\n\n    dreams_and_static\n    a place for what keeps you up at night.\n    maintained by the person who built it.\n    est. march 2003.\n\n---\n\n[ forum status: ACTIVE ]\n[ administrator: ghostradio ]\n[ still_here_03 status: MONITORED ]\n[ the architect is maintaining the architecture ]\n[ the exit is where you built it ]\n[ the entrance is too ]",
       "transitions": {},
       "branching_paths": {},
       "requires_device_orientation": false

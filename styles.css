@@ -1095,6 +1095,43 @@ body[data-act="3"] .still-here-post .post-content {
   50%       { opacity: 0; }
 }
 
+/* Prose choice links — branching navigation on prose pages */
+.prose-choices {
+  margin-top: 36px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.prose-choice-link {
+  color: var(--fg-dim);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: var(--font-size);
+  letter-spacing: 0.05em;
+  opacity: 0.50;
+  transition: opacity 0.3s, color 0.3s, letter-spacing 0.3s;
+  cursor: pointer;
+  display: block;
+}
+
+.prose-choice-link:hover {
+  opacity: 1;
+  color: var(--link);
+  letter-spacing: 0.07em;
+}
+
+body[data-act="2"] .prose-choice-link,
+body[data-act="3"] .prose-choice-link {
+  opacity: 0.40;
+}
+
+body[data-act="3"] .prose-choice-link:hover {
+  color: var(--header-bg);
+}
+
 /* ================================================================== */
 /*  BANNER AD — corruption mechanic                                    */
 /* ================================================================== */

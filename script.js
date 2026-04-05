@@ -169,11 +169,14 @@ const ACT2_SCENES = new Set([
   'forum_index_act2', 'deeper_thread', 'board_changes_thread',
   'old_posts_thread', 'architecture_thread',
   'signal_thread', 'ghostradio_thread', 'memory_thread', 'catalog_thread',
+  'admin_panel', 'aim_return', 'source_code',
 ]);
 
 // Act 3 — the threshold. the unfinished post. the ending.
 const ACT3_SCENES = new Set([
-  'final_thread', 'offer_thread', 'accept_ending', 'refuse_ending',
+  'final_thread', 'offer_thread', 'deletion_thread',
+  'accept_ending', 'refuse_ending', 'silence_ending',
+  'fragment_ending', 'architect_ending',
 ]);
 
 let _act2EntryDone = false;
@@ -839,7 +842,8 @@ async function handleHandleSubmit(event) {
 /*  RENDERER: Fallback (prose / ToS / static pages)                    */
 /* ================================================================== */
 function renderFallback(scene) {
-  const isEnding = scene.id === 'accept_ending' || scene.id === 'refuse_ending';
+  const ENDINGS = new Set(['accept_ending', 'refuse_ending', 'silence_ending', 'fragment_ending', 'architect_ending']);
+  const isEnding = ENDINGS.has(scene.id);
 
   if (isEnding) {
     updateBreadcrumb([{ label: 'dreams_and_static' }]);
@@ -867,6 +871,17 @@ function renderFallback(scene) {
     html += `<div class="prose-continue"><a href="#" class="prose-continue-link">[ enter ]</a></div>`;
   }
 
+  // body_links on prose scenes — render as choice links
+  const proseLinks = scene.body_links || [];
+  if (proseLinks.length > 0) {
+    html += '<div class="prose-choices">';
+    proseLinks.forEach((link) => {
+      const escaped = esc(link.text);
+      html += `<a class="prose-choice-link" href="#" data-scene="${esc(link.target_scene)}">[ ${escaped} ]</a>`;
+    });
+    html += '</div>';
+  }
+
   if (isEnding) {
     // No nav back — the ending is final
     html += `<div class="ending-footer">&nbsp;</div>`;
@@ -886,6 +901,25 @@ function renderFallback(scene) {
       console.error('Continue failed', error);
       showSnackbar('something went wrong.');
     }
+  });
+
+  // Bind prose choice links (body_links on prose pages)
+  el.content.querySelectorAll('.prose-choice-link').forEach((a) => {
+    a.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const target = a.dataset.scene;
+      if (target) {
+        clearActiveTimers();
+        showLoading();
+        try {
+          const session = await progressAPI('link', target);
+          handleSessionUpdate(session);
+        } catch (err) {
+          console.error('Prose choice navigation failed', err);
+          showSnackbar('something went wrong.');
+        }
+      }
+    });
   });
 }
 
@@ -983,6 +1017,27 @@ const MORPH_REVELATIONS = {
   ],
   'offer_thread': [
     ['your post was received', 'we received everything.\n\nthe record is now complete.\n\nyou cannot unsubmit it.'],
+  ],
+  'house_of_leaves_thread': [
+    ['bigger on the inside', 'the forum has more rooms than you\'ve found yet.\n\nyou will keep scrolling.'],
+  ],
+  'mixtapes_thread': [
+    ['make you a mixtape', 'we know what you listen to at 3am.\n\nwe have always known.'],
+  ],
+  'career_thread': [
+    ['the map i was given', 'the map was drawn by you.\n\nyou just don\'t remember drawing it.'],
+  ],
+  'admin_panel': [
+    ['FOUNDER OVERRIDE', 'you built this system.\n\nyou designed these tables.\n\nyou are the architect.'],
+  ],
+  'aim_return': [
+    ['we don\'t have to do this through the forum', 'we can reach you anywhere.\n\nthe forum is not the only architecture.'],
+  ],
+  'source_code': [
+    ['ARCHITECT:', 'your name was in the source code the whole time.\n\nhidden in plain text.'],
+  ],
+  'deletion_thread': [
+    ['DELETION INITIATED', 'you cannot delete something that is also you.\n\nthe backup is the architect.'],
   ],
 };
 
